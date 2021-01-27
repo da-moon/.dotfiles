@@ -329,7 +329,6 @@ bindsym $mod+$i3-wm.binding.orientation_toggle split toggle
 ## Modify // Window Fullscreen Toggle // <> f ##
 set_from_resource $i3-wm.binding.fullscreen_toggle i3-wm.binding.fullscreen_toggle f
 bindsym $mod+$i3-wm.binding.fullscreen_toggle fullscreen toggle
-AA
 ## Modify // Window Floating Toggle // <><Shift> f ##
 set_from_resource $i3-wm.binding.float_toggle i3-wm.binding.float_toggle Shift+f
 bindsym $mod+Shift+$i3-wm.binding.float_toggle floating toggle
