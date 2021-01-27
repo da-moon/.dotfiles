@@ -1,0 +1,10 @@
+# Rofication
+#
+# Displays notifications.
+[rofication]
+command=rofication-status
+interval=10
+separator_block_width=35
+markup=pango
+color=xresource:i3xrocks.value.color
+label_color=xresource:i3xrocks.label.color

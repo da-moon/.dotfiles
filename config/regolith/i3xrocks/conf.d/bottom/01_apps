@@ -1,0 +1,18 @@
+# applications separator=false
+markup=pango
+
+[apps]
+full_text=Applications:
+separator=true
+
+[terminal]
+full_text=Terminal 
+color=#807dfe
+command=alacritty
+separator=true
+
+[browser]
+full_text=Browser 
+color=#ff7f81
+command=brave
+separator=true

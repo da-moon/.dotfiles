@@ -1,0 +1,7 @@
+# Displays network load
+[net]
+label=SSID: 
+command=echo "$(LANG=C nmcli d | grep -w 'connected'  | grep -vP 'bridge|tun' | awk '{print $4}')"
+color=#e07221
+interval=5
+separator=true

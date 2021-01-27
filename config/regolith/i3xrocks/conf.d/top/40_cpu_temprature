@@ -1,0 +1,3 @@
+[cpu_temperature]
+command=~/.config/regolith/i3xrocks/scripts/temperature
+interval=10

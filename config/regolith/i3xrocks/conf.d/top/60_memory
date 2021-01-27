@@ -1,0 +1,8 @@
+# Memory
+[memory]
+command=~/.config/regolith/i3xrocks/scripts/memory
+interval=10
+separator_block_width=35
+markup=pango
+color=xresource:i3xrocks.value.color
+label_color=xresource:i3xrocks.label.color

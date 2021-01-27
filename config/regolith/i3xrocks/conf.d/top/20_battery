@@ -1,0 +1,5 @@
+[battery]
+command=~/.config/regolith/i3xrocks/scripts/battery.sh
+label=
+#instance=1
+interval=30
