@@ -1,7 +1,9 @@
-# CPU usage
-#
-# The script may be called with -w and -c switches to specify thresholds,
-# see the script for details.
 [cpu-usage]
 interval=5
 min_width=100%
+separator_block_width=35
+markup=pango
+color=xresource:i3xrocks.value.color
+separator=true
+label_color=xresource:i3xrocks.label.color
+command=~/.config/regolith/i3xrocks/scripts/cpu-usage

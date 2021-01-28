@@ -1,5 +1,8 @@
 [battery]
-command=~/.config/regolith/i3xrocks/scripts/battery.sh
-label=
-#instance=1
-interval=30
+interval=10
+separator_block_width=35
+markup=pango
+color=xresource:i3xrocks.value.color
+label_color=xresource:i3xrocks.label.color
+separator=true
+command=~/.config/regolith/i3xrocks/scripts/battery

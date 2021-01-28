@@ -1,7 +1,9 @@
-# Displays network load
-[net]
-label=SSID: 
-command=echo "$(LANG=C nmcli d | grep -w 'connected'  | grep -vP 'bridge|tun' | awk '{print $4}')"
+[wifi]
+interval=60
 color=#e07221
-interval=5
 separator=true
+separator_block_width=35
+markup=pango
+color=xresource:i3xrocks.value.color
+label_color=xresource:i3xrocks.label.color
+command=~/.config/regolith/i3xrocks/scripts/wifi

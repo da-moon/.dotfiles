@@ -1,3 +1,8 @@
-[cpu_temperature]
-command=~/.config/regolith/i3xrocks/scripts/temperature
-interval=10
+[temp]
+interval=30
+separator_block_width=35
+markup=pango
+color=xresource:i3xrocks.value.color
+separator=true
+label_color=xresource:i3xrocks.label.color
+command=~/.config/regolith/i3xrocks/scripts/temp
