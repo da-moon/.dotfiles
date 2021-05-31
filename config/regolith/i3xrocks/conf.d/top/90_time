@@ -1,13 +1,13 @@
-[time-sfo]
-label=SFO
-command=TZ=":US/Pacific" date '+%T'
-interval=1
-#interval=xresource:i3xrocks.time.interval 10
-separator_block_width=35
-separator=true
-markup=pango
-color=xresource:i3xrocks.value.color
-label_color=xresource:i3xrocks.label.color
+# [time-sfo]
+# label=SFO
+# command=TZ=":US/Pacific" date '+%T'
+# interval=1
+# #interval=xresource:i3xrocks.time.interval 10
+# separator_block_width=35
+# separator=true
+# markup=pango
+# color=xresource:i3xrocks.value.color
+# label_color=xresource:i3xrocks.label.color
 
 # Date Time
 [time]

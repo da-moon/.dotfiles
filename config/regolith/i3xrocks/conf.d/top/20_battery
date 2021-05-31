@@ -1,4 +1,4 @@
-[battery]
+[battery-usage]
 interval=10
 separator_block_width=35
 markup=pango

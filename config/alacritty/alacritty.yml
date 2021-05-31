@@ -1,6 +1,5 @@
 env:
   TERM: xterm-256color
-
 cursor:
   # Cursor style
   # Values for 'style':
