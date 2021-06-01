@@ -1,0 +1,8 @@
+[volume]
+interval=5
+command=~/.config/regolith/i3xrocks/scripts/volume
+separator_block_width=35
+separator=true
+markup=pango
+color=xresource:i3xrocks.value.color
+label_color=xresource:i3xrocks.label.color

@@ -1,9 +1,1 @@
-[wifi]
-interval=60
-color=#e07221
-separator=true
-separator_block_width=35
-markup=pango
-color=xresource:i3xrocks.value.color
-label_color=xresource:i3xrocks.label.color
-command=~/.config/regolith/i3xrocks/scripts/wifi
+/home/damoon/.dotfiles/config/regolith/i3xrocks/conf.d/top/30_net

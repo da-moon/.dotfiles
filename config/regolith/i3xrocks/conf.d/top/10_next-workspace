@@ -1,8 +1,1 @@
-[next-workspace-widget]
-interval=60
-separator_block_width=35
-markup=pango
-color=xresource:i3xrocks.value.color
-separator=true
-label_color=xresource:i3xrocks.label.color
-command=~/.config/regolith/i3xrocks/scripts/next-workspace-widget
+/home/damoon/.dotfiles/config/regolith/i3xrocks/conf.d/top/10_next-workspace
