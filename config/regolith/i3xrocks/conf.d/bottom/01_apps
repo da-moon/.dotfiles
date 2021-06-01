@@ -8,7 +8,7 @@ separator=true
 [terminal]
 full_text=Terminal 
 color=#807dfe
-command=/usr/bin/alacritty
+command=/usr/bin/st
 separator=true
 
 [browser]
