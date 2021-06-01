@@ -1,12 +1,3 @@
-[battery-usage]
-interval=10
-separator_block_width=15
-markup=pango
-color=xresource:i3xrocks.value.color
-label_color=xresource:i3xrocks.label.color
-separator=false
-command=~/.config/regolith/i3xrocks/scripts/battery
-
 [temperature]
 interval=30
 separator_block_width=15
@@ -23,7 +14,7 @@ markup=pango
 color=xresource:i3xrocks.value.color
 separator=false
 label_color=xresource:i3xrocks.label.color
-command=~/.config/regolith/i3xrocks/scripts/disk-capacity
+command=~/.config/regolith/i3xrocks/scripts/disk
 #MNT=/home
 
 [cpu-usage]
