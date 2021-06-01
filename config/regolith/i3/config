@@ -88,8 +88,11 @@ set_from_resource $ws19 i3-wm.workspace.19.name "19"
 set_from_resource $ws1_key  i3-wm.workspace.01.key 1
 set_from_resource $ws1  i3-wm.workspace.01.name "1"
 # set $ws1 ""
-assign [class="Alacritty"] $ws1
-for_window [class=Alacritty] focus
+assign [class="(?i)Alacritty"] $ws1
+for_window [class=(?i)Alacritty] focus
+assign [class="(?i)St"] $ws1
+for_window [class=(?i)St] focus
+
 workspace 1 output eDP-1
 set_from_resource $ws2  i3-wm.workspace.02.name "2"
 set_from_resource $ws2_key  i3-wm.workspace.02.key 2
