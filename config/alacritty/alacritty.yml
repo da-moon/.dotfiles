@@ -1,10 +1,13 @@
+import:
+  # - ~/.config/alacritty/solarized-light.yml
+  - ~/.config/alacritty/solarized-dark.yml
+  # - ~/.config/alacritty/gruvbox-dark.yml
+  # - ~/.config/alacritty/gruvbox-light.yml
+  # - ~/.config/alacritty/dracula.yml
 env:
   TERM: xterm-256color
 cursor:
-  # Cursor style
-  # Values for 'style':
-  #   - ▇ Block
-  #   - _ Underline
-  #   - | Beam
   style: Block
   unfocused_hollow: false
+
+
