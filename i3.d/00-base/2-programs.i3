@@ -1,7 +1,7 @@
 ###############################################################################
 # programs
 ###############################################################################
-set_from_resource $i3-wm.program.terminal $i3-wm.program.terminal /usr/bin/st
+set_from_resource $i3-wm.program.terminal $i3-wm.program.terminal /usr/bin/alacritty
 set_from_resource $i3-wm.program.launcher.app i3-wm.program.launcher.app rofi -show drun -theme $rofiTheme
 set_from_resource $i3-wm.program.launcher.cmd i3-wm.program.launcher.cmd rofi -show run -theme $rofiTheme
 set_from_resource $i3-wm.program.launcher.window i3-wm.program.launcher.window rofi -show window -theme $rofiTheme
