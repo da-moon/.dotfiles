@@ -1,8 +1,0 @@
-[todo]
-interval=100
-command=~/.config/regolith/i3xrocks/scripts/todo
-separator_block_width=35
-markup=pango
-separator=true
-color=xresource:i3xrocks.value.color
-label_color=xresource:i3xrocks.label.color

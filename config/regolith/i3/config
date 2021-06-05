@@ -651,8 +651,9 @@ set_from_resource $i3-wm.bar.stripworkspacenumbers i3-wm.bar.stripworkspacenumbe
 set_from_resource $i3-wm.bar.mode i3-wm.bar.mode dock
 
 # i3xrocks config file. Override this for a custom status bar generator.
-set_from_resource $i3-wm.bar.top_status_command i3-wm.bar.top_status_command i3xrocks -u ~/.config/regolith/i3xrocks/conf.d/top -d /etc/regolith/i3xrocks/conf.d
-set_from_resource $i3-wm.bar.bottom_status_command i3-wm.bar.bottom_status_command i3xrocks -u ~/.config/regolith/i3xrocks/conf.d/bottom
+# -d /etc/regolith/i3xrocks/conf.d
+set_from_resource $i3-wm.bar.top_status_command i3-wm.bar.top_status_command i3xrocks -vvv -u ~/.dotfiles/config/regolith/i3xrocks/conf.d/top | tee /tmp/i3xrocks-top.log
+set_from_resource $i3-wm.bar.bottom_status_command i3-wm.bar.bottom_status_command i3xrocks -vvv -u ~/.dotfiles/config/regolith/i3xrocks/conf.d/bottom  | tee /tmp/i3xrocks-bottom.log
 
 # The bar configuration
 bar {
@@ -667,7 +668,6 @@ bar {
   # output HDMI2
   # output DP2
   colors {
-
       background $i3-wm.bar.background.color
       statusline $i3-wm.bar.statusline.color
       separator  $i3-wm.bar.separator.color

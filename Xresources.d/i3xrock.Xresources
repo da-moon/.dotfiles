@@ -1,0 +1,20 @@
+i3xrocks.global.markup: pango
+i3xrocks.top.separator_block_width: 35
+
+i3xrocks.battery.interval: 10
+
+i3xrocks.memory.interval: 10
+i3xrocks.memory.separator: true
+
+i3xrocks.wifi.interval: 60
+i3xrocks.wifi.separator: true
+
+i3xrocks.nettraffic.interval: repeat
+i3xrocks.nettraffic.separator: false
+
+i3xrocks.rofication.interval: 10
+i3xrocks.rofication.separator: true
+
+i3xrocks.time.interval: 10
+i3xrocks.time.separator: false
+i3xrocks.time.separator_block_width: 15

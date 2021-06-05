@@ -1,9 +1,13 @@
+---
 import:
-  # - ~/.config/alacritty/solarized-light.yml
-  # - ~/.config/alacritty/solarized-dark.yml
-  # - ~/.config/alacritty/gruvbox-dark.yml
-  # - ~/.config/alacritty/gruvbox-light.yml
-  - ~/.config/alacritty/dracula.yml
+  - ~/.dotfiles/alacritty/ayu-light.yml
+  # - ~/.dotfiles/alacritty/ayu-dark.yml
+  # - ~/.dotfiles/alacritty/ayu-mirage.yml
+  # - ~/.dotfiles/alacritty/solarized-light.yml
+  # - ~/.dotfiles/alacritty/solarized-dark.yml
+  # - ~/.dotfiles/alacritty/gruvbox-dark.yml
+  # - ~/.dotfiles/alacritty/gruvbox-light.yml
+  # - ~/.dotfiles/alacritty/dracula.yml
 env:
   TERM: xterm-256color
 cursor:
