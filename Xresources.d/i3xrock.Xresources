@@ -3,6 +3,9 @@ i3xrocks.top.separator_block_width: 35
 
 i3xrocks.battery.interval: 10
 
+i3xrocks.disk.interval: 10
+i3xrocks.disk.separator: false
+
 i3xrocks.memory.interval: 10
 i3xrocks.memory.separator: true
 
@@ -12,8 +15,14 @@ i3xrocks.wifi.separator: true
 i3xrocks.nettraffic.interval: repeat
 i3xrocks.nettraffic.separator: false
 
+i3xrocks.todo.interval: 10
+i3xrocks.todo.separator: true
+
 i3xrocks.rofication.interval: 10
 i3xrocks.rofication.separator: true
+
+i3xrocks.weather.interval: 10
+i3xrocks.weather.separator: true
 
 i3xrocks.time.interval: 10
 i3xrocks.time.separator: false

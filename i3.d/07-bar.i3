@@ -35,8 +35,8 @@ set_from_resource $i3-wm.bar.mode i3-wm.bar.mode dock
 
 # i3xrocks config file. Override this for a custom status bar generator.
 # -d /etc/regolith/i3xrocks/conf.d
-set_from_resource $i3-wm.bar.top_status_command i3-wm.bar.top_status_command i3xrocks -vvv -u ~/.dotfiles/config/regolith/i3xrocks/conf.d/top | tee /tmp/i3xrocks-top.log
-set_from_resource $i3-wm.bar.bottom_status_command i3-wm.bar.bottom_status_command i3xrocks -vvv -u ~/.dotfiles/config/regolith/i3xrocks/conf.d/bottom  | tee /tmp/i3xrocks-bottom.log
+set_from_resource $i3-wm.bar.top_status_command i3-wm.bar.top_status_command i3xrocks -vvv -u ~/.config/regolith/i3xrocks/conf.d/top | tee /tmp/i3xrocks-top.log
+set_from_resource $i3-wm.bar.bottom_status_command i3-wm.bar.bottom_status_command i3xrocks -vvv -u ~/.config/regolith/i3xrocks/conf.d/bottom  | tee /tmp/i3xrocks-bottom.log
 
 # The bar configuration
 bar {

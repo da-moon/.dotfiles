@@ -3,7 +3,8 @@ userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
-[ -f $HOME/.bashrc ] && source $HOME/.bashrc
+[ -d $HOME/.i3.d ] && ( rm -f $HOME/.config/regolith/i3/config && while read i; do cat $i >> $HOME/.config/regolith/i3/config ; done < <(find $HOME/.i3.d -type f -name '*.i3')) 
+[ -d $HOME/.Xresources.d ] && ( rm -f $HOME/.Xresources && while read i; do echo "#include \"$i\"" >> $HOME/.Xresources ; done < <(find $HOME/.Xresources.d -type f -name '*.Xresources') && xrdb -merge $HOME/.Xresources) 
 # merge in defaults and keymaps
 if [ -f $sysresources ]; then
     xrdb -merge $sysresources

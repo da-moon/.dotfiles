@@ -16,7 +16,7 @@ markup=pango
 color=xresource:i3xrocks.value.color
 separator=false
 label_color=xresource:i3xrocks.label.color
-command=~/.dotfiles/config/regolith/i3xrocks/scripts/temp
+command=~/.config/regolith/i3xrocks/scripts/temp
 
 
 [cpu_usage]
