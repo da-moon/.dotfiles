@@ -16,14 +16,7 @@
 
 BUTTON=${button:-}
 TYPE="${BLOCK_INSTANCE:-mem}"
-VALUE_COLOR=${color:-$(xrescat i3xrocks.value.color "#D8DEE9")}
-LABEL_ICON=${label_icon:-$(xrescat i3xrocks.label.memory M)}
-LABEL_COLOR=${label_color:-$(xrescat i3xrocks.label.color "#7B8394")}
-VALUE_FONT=${font:-$(xrescat i3xrocks.value.font "JetBrains Mono Medium 13")}
-DISP=${display:-$(xrescat i3xrocks.memory.display "free")}
-PERCENTAGE=${percentage:-$(xrescat i3xrocks.memory.percentage "false")}
-
-awk -v type=$TYPE -v display=$DISP -v percentage=$PERCENTAGE -v vc="$VALUE_COLOR" -v li="$LABEL_ICON" -v lc="$LABEL_COLOR" -v vf="$VALUE_FONT" '
+awk -v type=$TYPE '
 /^MemTotal:/ {
 	mem_total=$2
 }
@@ -36,9 +29,6 @@ awk -v type=$TYPE -v display=$DISP -v percentage=$PERCENTAGE -v vc="$VALUE_COLOR
 /^Cached:/ {
 	mem_free+=$2
 }
-/^MemAvailable:/ {
-	mem_available=$2
-}
 /^SwapTotal:/ {
 	swap_total=$2
 }
@@ -46,30 +36,38 @@ awk -v type=$TYPE -v display=$DISP -v percentage=$PERCENTAGE -v vc="$VALUE_COLOR
 	swap_free=$2
 }
 END {
-	# fallback for mem_available
-	if (mem_available == "")
-		mem_available=mem_free
-	# full text
 	if (type == "swap") {
-		to_display = swap_free/1024/1024
-		if (display == "used")
-			to_display = swap_total/1024/1024 - to_display
-		if (percentage == "true")
-			printf("<span color=\"%s\">%s</span><span font_desc=\"%s\" color=\"%s\"> %02d%%</span>\n", lc, li, vf, vc, 100 * to_display / (swap_total/1024/1024))
-		else
-			printf("<span color=\"%s\">%s</span><span font_desc=\"%s\" color=\"%s\"> %.1fG</span>\n", lc, li, vf, vc, to_display)
+		free=swap_free/1024/1024
+		used=(swap_total-swap_free)/1024/1024
+		total=swap_total/1024/1024
+	} else {
+		free=mem_free/1024/1024
+		used=(mem_total-mem_free)/1024/1024
+		total=mem_total/1024/1024
 	}
-	else {
-		to_display = mem_free/1024/1024
-		if (display == "used")
-			to_display = mem_total/1024/1024 - to_display
-		if (percentage == "true")
-			printf("<span color=\"%s\">%s</span><span font_desc=\"%s\" color=\"%s\"> %02d%%</span>\n", lc, li, vf, vc, 100 * to_display / (mem_total/1024/1024))
-		else
-			printf("<span color=\"%s\">%s</span><span font_desc=\"%s\" color=\"%s\"> %.1fG</span>\n", lc, li, vf, vc, to_display)
+
+	pct=0
+	if (total > 0) {
+		pct=used/total*100
+	}
+
+	# full text
+	printf(" %.1fG/%.1fG (%.f%%)\n", used, total, pct)
+
+	# short text
+	printf(" %.f%%\n", pct)
+
+	# color
+	if (pct > 90) {
+		print("#FF0000")
+	} else if (pct > 80) {
+		print("#FFAE00")
+	} else if (pct > 70) {
+		print("#FFF600")
 	}
 }
 ' /proc/meminfo
+
 
 if [ "x${BUTTON}" == "x1" ]; then
     ACTION=$(xrescat i3xrocks.action.memory "/usr/bin/gnome-system-monitor --class=floating_window --show-resources-tab")

@@ -6,20 +6,34 @@ markup=xresource:i3xrocks.global.markup
 color=xresource:i3xrocks.value.color
 label_color=xresource:i3xrocks.label.color
 
+[focused-window-name]
+interval=xresource:i3xrocks.focused-window-name.interval
+short_length=xresource:i3xrocks.focused-window-name.short_length
+label=xresource:i3xrocks.focused-window-name.label
+
 [battery]
 interval=xresource:i3xrocks.battery.interval
+label=xresource:i3xrocks.battery.label
+
+[cpu-usage]
+interval=xresource:i3xrocks.cpu.interval
+separator=xresource:i3xrocks.cpu.separator
+label=xresource:i3xrocks.cpu.label
+color=xresource:i3xrocks.cpu.color
 
 [disk]
 interval=xresource:i3xrocks.disk.interval
 separator=xresource:i3xrocks.disk.separator
+# label=xresource:i3xrocks.label.disk
+label=xresource:i3xrocks.disk.label
+color=xresource:i3xrocks.disk.color
 
 [memory]
 interval=xresource:i3xrocks.memory.interval
 separator=xresource:i3xrocks.memory.separator
+label=xresource:i3xrocks.memory.label
+color=xresource:i3xrocks.memory.color
 
-[cpu-usage]
-interval=xresource:i3xrocks.memory.interval
-separator=xresource:i3xrocks.memory.separator
 
 [wifi]
 interval=xresource:i3xrocks.wifi.interval
@@ -46,3 +60,6 @@ separator=xresource:i3xrocks.weather.separator
 interval=xresource:i3xrocks.time.interval
 separator=xresource:i3xrocks.time.separator
 separator_block_width=xresource:i3xrocks.time.separator_block_width
+label_color=xresource:i3xrocks.label.color "#7B8394"
+#label=xresource:i3xrocks.label.time 
+label=xresource:i3xrocks.time.label
