@@ -29,6 +29,9 @@ twm &
 xclock -geometry 50x50-1+1 &
 xterm -geometry 80x50+494+51 &
 xterm -geometry 80x20+494-0 &
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 export SSH_AUTH_SOCK
 export $(dbus-launch)
 exec regolith-session

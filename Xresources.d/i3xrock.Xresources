@@ -30,7 +30,7 @@ i3xrocks.wifi.separator: true
 i3xrocks.nettraffic.interval: repeat
 i3xrocks.nettraffic.separator: false
 
-i3xrocks.todo.interval: 10
+i3xrocks.todo.interval: 100
 i3xrocks.todo.separator: true
 
 i3xrocks.rofication.interval: 10
