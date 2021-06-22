@@ -1,3 +1,5 @@
+i3xrocks.value.font : "Source Code Pro Medium 13"
+
 i3xrocks.global.markup: pango
 i3xrocks.top.separator_block_width: 35
 

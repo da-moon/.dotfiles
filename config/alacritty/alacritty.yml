@@ -13,4 +13,4 @@ env:
 cursor:
   style: Block
   unfocused_hollow: false
-working_directory: "shared-drives/C:/Users/damoon/Sync"
+# working_directory: "shared-drives/C:/Users/damoon/Sync"
