@@ -6,6 +6,7 @@
 [[ $- != *i* ]] && return
 PS1='[\u@\h \W]\$ '
 eval "$(starship init bash)"
+export EDITOR="nvim"
 [ -d ~/.env.d ] && while read i; do source "$i" ; done < <(find ~/.env.d/ -name '*.sh')
 [ -d ~/.alias.d ] && while read i; do source "$i" ; done < <(find ~/.alias.d/ -name '*.sh')
 [ -d ~/.profile.d ] && while read i; do source "$i" ; done < <(find ~/.profile.d/ -name '*.sh')
