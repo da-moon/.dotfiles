@@ -7,8 +7,8 @@
 PS1='[\u@\h \W]\$ '
 eval "$(starship init bash)"
 export EDITOR="nvim"
-if command -- freshfetch -h > /dev/null 2>&1 ; then
-  freshfetch
+if command -- fastfetch -h > /dev/null 2>&1 ; then
+  fastfetch 2>/dev/null
 fi
 if command -- colorscript -h > /dev/null 2>&1 ; then
   color_scripts=("3" "14" "15" "16" "17" "9" "21" 
