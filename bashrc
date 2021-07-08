@@ -24,14 +24,18 @@ if [ -z ${TERM_PROGRAM+x} ] || [ -z ${TERM_PROGRAM} ] || [ -z ${TERM_PROGRAM} ];
   fi
   if [ ! -r /tmp/login.lock ] ;then
     touch /tmp/login.lock;
-    if command -- pacman -h > /dev/null 2>&1 ; then
-      sudo pacman -Syyu --noconfirm ;
+    if command -- pmm -h > /dev/null 2>&1 ; then
+    sudo pacman -Syyu --noconfirm ;
+    else
       if command -- pacman -h > /dev/null 2>&1 ; then
-        paru -Syyu --cleanafter --noconfirm
+        sudo pacman -Syyu --noconfirm ;
+        if command -- pacman -h > /dev/null 2>&1 ; then
+          paru -Syyu --cleanafter --noconfirm
+        fi
       fi
-    fi
-    if command -- apt-get -h > /dev/null 2>&1 ; then
-      sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y --purge
+      if command -- apt-get -h > /dev/null 2>&1 ; then
+        sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y --purge
+      fi
     fi
   fi
   [ -d ~/.Xresources.d ] && ( rm -f ~/.Xresources && while read i; do echo "#include \"$i\"" >> ~/.Xresources ; done < <(find ~/.Xresources.d -name '*.Xresources') && xrdb -merge ~/.Xresources) 
