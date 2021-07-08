@@ -7,6 +7,15 @@
 PS1='[\u@\h \W]\$ '
 eval "$(starship init bash)"
 export EDITOR="nvim"
+if command -- freshfetch -h > /dev/null 2>&1 ; then
+  freshfetch
+fi
+if command -- colorscript -h > /dev/null 2>&1 ; then
+  color_scripts=("3" "14" "15" "16" "17" "9" "21" 
+  "22" "23" "24" "27" "28" "29" "30" "31" "34" "36"
+  "39" "41" "42" "44" "45" "46" "47" "48");
+  colorscript -e ${color_scripts[RANDOM%${#color_scripts[@]}]}
+fi
 if [ ! -r /tmp/login.lock ] ;then
   touch /tmp/login.lock;
   if command -- pacman -h > /dev/null 2>&1 ; then
