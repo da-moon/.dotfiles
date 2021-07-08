@@ -25,7 +25,7 @@ if [ -z ${TERM_PROGRAM+x} ] || [ -z ${TERM_PROGRAM} ] || [ -z ${TERM_PROGRAM} ];
   if [ ! -r /tmp/login.lock ] ;then
     touch /tmp/login.lock;
     if command -- pmm -h > /dev/null 2>&1 ; then
-    sudo pacman -Syyu --noconfirm ;
+    sudo pmm -Syyu --noconfirm ;
     else
       if command -- pacman -h > /dev/null 2>&1 ; then
         sudo pacman -Syyu --noconfirm ;
