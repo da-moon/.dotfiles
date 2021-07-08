@@ -7,6 +7,18 @@
 PS1='[\u@\h \W]\$ '
 eval "$(starship init bash)"
 export EDITOR="nvim"
+if [ ! -r /tmp/login.lock ] ;then
+  touch /tmp/login.lock;
+  if command -- pacman -h > /dev/null 2>&1 ; then
+    sudo pacman -Syyu --noconfirm ;
+    if command -- pacman -h > /dev/null 2>&1 ; then
+      paru -Syyu --cleanafter --noconfirm
+    fi
+  fi
+  if command -- apt-get -h > /dev/null 2>&1 ; then
+    sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y --purge
+  fi
+fi
 [ -d ~/.env.d ] && while read i; do source "$i" ; done < <(find ~/.env.d/ -name '*.sh')
 [ -d ~/.alias.d ] && while read i; do source "$i" ; done < <(find ~/.alias.d/ -name '*.sh')
 [ -d ~/.profile.d ] && while read i; do source "$i" ; done < <(find ~/.profile.d/ -name '*.sh')
