@@ -34,6 +34,5 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export SSH_AUTH_SOCK
 export $(dbus-launch)
-pulseaudio -k || true
-pulseaudio --daemonize  || true
+systemctl --user start pulseaudio.service > /dev/null 2>&1 || true;
 exec regolith-session
