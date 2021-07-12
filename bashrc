@@ -5,7 +5,7 @@
 [[ $- != *i* ]] && return
 PS1='[\u@\h \W]\$ '
 export EDITOR="nvim"
-[ -d ~/.dotfiles ] && git -C ~/.dotfiles pull
+[ -d ~/.dotfiles ] && git -C ~/.dotfiles pull > /dev/null 2>&1
 [ -d ~/.env.d ] && while read i; do source "$i" ; done < <(find ~/.env.d/ -name '*.sh')
 [ -d ~/.alias.d ] && while read i; do source "$i" ; done < <(find ~/.alias.d/ -name '*.sh')
 [ -d ~/.profile.d ] && while read i; do source "$i" ; done < <(find ~/.profile.d/ -name '*.sh')
