@@ -42,3 +42,4 @@ fi
 if command -- starship -h > /dev/null 2>&1 ; then
   eval "$(starship init bash)"
 fi
+[ -r /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion
