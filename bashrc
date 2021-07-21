@@ -5,6 +5,7 @@
 [[ $- != *i* ]] && return
 PS1='[\u@\h \W]\$ '
 export EDITOR="nvim"
+export TERM="xterm-256color"
 [ -d ~/.env.d ] && while read i; do source "$i"; done < <(find ~/.env.d/ -name '*.sh')
 [ -d ~/.env.d.local ] && while read i; do source "$i"; done < <(find ~/.env.d.local/ -name '*.sh')
 [ -d ~/.profile.d ] && while read i; do source "$i"; done < <(find ~/.profile.d/ -name '*.sh')
@@ -40,8 +41,8 @@ if [ -z ${TERM_PROGRAM+x} ] || [ -z ${TERM_PROGRAM} ] || [ -z ${TERM_PROGRAM} ];
     )
     colorscript -e ${color_scripts[RANDOM % ${#color_scripts[@]}]}
   fi
-  if [ ! -r /tmp/login.lock ]; then
-    touch /tmp/login.lock
+  if [ ! -r "/tmp/$(date -u +%Y-%m-%d).lock" ] ;then
+    touch "/tmp/$(date -u +%Y-%m-%d).lock" ;
     if command -- sudo -h >/dev/null 2>&1; then
       if command -- pmm -h >/dev/null 2>&1; then
         sudo pmm -Syyu --noconfirm
