@@ -5,7 +5,10 @@
 [[ $- != *i* ]] && return
 PS1='[\u@\h \W]\$ '
 export EDITOR="nvim"
-
+[ -d ~/.env.d ] && while read i; do source "$i"; done < <(find ~/.env.d/ -name '*.sh')
+[ -d ~/.env.d.local ] && while read i; do source "$i"; done < <(find ~/.env.d.local/ -name '*.sh')
+[ -d ~/.profile.d ] && while read i; do source "$i"; done < <(find ~/.profile.d/ -name '*.sh')
+[ -d ~/.profile.d.local ] && while read i; do source "$i"; done < <(find ~/.profile.d.local/ -name '*.sh')
 if [ -z ${TERM_PROGRAM+x} ] || [ -z ${TERM_PROGRAM} ] || [ -z ${TERM_PROGRAM} ]; then
   if command -- colorscript -h >/dev/null 2>&1; then
     color_scripts=(
@@ -61,16 +64,24 @@ if [ -z ${TERM_PROGRAM+x} ] || [ -z ${TERM_PROGRAM} ] || [ -z ${TERM_PROGRAM} ];
         sudo python3 -m pip list --outdated --format=freeze |
           /bin/grep -v '^\-e' |
           /bin/cut -d = -f 1 |
-          sudo xargs -r -n1 sudo python3 -m pip install -U -q --progress-bar ascii --no-cache-dir
+          sudo xargs -r -n1 sudo python3 -m pip install -U -q --progress-bar ascii --no-cache-dir 2>/dev/null
         unset PIP_USER
       fi
+    fi
+    if command -- rustup -h >/dev/null 2>&1; then
+      rustup toolchain install nightly stable >/dev/null 2>&1
+      rustup update >/dev/null 2>&1
     fi
     if command -- cargo -h >/dev/null 2>&1; then
       if ! command -- cargo-install-update -h >/dev/null 2>&1; then
         cargo install --all-features cargo-update
       fi
       if command -- cargo-install-update -h >/dev/null 2>&1; then
+        rustup default stable
         cargo-install-update install-update --all
+        rustup default nightly
+        cargo-install-update install-update --all
+        rustup default stable
       fi
     fi
     # [ NOTE ] => merge xresources and i3 config once per login
@@ -98,12 +109,8 @@ if [ -z ${TERM_PROGRAM+x} ] || [ -z ${TERM_PROGRAM} ] || [ -z ${TERM_PROGRAM} ];
     fastfetch 2>/dev/null
   fi
 fi
-[ -d ~/.env.d ] && while read i; do source "$i"; done < <(find ~/.env.d/ -name '*.sh')
-[ -d ~/.env.d.local ] && while read i; do source "$i"; done < <(find ~/.env.d.local/ -name '*.sh')
 [ -d ~/.alias.d ] && while read i; do source "$i"; done < <(find ~/.alias.d/ -name '*.sh')
 [ -d ~/.alias.d.local ] && while read i; do source "$i"; done < <(find ~/.alias.d.local/ -name '*.sh')
-[ -d ~/.profile.d ] && while read i; do source "$i"; done < <(find ~/.profile.d/ -name '*.sh')
-[ -d ~/.profile.d.local ] && while read i; do source "$i"; done < <(find ~/.profile.d.local/ -name '*.sh')
 [ -r /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion
 if command -- starship -h >/dev/null 2>&1; then
   eval "$(starship init bash)"
