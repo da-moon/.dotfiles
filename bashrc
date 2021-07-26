@@ -87,7 +87,7 @@ if [ -z ${TERM_PROGRAM+x} ] && [ -z ${TERM_PROGRAM} ] && [ -z ${SOMMELIER_VERSIO
     fi
     # [ NOTE ] => merge xresources and i3 config once per login
     [ -d ~/.dotfiles ] && git -C ~/.dotfiles pull >/dev/null 2>&1
-    if command -- xrdb -h >/dev/null 2>&1; then
+    if command -- xrdb -version >/dev/null 2>&1; then
       if [ -d ~/.Xresources.d ]; then
         rm -f ~/.Xresources
         while read i; do
