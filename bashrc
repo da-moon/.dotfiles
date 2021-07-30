@@ -59,7 +59,7 @@ if [ -z ${TERM_PROGRAM+x} ] && [ -z ${TERM_PROGRAM} ] && [ -z ${SOMMELIER_VERSIO
       fi
       if command -- jq --version > /dev/null 2>&1 \
       && command -- $(which node) --version > /dev/null 2>&1 \
-      && command -- yarn --version > /dev/null 2>&1 \
+      && command -- $(which yarn) --version > /dev/null 2>&1 \
       && [ -r $(sudo $(which node) $(which yarn) global dir)/package.json ] ; then
         pushd $(sudo $(which node) $(which yarn) global dir) > /dev/null 2>&1
         $(which node) $(which yarn) outdated --json 2>/dev/null \
