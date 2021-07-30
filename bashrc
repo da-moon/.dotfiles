@@ -6,6 +6,12 @@
 PS1='[\u@\h \W]\$ '
 export EDITOR="nvim"
 export TERM="xterm-256color"
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+  # [ NOTE ] ensure windows paths are removed
+  shopt -s extglob;
+  export PATH=${PATH//mnt*([^ ])?( )};
+fi
+
 [ -d ~/.env.d ] && while read i; do source "$i"; done < <(find ~/.env.d/ -name '*.sh')
 [ -d ~/.env.d.local ] && while read i; do source "$i"; done < <(find ~/.env.d.local/ -name '*.sh')
 [ -d ~/.profile.d ] && while read i; do source "$i"; done < <(find ~/.profile.d/ -name '*.sh')
