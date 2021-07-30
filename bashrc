@@ -57,8 +57,18 @@ if [ -z ${TERM_PROGRAM+x} ] && [ -z ${TERM_PROGRAM} ] && [ -z ${SOMMELIER_VERSIO
           sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y --purge
         fi
       fi
-      if command -- sudo $(which node) $(which yarn) --help >/dev/null 2>&1; then
-        sudo $(which node) $(which yarn) global --silent --prefix /usr/local upgrade
+      if command -- jq --version > /dev/null 2>&1 \
+      && command -- $(which node) --version > /dev/null 2>&1 \
+      && command -- yarn --version > /dev/null 2>&1 \
+      && [ -r $(sudo $(which node) $(which yarn) global dir)/package.json ] ; then
+        pushd $(sudo $(which node) $(which yarn) global dir) > /dev/null 2>&1
+        $(which node) $(which yarn) outdated --json 2>/dev/null \
+        | jq -r '. | select (.type == "table").data.body[]|.[]' \
+        | /bin/grep \
+          -Pv '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$' \
+        | /bin/grep -Pv '^http(s)*:\/\/|^dependencies$' \
+        | sudo xargs -r -I {} $(which node) $(which yarn) global add --latest --prefix /usr/local {}
+        popd > /dev/null 2>&1
       fi
       if command -- sudo python3 -m pip -h >/dev/null 2>&1; then
         export PIP_USER=false
