@@ -122,8 +122,8 @@ if [ -z ${TERM_PROGRAM+x} ] && [ -z ${TERM_PROGRAM} ] && [ -z ${SOMMELIER_VERSIO
       fi
     fi
   fi
-  if command -- fastfetch -h >/dev/null 2>&1; then
-    fastfetch 2>/dev/null
+  if command -- freshfetch -h >/dev/null 2>&1; then
+    freshfetch 2>/dev/null
   fi
 fi
 [ -d ~/.alias.d ] && while read i; do source "$i"; done < <(find ~/.alias.d/ -name '*.sh')
