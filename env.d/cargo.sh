@@ -1,1 +1,1 @@
-[ -r ~/.cargo/env ] && . ~/.cargo/env
+[ -d ~/.cargo/bin ] && export PATH="$PATH:$HOME/.cargo/bin"
