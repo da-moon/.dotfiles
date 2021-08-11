@@ -16,7 +16,10 @@ fi
 [ -d ~/.env.d.local ] && while read i; do source "$i"; done < <(find ~/.env.d.local/ -name '*.sh')
 [ -d ~/.profile.d ] && while read i; do source "$i"; done < <(find ~/.profile.d/ -name '*.sh')
 [ -d ~/.profile.d.local ] && while read i; do source "$i"; done < <(find ~/.profile.d.local/ -name '*.sh')
-if [ -z ${TERM_PROGRAM+x} ] && [ -z ${TERM_PROGRAM} ] && [ -z ${SOMMELIER_VERSION} ]; then
+if [ -z ${TERM_PROGRAM+x} ] \
+  && [ -z ${TERM_PROGRAM} ] \
+  && [ -z ${SOMMELIER_VERSION} ] \
+  && [[ -z $(printenv | grep VIM) ]]; then
   if command -- colorscript -h >/dev/null 2>&1; then
     color_scripts=(
       "3"
