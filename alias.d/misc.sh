@@ -11,5 +11,9 @@ if ! command -- vim -h > /dev/null 2>&1 ; then
     alias vim="nvim"
   fi
 fi
+if command -- nvim -h > /dev/null 2>&1 ; then
+  alias nvim='nvim --headless +"call dein#recache_runtimepath()" +qall && nvim'
+fi
+
 alias nocmt="sed -e '/#/d' -e '/^[[:space:]]*$/d'"
 alias pprintenv="printenv | awk 'BEGIN{FS=OFS=\"=\";}{printf \"%-30s%-18s\n\",\$1,\$2}'"

@@ -58,8 +58,8 @@ if [ -z ${TERM_PROGRAM+x} ] \
       else
         if command -- pacman -h >/dev/null 2>&1; then
           sudo pacman -Syyu --noconfirm
-          if command -- pacman -h >/dev/null 2>&1; then
-            paru -Syyu --cleanafter --noconfirm
+          if command -- paru -h >/dev/null 2>&1; then
+            paru -Syyu --cleanafter --removemake --noconfirm
           fi
         fi
         if command -- apt-get -h >/dev/null 2>&1; then
@@ -79,13 +79,11 @@ if [ -z ${TERM_PROGRAM+x} ] \
         | sudo xargs -r -I {} $(which node) $(which yarn) global add --latest --prefix /usr/local {}
         popd > /dev/null 2>&1
       fi
-      if command -- sudo python3 -m pip -h >/dev/null 2>&1; then
-        export PIP_USER=false
-        sudo python3 -m pip list --outdated --format=freeze |
+      if command -- python3 -m pip -h >/dev/null 2>&1; then
+        python3 -m pip list --user --outdated --format=freeze |
           /bin/grep -v '^\-e' |
           /bin/cut -d = -f 1 |
-          sudo xargs -r -n1 sudo python3 -m pip install -U -q --progress-bar ascii --no-cache-dir 2>/dev/null
-        unset PIP_USER
+          xargs -r -n1 python3 -m pip install --user -U -q --progress-bar ascii --no-cache-dir 2>/dev/null
       fi
     fi
     if command -- rustup -h >/dev/null 2>&1; then

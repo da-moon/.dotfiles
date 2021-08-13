@@ -13,4 +13,6 @@ env:
 cursor:
   style: Block
   unfocused_hollow: false
+font:
+  family: "Cascadia Code"
 # working_directory: "shared-drives/C:/Users/damoon/Sync"
