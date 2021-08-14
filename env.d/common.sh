@@ -6,4 +6,4 @@ fi
 [ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin"
 export PATH="${PATH}:${HOME}/.local/bin"
 export HISTFILESIZE=10000
-export PROMPT_COMMAND="history -a && history -c && sort ~/.bash_history | uniq > ~/.bash_history_new && rm ~/.bash_history && mv ~/.bash_history_new ~/.bash_history && history -r"
+export PROMPT_COMMAND="history -a"
