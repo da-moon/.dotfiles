@@ -130,6 +130,7 @@ fi
 [ -d ~/.alias.d ] && while read i; do source "$i"; done < <(find ~/.alias.d/ -name '*.sh')
 [ -d ~/.alias.d.local ] && while read i; do source "$i"; done < <(find ~/.alias.d.local/ -name '*.sh')
 [ -r /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion
+[ ! -r /.ssh/known_hosts ] && touch ~/.ssh/known_hosts 
 if command -- starship -h >/dev/null 2>&1; then
   eval "$(starship init bash)"
 fi
