@@ -8,7 +8,6 @@ let g:spacevim_custom_plugins = [
   \ ['sheerun/vim-polyglot'],
 \ ]
 let g:spacevim_layers=[
-  \ 'shell',
   \ 'colorscheme',
   \ 'tools',
   \ 'ctrlspace',
@@ -16,57 +15,92 @@ let g:spacevim_layers=[
   \ 'git',
   \ 'github',
   \ 'foldsearch',
-  \ 'checkers',
-  \ 'format',
-  \ 'gtags',
-  \ 'autocomplete',
   \ 'core#statusline',
   \ 'lang#extra',
-  \ 'lang#vim',
   \ 'lang#markdown',
   \ 'lang#toml',
   \ 'lang#json',
   \ 'lang#yaml',
-  \ 'lang#python',
-  \ 'lsp',
 \]
-if executable('sudo')
-  call add(g:spacevim_layers,'sudo')
-end
-if executable('fzf')
-  call add(g:spacevim_layers,'fzf')
-end
-if executable('sh')
-  call add(g:spacevim_layers,'lang#sh')
-end
-if executable('ruby')
-  call add(g:spacevim_layers,'lang#ruby')
-end
-
+let g:coc_extensions = [
+  \ 'coc-marketplace',
+  \ 'coc-markdownlint',
+  \ 'coc-tabnine',
+  \ 'coc-todolist',
+  \ 'coc-spell-checker',
+  \ 'coc-cspell-dicts',
+  \ 'coc-grammarly',
+  \ 'coc-json',
+  \ 'coc-format-json',
+  \ 'coc-yaml',
+  \ 'coc-tasks',
+  \ 'coc-reveal',
+\]
+let g:coc_preferences = {
+  \ 'autoTrigger': 'always',
+  \ 'maxCompleteItemCount': 10,
+  \ 'codeLens.enable': 1,
+  \ 'diagnostic.virtualText': 1,
+\}
+let g:coc_languageserver={}
+let g:lsp_servers = {}
+let g:lsp_override_cmd={}
+let g:coc_filetypes=[]
 function! init#before() abort
   call SpaceVim#logger#info("[ init#before ] function called")
-
-  call before#coc#common#bootstrap()
-  call before#coc#list#bootstrap()
-  call before#coc#json#bootstrap()
-
+  
+" ─── SPACEVIM COMMON CONFIGURATAION ─────────────────────────────────────────────
+  if executable('shfmt')
+    call SpaceVim#logger#info("[ init#before ] 'shfmt' binary detected. Adding associated vim plugin")
+    call add(g:spacevim_custom_plugins,['z0mbix/vim-shfmt',{ 'on_ft': 'sh' }])
+  end
+  if executable('just')
+    call SpaceVim#logger#info("[ init#before ] 'just' binary detected. Adding associated vim plugin")
+    call add(g:spacevim_custom_plugins,['vmchale/just-vim',{ 'on_ft': 'justfile' }])
+  end
+  if executable('sudo')
+      call SpaceVim#logger#info("[ init#before ] 'sudo' binary detected. Adding associated layer")
+    call add(g:spacevim_layers,'sudo')
+  end
+  if executable('fzf')
+    call SpaceVim#logger#info("[ init#before ] 'fzf' binary detected. Adding associated layer")
+    call add(g:spacevim_layers,'fzf')
+    call add(g:coc_extensions,'coc-fzf-preview')
+  end
   call before#spacevim#generic#bootstrap()
   call before#spacevim#nvim#bootstrap()
   call before#spacevim#mapping#bootstrap()
   call before#spacevim#tasks#bootstrap()
-  call before#spacevim#linter#bootstrap()
   call before#spacevim#xclip#bootstrap()
   call before#spacevim#themes#bootstrap()
-  
-  call before#spacevim#golang#bootstrap()
-  call before#spacevim#docker#bootstrap()
-  
-  call before#spacevim#layers#bootstrap()
-  call before#spacevim#plugins#bootstrap()
+" ─── LANGUAGE SPECIFIC CONFIGURATION ────────────────────────────────────────────
+  call before#lang#go#bootstrap()
+  call before#lang#docker#bootstrap()
+  call before#lang#sh#bootstrap()
+  call before#lang#vim#bootstrap()
+  call before#lang#ruby#bootstrap()
+  call before#lang#python#bootstrap()
+  call before#lang#rust#bootstrap()
+" ─── LOAD AND CONFIGURE SPACEVIM LAYERS ─────────────────────────────────────────
+  call before#layers#autocomplete#bootstrap()
+  call before#layers#checkers#bootstrap()
+  call before#layers#format#bootstrap()
+  call before#layers#gtags#bootstrap()
+  call before#layers#lsp#bootstrap()
+  call before#layers#shell#bootstrap()
+  for layer in g:spacevim_layers
+    call SpaceVim#logger#info("[ init#before ] loading ****'" . layer . "' spacevim layer")
+    call SpaceVim#layers#load(layer)
+  endfor
 endfunction
 function! init#after() abort
   call SpaceVim#logger#info("[ init#after ] function called")
   call after#coc#install#bootstrap()
   set showcmd
   nnoremap <silent> [Window]a :cclose<CR>:lclose<CR>
+endfunction
+function! PrintCocExtensions()
+	for plugin in g:coc_extensions
+		echon plugin " "
+	endfor
 endfunction

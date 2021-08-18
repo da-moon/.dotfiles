@@ -5,4 +5,5 @@ function! after#coc#install#bootstrap()
     call coc#add_extension(extension)
   endfor
   call coc#config('coc.preferences', g:coc_preferences)
+  call coc#config('languageserver', g:coc_languageserver)
 endfunction

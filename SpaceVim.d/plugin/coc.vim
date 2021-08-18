@@ -1,14 +1,7 @@
-let g:coc_preferences = {
-  \ "autoTrigger": "always",
-  \ "maxCompleteItemCount": 10,
-  \ "codeLens.enable": 1,
-  \ "diagnostic.virtualText": 1,
-\}
 let g:coc_start_at_startup    = 1
 let g:coc_force_debug = 1
 let g:coc_disable_startup_warning = 1
 let g:UltiSnipsExpandTrigger = "<nop>"
-
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 command! -nargs=0 Format :call CocActionAsync('format')
 command! -nargs=0 Refactor :call CocActionAsync('refactor')
