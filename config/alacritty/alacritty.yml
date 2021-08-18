@@ -13,6 +13,10 @@ env:
 cursor:
   style: Block
   unfocused_hollow: false
+# font:
+# family: "Cascadia Code"
 font:
-  family: "Cascadia Code"
+  normal:
+    # family: "Cascadia Code"
+    family: "Cascadia Code iCursive Cg"
 # working_directory: "shared-drives/C:/Users/damoon/Sync"
