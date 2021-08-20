@@ -5,5 +5,3 @@ fi
 [ -d /var/lib/snapd/snap/bin ] && export PATH="$PATH:/var/lib/snapd/snap/bin"
 [ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin"
 export PATH="${PATH}:${HOME}/.local/bin"
-export HISTFILESIZE=10000
-export PROMPT_COMMAND="history -a"
