@@ -105,7 +105,7 @@ if [ -z ${TERM_PROGRAM+x} ] \
       fi
     fi
     # [ NOTE ] => merge xresources and i3 config once per login
-    [ -d ~/.dotfiles ] && git -C ~/.dotfiles pull >/dev/null 2>&1
+    [ -d ~/.dotfiles ] && git -C ~/.dotfiles pull --recurse-submodules >/dev/null 2>&1
     if command -- xrdb -version >/dev/null 2>&1; then
       if [ -d ~/.Xresources.d ]; then
         rm -f ~/.Xresources

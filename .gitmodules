@@ -1,0 +1,3 @@
+[submodule "SpaceVim.d"]
+	path = SpaceVim.d
+	url = https://github.com/da-moon/SpaceVim.d.git
