@@ -1,3 +1,4 @@
+# vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 if [ -d ~/.goenv ]; then
   git -C ~/.goenv pull > /dev/null 2>&1
   export GOENV_ROOT="$HOME/.goenv"

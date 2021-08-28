@@ -1,3 +1,4 @@
+# vim: ft=i3config syntax=i3config softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 
 ## Modify // Vertical Window Orientation // <> v ##
 set_from_resource $i3-wm.binding.split_v i3-wm.binding.split_v v

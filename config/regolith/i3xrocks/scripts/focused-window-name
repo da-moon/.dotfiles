@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# vim: ft=python syntax=python softtabstop=4 tabstop=4 shiftwidth=4 fenc=utf-8 expandtab
 
 #
 # Copyright 2019 Bence Ferdinandy <bence@ferdinandy.com>

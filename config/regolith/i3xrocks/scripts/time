@@ -1,4 +1,5 @@
 #!/bin/bash
+# vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 # This time blocklet will use Xresources date format if defined
 # or try to determine most appropriate format based on locale and GNOME settings.
 

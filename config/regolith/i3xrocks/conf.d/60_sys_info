@@ -1,3 +1,4 @@
+# vim: ft=toml syntax=config softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 [disk]
 interval=240
 #separator_block_width=15

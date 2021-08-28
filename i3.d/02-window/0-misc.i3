@@ -1,3 +1,4 @@
+# vim: ft=i3config syntax=i3config softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 

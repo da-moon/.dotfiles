@@ -1,4 +1,5 @@
 #!/bin/bash
+# vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 # for storing possible user defined arguments for playerctl
 PLAYER_ARGS=$(xrescat i3xrocks.media-player.player-args)
 

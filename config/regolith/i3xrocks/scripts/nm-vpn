@@ -1,4 +1,5 @@
 #!/bin/bash
+# vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 
 CONNECTION=$(LC_ALL=C nmcli -t connection show --active | awk -F ':' '
 { if($3 == "vpn") {

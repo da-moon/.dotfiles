@@ -1,3 +1,4 @@
+# vim: ft=i3config syntax=i3config softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 ###############################################################################
 # Workspace Names
 # These are the labels which define each i3 workspace.

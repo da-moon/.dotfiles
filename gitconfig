@@ -1,3 +1,4 @@
+# vim: ft=gitconfig syntax=gitconfig softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 [pager]
     diff = delta
     log = delta

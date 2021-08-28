@@ -1,4 +1,4 @@
-
+# vim: ft=toml syntax=config softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 
 separator_block_width=xresource:i3xrocks.top.separator_block_width
 markup=xresource:i3xrocks.global.markup

@@ -1,3 +1,4 @@
+# vim: ft=yaml syntax=yaml softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab autoindent
 colors:
   primary:
     background: '0xfdf6e3' # base3

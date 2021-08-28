@@ -1,3 +1,4 @@
+# vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 if command -- aria2c -h > /dev/null 2>&1 ; then
   alias dl="aria2c --optimize-concurrent-downloads -k 1M -j16 -x 16 -c --file-allocation=falloc"
 fi

@@ -1,4 +1,4 @@
-
+# vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 if command -- sk --version > /dev/null 2>&1; then
   if command -- rg --version > /dev/null 2>&1; then
     # uses skim and bat to enable quick search an preview of 

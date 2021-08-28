@@ -2,6 +2,7 @@
 # ~/.bashrc
 #
 # If not running interactively, don't do anything
+# vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 [[ $- != *i* ]] && return
 PS1='[\u@\h \W]\$ '
 HISTFILESIZE=1000000
