@@ -28,3 +28,4 @@
 	spush = push --recurse-submodules=on-demand
 	sfetch = submodule foreach --recursive git fetch
 	supdate = submodule update --remote --merge
+	clone = =
