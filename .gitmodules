@@ -1,3 +1,5 @@
 [submodule "SpaceVim.d"]
 	path = SpaceVim.d
+  branch = master
 	url = https://github.com/da-moon/SpaceVim.d.git
+	update = merge
