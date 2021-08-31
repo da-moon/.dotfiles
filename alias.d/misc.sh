@@ -1,4 +1,11 @@
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
+alias ..='cd ..'
+alias c='clear'
+alias nocmt="sed -e '/#/d' -e '/^[[:space:]]*$/d'"
+alias pprintenv="printenv | awk 'BEGIN{FS=OFS=\"=\";}{printf \"%-30s%-18s\n\",\$1,\$2}'"
+alias path='echo -e ${PATH//:/\\n}'
+alias now='date +"%T"'
+alias nowdate='date -u +"%Y-%m-%d"'
 if command -- aria2c -h > /dev/null 2>&1 ; then
   alias dl="aria2c --optimize-concurrent-downloads -k 1M -j16 -x 16 -c --file-allocation=falloc"
 fi
@@ -15,6 +22,6 @@ fi
 if command -- nvim -h > /dev/null 2>&1 ; then
   alias nvim='nvim --headless +"call dein#recache_runtimepath()" +qall && nvim'
 fi
-
-alias nocmt="sed -e '/#/d' -e '/^[[:space:]]*$/d'"
-alias pprintenv="printenv | awk 'BEGIN{FS=OFS=\"=\";}{printf \"%-30s%-18s\n\",\$1,\$2}'"
+if command -- netstat -h > /dev/null 2>&1 ; then
+  alias ports='netstat -tulanp'
+fi
