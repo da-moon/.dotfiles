@@ -28,3 +28,21 @@ _sk_comprun() {
   esac
 }
 fi
+if command -- fzf -h > /dev/null 2>&1; then
+  fzf_history() {
+    local res=$(history | awk '{$1=""; print}' | sort | uniq | fzf)
+    READLINE_LINE=$res
+    READLINE_POINT=${#res}
+  }
+  if command -- fasd -h > /dev/null 2>&1 ; then
+    fzf_cd() {
+      local res=$(fasd -d | sort -rn | cut -c 12- | fzf)
+      if [ -n "$res" ]; then
+        cd $res
+      else
+        return 1
+      fi
+    }
+  fi
+fi
+

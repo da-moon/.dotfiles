@@ -8,6 +8,10 @@ fi
 if command -- pass -h > /dev/null 2>&1 ; then
   export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 fi
+if command -- fasd -h > /dev/null 2>&1 ; then
+  eval "$(fasd --init auto)"
+fi
+
 [ -d "${HOME}/.config/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin" ] \
   && export PATH="$PATH:${HOME}/.config/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
 export PATH="${PATH}:${HOME}/.local/bin"

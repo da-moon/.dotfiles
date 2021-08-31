@@ -1,6 +1,5 @@
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 alias ..='cd ..'
-alias c='clear'
 alias nocmt="sed -e '/#/d' -e '/^[[:space:]]*$/d'"
 alias pprintenv="printenv | awk 'BEGIN{FS=OFS=\"=\";}{printf \"%-30s%-18s\n\",\$1,\$2}'"
 alias path='echo -e ${PATH//:/\\n}'
@@ -29,4 +28,10 @@ if command -- sk -h > /dev/null 2>&1 ; then
   alias skm='sk -m'
   alias skf="${SKIM_DEFAULT_COMMAND} | sk"
   alias skvi='nvim $(skfi)'
+fi
+if command -- fzf -h > /dev/null 2>&1; then
+  alias h='fzf_history'
+  if command -- fasd -h > /dev/null 2>&1 ; then
+    alias c='fzf_cd'
+  fi
 fi

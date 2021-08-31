@@ -29,3 +29,4 @@
 	sfetch = submodule foreach --recursive git fetch
 	supdate = submodule update --remote --merge
   root = rev-parse --show-toplevel
+  commits= log --graph --format='%C(auto)%h%d %s %C(green)%C(bold)%cr'
