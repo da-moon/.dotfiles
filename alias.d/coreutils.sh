@@ -18,6 +18,8 @@ if command -- exa -h > /dev/null 2>&1 ; then
   alias ls="exa"
   alias ll="exa -lhF"
   alias la="exa -alhF"
+  alias llfu='exa -bghHliS --git'
+  alias llt='exa -T'
 fi
 if command -- bat -h > /dev/null 2>&1 ; then
   alias cat="bat -pp"

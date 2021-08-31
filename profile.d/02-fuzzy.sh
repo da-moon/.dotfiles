@@ -15,4 +15,16 @@ if command -- sk --version > /dev/null 2>&1; then
       sk -i -c "rg {} --color=always $1" --ansi
     }
   fi
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to skim.
+_sk_comprun() {
+  local command=$1
+  shift
+  case "$command" in
+    cd) sk "$@" --preview 'tree -C {} | head -200' ;;
+    export | unset) sk "$@" --preview "eval 'echo \$'{}" ;;
+    ssh) sk "$@" --preview 'dig {}' ;;
+    *) sk "$@" ;;
+  esac
+}
 fi

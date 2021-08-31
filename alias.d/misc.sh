@@ -25,3 +25,8 @@ fi
 if command -- netstat -h > /dev/null 2>&1 ; then
   alias ports='netstat -tulanp'
 fi
+if command -- sk -h > /dev/null 2>&1 ; then
+  alias skm='sk -m'
+  alias skf="${SKIM_DEFAULT_COMMAND} | sk"
+  alias skvi='nvim $(skfi)'
+fi
