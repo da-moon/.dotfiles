@@ -61,8 +61,8 @@ if [ -z ${TERM_PROGRAM+x} ] \
       else
         if command -- pacman -h >/dev/null 2>&1; then
           sudo pacman -Syyu --noconfirm
-          if command -- paru -h >/dev/null 2>&1; then
-            paru -Syyu --cleanafter --removemake --noconfirm
+          if command -- aura -h >/dev/null 2>&1; then
+            sudo aura -Ayyux --noconfirm
           fi
         fi
         if command -- apt-get -h >/dev/null 2>&1; then
@@ -143,3 +143,4 @@ if command -- rustup -h >/dev/null 2>&1; then
   eval "$(rustup completions bash rustup)"
   eval "$(rustup completions bash cargo)"
 fi
+. "$HOME/.cargo/env"
