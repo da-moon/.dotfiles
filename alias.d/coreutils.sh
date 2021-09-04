@@ -14,6 +14,7 @@ alias psmem='ps auxf | sort -nr -k 4'
 alias pscpu='ps auxf | sort -nr -k 3'
 alias df='df -H'
 alias du='du -ch'
+command -- trash -h > /dev/null 2>&1 && alias rm='trash'
 if command -- exa -h > /dev/null 2>&1 ; then
   alias ls="exa"
   alias ll="exa -lhF"
