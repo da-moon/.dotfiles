@@ -1,8 +1,5 @@
 # vim: ft=i3config syntax=i3config softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
-###############################################################################
-# System Management
-###############################################################################
-
+# -----------------------------------------------------------
 ## Modify // Settings // <> c ##
 set_from_resource $i3-wm.binding.settings i3-wm.binding.settings c
 set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center --class=floating_window
@@ -23,11 +20,4 @@ set_from_resource $i3-wm.binding.bluetooth i3-wm.binding.bluetooth b
 set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center --class=floating_window bluetooth
 bindsym $mod+$i3-wm.binding.bluetooth exec $i3-wm.program.bluetooth
 
-## Launch // File Browser // <><Shift> n ##
-set_from_resource $i3-wm.binding.files i3-wm.binding.files Shift+n
 
-bindsym $mod+$i3-wm.binding.files exec $i3-wm.program.files
-
-## Launch // Notification Viewer // <> n ##
-set_from_resource $i3-wm.binding.notification_ui i3-wm.binding.notification_ui n
-bindsym $mod+$i3-wm.binding.notification_ui exec $i3-wm.program.notification_ui

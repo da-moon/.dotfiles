@@ -13,13 +13,13 @@ command=/usr/bin/st
 separator=true
 
 [browser]
-full_text=Browser 
+full_text=Browser 爵 
 color=#ff7f81
 command=/usr/bin/brave-browser
 separator=true
 
 [code]
-full_text=VSCode 
-color=#ff7f81
+full_text=VSCode ﬏ 
+color=#0066B8
 command=/usr/bin/code
 separator=true
