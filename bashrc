@@ -118,18 +118,13 @@ if [ -z ${TERM_PROGRAM+x} ] \
         xrdb -merge ~/.Xresources
       fi
     fi
-    # if [ -r /usr/bin/regolith-look ] \
-      # && [ -r ~/.local/bin/regolith-look ]; then
-      # sudo rm /usr/bin/regolith-look
-      # ln -sf $HOME/.local/bin/regolith-look /usr/bin/regolith-look
-    # fi
     if command -- i3 -h >/dev/null 2>&1; then
       if [ -d ~/.i3.d ]; then
         mkdir -p ~/.config/regolith/i3
         rm -f ~/.config/regolith/i3/config
         while read i; do
           cat $i >>~/.config/regolith/i3/config
-        done < <(find ~/.i3.d -name '*.i3')
+        done < <(find ~/.config/regolith/i3.d -name '*.i3')
         sed -i -e '/^\s*$/d' -e '/^\s*#/d' ~/.config/regolith/i3/config
       fi
     fi

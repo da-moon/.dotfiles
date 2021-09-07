@@ -30,7 +30,7 @@ set_from_resource $i3-wm.binding.notes i3-wm.binding.notes Shift+n
 set_from_resource $i3-wm.program.notes i3-wm.program.notes $(which notable)
 exec --no-startup-id $i3-wm.program.notes
 for_window [class=Notable] focus
-for_window [class="Notable" window_type="normal"]               move scratchpad
+for_window [class="Notable" window_type="normal"] move scratchpad
 bindsym $mod+$i3-wm.binding.notes [class="Notable"] scratchpad show, resize set 1200 700, move position center
 # -----------------------------------------------------------
 ## Launch // File Explorer // <> f ##
@@ -46,6 +46,19 @@ set_from_resource $i3-wm.binding.refresh i3-wm.binding.refresh Shift+r
 set_from_resource $i3-wm.program.refresh_ui i3-wm.program.refresh_ui /usr/bin/regolith-look refresh
 bindsym $mod+$i3-wm.binding.refresh exec --no-startup-id $i3-wm.program.refresh_ui
 # -----------------------------------------------------------
+## Launch // transparent windows
+set_from_resource $i3-wm.program.compositor.cmd i3-wm.program.compositor.cmd /usr/bin/picom -b --backend glx --config ~/.config/picom/config.toml
+exec --no-startup-id $i3-wm.program.compositor.cmd
+# -----------------------------------------------------------
+## Launch // conky
+set_from_resource $i3-wm.program.conky.cmd i3-wm.program.conky.cmd /usr/bin/conky -c ~/.config/conky/conky.conf
+exec --no-startup-id $i3-wm.program.conky.cmd
+# -----------------------------------------------------------
+set_from_resource $i3-wm.program.vpn i3-wm.program.vpn /usr/bin/protonvpn
+exec --no-startup-id $i3-wm.program.vpn
+for_window [class="Protonvpn"] floating enable,move position center
+# for_window [class="Protonvpn"] focus
+
 # # User programs from Xresources
 # # To use, define an Xresource key i3-wm.program.[1-3] with the value of the program to launch.
 # # See https://regolith-linux.org/docs/howto/override-xres/ for details.

@@ -5,6 +5,7 @@ markup=xresource:i3xrocks.global.markup
 color=xresource:i3xrocks.value.color
 label_color=xresource:i3xrocks.label.color
 
+
 [focused-window-name]
 interval=xresource:i3xrocks.focused-window-name.interval
 short_length=xresource:i3xrocks.focused-window-name.short_length
@@ -71,3 +72,7 @@ label_color=xresource:i3xrocks.label.color "#7B8394"
 #label=xresource:i3xrocks.label.time 
 label=xresource:i3xrocks.time.label
 command=~/.config/regolith/i3xrocks/scripts/time
+
+[powermenu]
+full_text=   
+command=~/.config/regolith/i3xrocks/scripts/powermenu
