@@ -67,7 +67,7 @@ for_window [class="(?i)St"] focus
 # ----------------------------------------------------------------------------
 # set $ws9 "9:"
 assign [class="(?i)VirtualBox Machine"] $ws12
-# for_window [class="(?i)VirtualBox Machine"] focus
+for_window [class="(?i)VirtualBox Machine"] focus
 # -----------------------------------------------------------
 assign [class="(?i)zoom"] $ws17
 for_window [class="(?i)zoom"] focus
