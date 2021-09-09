@@ -9,7 +9,7 @@ separator=true
 [terminal]
 full_text=Terminal 
 color=#807dfe
-command=/usr/bin/st
+command=xresource:i3-wm.program.terminal
 separator=true
 
 [browser]

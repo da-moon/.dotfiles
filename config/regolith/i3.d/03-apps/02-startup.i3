@@ -5,8 +5,9 @@
 ###############################################################################
 # exec --no-startup-id                                          geary
 # Start the installed regolith-compositor
-set_from_resource $i3-wm.program.compositor i3-wm.program.compositor /usr/share/regolith-compositor/init
-exec_always --no-startup-id $i3-wm.program.compositor
+# [ NOTE ] => commented out as we are starting picom manually
+# set_from_resource $i3-wm.program.compositor i3-wm.program.compositor /usr/share/regolith-compositor/init
+# exec_always --no-startup-id $i3-wm.program.compositor
 # -----------------------------------------------------------
 # Start Rofication for notifications
 set_from_resource $i3-wm.program.notifications i3-wm.program.notifications /usr/bin/rofication-daemon
@@ -29,7 +30,7 @@ exec --no-startup-id $i3-wm.program.nm-applet
 set_from_resource $i3-wm.binding.notes i3-wm.binding.notes Shift+n
 set_from_resource $i3-wm.program.notes i3-wm.program.notes $(which notable)
 exec --no-startup-id $i3-wm.program.notes
-for_window [class=Notable] focus
+for_window [class="Notable"] focus
 for_window [class="Notable" window_type="normal"] move scratchpad
 bindsym $mod+$i3-wm.binding.notes [class="Notable"] scratchpad show, resize set 1200 700, move position center
 # -----------------------------------------------------------
@@ -37,9 +38,17 @@ bindsym $mod+$i3-wm.binding.notes [class="Notable"] scratchpad show, resize set 
 set_from_resource $i3-wm.binding.files i3-wm.binding.files f
 set_from_resource $i3-wm.program.files i3-wm.program.files /usr/bin/nautilus --new-window
 exec --no-startup-id $i3-wm.program.files
-for_window [class=Org.gnome.Nautilus] focus
+for_window [class="Org.gnome.Nautilus"] focus
 for_window [class="Org.gnome.Nautilus" window_type="normal"] move scratchpad
 bindsym $mod+$i3-wm.binding.files [class="Org.gnome.Nautilus"] scratchpad show, resize set 1200 700, move position center
+# -----------------------------------------------------------
+## Launch // tilda // <> t ##
+set_from_resource $i3-wm.binding.scratchpad-terminal i3-wm.binding.scratchpad-terminal Shift+s
+set_from_resource $i3-wm.program.scratchpad-terminal.cmd i3-wm.program.scratchpad-terminal /usr/bin/tilda --config-file ~/.config/tilda/config_0
+exec --no-startup-id $i3-wm.program.scratchpad-terminal.cmd 
+for_window [class="Tilda"] focus
+for_window [class="Tilda" window_type="normal"] move scratchpad
+bindsym $mod+$i3-wm.binding.scratchpad-terminal [class="Tilda"] scratchpad show, resize set 1200 700, move position center
 # -----------------------------------------------------------
 ## Session // Refresh Session // <><Shift> r ##
 set_from_resource $i3-wm.binding.refresh i3-wm.binding.refresh Shift+r
@@ -53,19 +62,4 @@ exec --no-startup-id $i3-wm.program.compositor.cmd
 ## Launch // conky
 set_from_resource $i3-wm.program.conky.cmd i3-wm.program.conky.cmd /usr/bin/conky -c ~/.config/conky/conky.conf
 exec --no-startup-id $i3-wm.program.conky.cmd
-# -----------------------------------------------------------
-set_from_resource $i3-wm.program.vpn i3-wm.program.vpn /usr/bin/protonvpn
-exec --no-startup-id $i3-wm.program.vpn
-for_window [class="Protonvpn"] floating enable,move position center
-# for_window [class="Protonvpn"] focus
-
-# # User programs from Xresources
-# # To use, define an Xresource key i3-wm.program.[1-3] with the value of the program to launch.
-# # See https://regolith-linux.org/docs/howto/override-xres/ for details.
-# set_from_resource $i3-wm.program.1 i3-wm.program.1 :
-# exec --no-startup-id $i3-wm.program.1
-# set_from_resource $i3-wm.program.2 i3-wm.program.2 :
-# exec --no-startup-id $i3-wm.program.2
-# set_from_resource $i3-wm.program.3 i3-wm.program.3 :
-# exec --no-startup-id $i3-wm.program.3
 # -----------------------------------------------------------
