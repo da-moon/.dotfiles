@@ -56,7 +56,7 @@ set_from_resource $i3-wm.program.refresh_ui i3-wm.program.refresh_ui /usr/bin/re
 bindsym $mod+$i3-wm.binding.refresh exec --no-startup-id $i3-wm.program.refresh_ui
 # -----------------------------------------------------------
 ## Launch // transparent windows
-set_from_resource $i3-wm.program.compositor.cmd i3-wm.program.compositor.cmd /usr/bin/picom -b --backend glx --config ~/.config/picom/config.toml
+set_from_resource $i3-wm.program.compositor.cmd i3-wm.program.compositor.cmd /usr/bin/picom -b --experimental-backends --config ~/.config/picom/config.toml
 exec --no-startup-id $i3-wm.program.compositor.cmd
 # -----------------------------------------------------------
 ## Launch // conky
