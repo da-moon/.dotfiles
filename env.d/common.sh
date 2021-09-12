@@ -16,3 +16,16 @@ fi
   && export PATH="$PATH:${HOME}/.config/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
 export PATH="${PATH}:${HOME}/.local/bin"
 
+if ! command -- vim -h > /dev/null 2>&1 ; then
+  if command -- nvim -h > /dev/null 2>&1 ; then
+    alias vim="nvim"
+  fi
+fi
+if command -- nvim -h > /dev/null 2>&1 ; then
+  export EDITOR="nvim"
+elif command -- vim -h > /dev/null 2>&1 ; then
+  export EDITOR="vim"
+else
+  export EDITOR="vi"
+fi
+export VISUAL="$EDITOR"

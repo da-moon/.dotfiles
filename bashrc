@@ -7,7 +7,6 @@
 PS1='[\u@\h \W]\$ '
 HISTFILESIZE=1000000
 PROMPT_COMMAND="history -a"
-export EDITOR="nvim"
 export TERM="xterm-256color"
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   # [ NOTE ] ensure windows paths are removed
