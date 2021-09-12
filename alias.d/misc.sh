@@ -18,9 +18,6 @@ if ! command -- vim -h > /dev/null 2>&1 ; then
     alias vim="nvim"
   fi
 fi
-if command -- nvim -h > /dev/null 2>&1 ; then
-  alias nvim='nvim --headless +"call dein#recache_runtimepath()" +qall && nvim'
-fi
 if command -- netstat -h > /dev/null 2>&1 ; then
   alias ports='netstat -tulanp'
 fi
