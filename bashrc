@@ -59,9 +59,9 @@ if [ -z ${TERM_PROGRAM+x} ] \
         sudo pmm -Syyu --noconfirm
       else
         if command -- pacman -h >/dev/null 2>&1; then
-          sudo pacman -Syyu --noconfirm
+            sudo pacman -Syyu --noconfirm
           if command -- aura -h >/dev/null 2>&1; then
-            sudo aura -Ayyux --noconfirm
+            sudo aura -Ayyux --noconfirm --skipinteg --skippgpcheck
           fi
         fi
         if command -- apt-get -h >/dev/null 2>&1; then
@@ -88,20 +88,16 @@ if [ -z ${TERM_PROGRAM+x} ] \
           xargs -r -n1 python3 -m pip install --user -U -q --progress-bar ascii --no-cache-dir 2>/dev/null
       fi
     fi
-    if command -- rustup -h >/dev/null 2>&1; then
-      rustup toolchain install nightly stable >/dev/null 2>&1
-      rustup update >/dev/null 2>&1
-    fi
     if command -- cargo -h >/dev/null 2>&1; then
       if ! command -- cargo-install-update -h >/dev/null 2>&1; then
-        cargo install --all-features cargo-update
+        rustup run stable --install cargo install --all-features cargo-update
       fi
       if command -- cargo-install-update -h >/dev/null 2>&1; then
-        rustup default stable
-        cargo-install-update install-update --all
-        rustup default nightly
-        cargo-install-update install-update --all
-        rustup default stable
+        (rustup default stable \
+          && cargo-install-update install-update --all) \
+        || (rustup default nightly \
+          && cargo-install-update install-update --all \
+          && rustup default stable )
       fi
     fi
     # [ NOTE ] => merge xresources and i3 config once per login

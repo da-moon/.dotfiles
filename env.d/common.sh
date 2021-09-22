@@ -11,6 +11,9 @@ fi
 if command -- fasd -h > /dev/null 2>&1 ; then
   eval "$(fasd --init auto)"
 fi
+# if (command -v perl && command -v cpanm) >/dev/null 2>&1; then
+#   test -d "$HOME/perl5/lib/perl5" && eval $(perl -I "$HOME/perl5/lib/perl5" -Mlocal::lib)
+# fi
 
 [ -d "${HOME}/.config/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin" ] \
   && export PATH="$PATH:${HOME}/.config/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"

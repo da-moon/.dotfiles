@@ -1,90 +1,87 @@
-#!/usr/bin/perl
-# vim: ft=perl syntax=perl softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
-#
-# Copyright 2014 Pierre Mavro <deimos@deimos.fr>
-# Copyright 2014 Vivien Didelot <vivien@didelot.org>
-#
-# Licensed under the terms of the GNU GPL v3, or any later version.
-#
-# This script is meant to use with i3blocks. It parses the output of the "acpi"
-# command (often provided by a package of the same name) to read the status of
-# the battery, and eventually its remaining time (to full charge or discharge).
-#
-# The color will gradually change for a percentage below 85%, and the urgency
-# (exit code 33) is set if there is less that 5% remaining.
+#!/usr/bin/env bash
+# vim: ft=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
+# Battery blocklet for Regolith
+# This script was adapted from https://github.com/hastinbe/i3blocks-battery-plus
 
-use strict;
-use warnings;
-use utf8;
+LABEL_COLOR=${label_color:-$(xrescat i3xrocks.label.color "#7B8394")}
+VALUE_FONT=${font:-$(xrescat i3xrocks.value.font "Source Code Pro Medium 13")}
+BUTTON=${button:-}
+BATT_DEVICE="DisplayDevice" ;
 
-my $acpi;
-my $status;
-my $percent;
-my $ac_adapt;
-my $full_text;
-my $short_text;
-my $bat_number = $ENV{BLOCK_INSTANCE} || 0;
-
-# read the first line of the "acpi" command output
-open (ACPI, "acpi -b | grep 'Battery $bat_number' |") or die;
-$acpi = <ACPI>;
-close(ACPI);
-
-# fail on unexpected output
-if ($acpi !~ /: (\w+), (\d+)%/) {
-	die "$acpi\n";
+# Get battery status.
+#
+# Returns:
+#   The battery's status or state.
+get_battery_status() {
+  if upower -h >/dev/null 2>&1; then
+    upower --show-info \
+      "/org/freedesktop/UPower/devices/${BLOCK_INSTANCE:-$BATT_DEVICE}" \
+      | awk -W posix '$1 == "state:" {print $2}'
+  else
+      find /sys/devices/ -wholename '**/power_supply/**/status' \
+      | head -n 1 \
+      | xargs -r cat \
+      | tr "[:upper:]" "[:lower:]"
+  fi
 }
 
-$status = $1;
-$percent = $2;
-$full_text = "$percent%";
-
-if ($status eq 'Discharging') {
-	$full_text .= ' DIS';
-} elsif ($status eq 'Charging') {
-	$full_text .= ' CHR';
-} elsif ($status eq 'Unknown') {
-	open (AC_ADAPTER, "acpi -a |") or die;
-	$ac_adapt = <AC_ADAPTER>;
-	close(AC_ADAPTER);
-
-	if ($ac_adapt =~ /: ([\w-]+)/) {
-		$ac_adapt = $1;
-
-		if ($ac_adapt eq 'on-line') {
-			$full_text .= ' CHR';
-		} elsif ($ac_adapt eq 'off-line') {
-			$full_text .= ' DIS';
-		}
-	}
+# Get battery percentage.
+#
+# Returns:
+#   The battery's percentage, without the %.
+get_battery_percent() {
+  if upower -h >/dev/null 2>&1; then
+    upower --show-info \
+      "/org/freedesktop/UPower/devices/${BLOCK_INSTANCE:-$BATT_DEVICE}" \
+    | awk -W posix '$1 == "percentage:" { gsub("%","",$2); print int($2)}'
+  else
+    find /sys/devices/ -wholename '**/power_supply/**/capacity' \
+    | head -n 1 \
+    | xargs -r cat
+  fi
 }
 
-$short_text = $full_text;
 
-if ($acpi =~ /(\d\d:\d\d):/) {
-	$full_text .= " ($1)";
-}
 
-# print text
-print " $full_text\n";
-print " $short_text\n";
+BATT_PERCENT=$(get_battery_percent)
+CHARGE_STATE=$(get_battery_status)
 
-# consider color and urgent flag only on discharge
-if ($status eq 'Discharging') {
+if [ -z "$BATT_PERCENT" ]; then
+    exit 0
+elif [ "$BATT_PERCENT" -ge 0 ] && [ "$BATT_PERCENT" -le 20 ]; then
+    LABEL_ICON=$(xrescat i3xrocks.label.battery0 E)
+    VALUE_COLOR=$(xrescat i3xrocks.critical.color red)
+elif [ "$BATT_PERCENT" -ge 20 ] && [ "$BATT_PERCENT" -le 50 ]; then
+    LABEL_ICON=$(xrescat i3xrocks.label.battery20 L)
+    VALUE_COLOR=$(xrescat i3xrocks.error.color orange)
+elif [ "$BATT_PERCENT" -ge 50 ] && [ "$BATT_PERCENT" -le 80 ]; then
+    LABEL_ICON=$(xrescat i3xrocks.label.battery50 M)
+    VALUE_COLOR=$(xrescat i3xrocks.nominal white)
+elif [ "$BATT_PERCENT" -ge 80 ] && [ "$BATT_PERCENT" -le 98 ]; then
+    LABEL_ICON=$(xrescat i3xrocks.label.battery80 F)
+    VALUE_COLOR=$(xrescat i3xrocks.label.color white)
+else
+    LABEL_ICON=$(xrescat i3xrocks.label.battery100 C)
+    VALUE_COLOR=$(xrescat i3xrocks.label.color white)
+fi
 
-	if ($percent < 20) {
-		print "#FF0000\n";
-	} elsif ($percent < 40) {
-		print "#FFAE00\n";
-	} elsif ($percent < 60) {
-		print "#FFF600\n";
-	} elsif ($percent < 85) {
-		print "#A8FF00\n";
-	}
+if [ -z "$CHARGE_STATE" ]; then
+    exit 0
+elif [ "$CHARGE_STATE" == "discharging" ]; then
+    CHARGE_ICON=$(xrescat i3xrocks.label.dn D)
+elif [ "$CHARGE_STATE" == "charging" ]; then
+    CHARGE_ICON=$(xrescat i3xrocks.label.up C)
+else
+    CHARGE_ICON=$(echo -e '\u2003')
+fi
 
-	if ($percent < 5) {
-		exit(33);
-	}
-}
+ICON_SPAN="<span color=\"${LABEL_COLOR}\">$LABEL_ICON</span>"
+VALUE_SPAN="<span font_desc=\"${VALUE_FONT}\" color=\"${VALUE_COLOR}\"> $BATT_PERCENT% </span>"
+CHARGE_SPAN="<span color=\"${LABEL_COLOR}\">$CHARGE_ICON</span>"
 
-exit(0);
+echo "${ICON_SPAN}${VALUE_SPAN}${CHARGE_SPAN}"
+
+if [[ "x${BUTTON}" == "x1" ]]; then
+    ACTION=$(xrescat i3xrocks.action.battery "/usr/bin/gnome-control-center --class=floating_window power")
+    /usr/bin/i3-msg -q exec "$ACTION"
+fi

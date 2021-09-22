@@ -6,6 +6,7 @@
 # -----------------------------------------------------------
 ## Launch // Terminal // <> Enter ##
 set $ws1 "1:"
+for_window [workspace=$ws1] layout tabbed
 set_from_resource $i3-wm.program.terminal $i3-wm.program.terminal $(which alacritty)
 set_from_resource $i3-wm.binding.terminal i3-wm.binding.terminal Return
 bindsym $mod+$i3-wm.binding.terminal exec $i3-wm.program.terminal
@@ -13,21 +14,25 @@ assign [class="(?i)Alacritty"] $ws1
 for_window [class="(?i)Alacritty"] focus
 # -----------------------------------------------------------
 set $ws2 "2:"
+for_window [workspace=$ws2] layout tabbed
 assign [class="(?i)neovide"] $ws2
 for_window [class="(?i)neovide"] focus
 # ----------------------------------------------------------------------------
 set $ws3 "3:﬏"
+for_window [workspace=$ws3] layout tabbed
 assign [class="Code"] $ws3
 for_window [class="Code"] focus
 # ----------------------------------------------------------------------------
 ## Launch // Browser // <><Shift> Enter ##
 set $ws4 "4:爵"
+for_window [workspace=$ws4] layout tabbed
 set_from_resource $i3-wm.binding.browser i3-wm.binding.browser Shift+Return
 bindsym $mod+$i3-wm.binding.browser exec gtk-launch $(xdg-settings get default-web-browser)
 assign [class="(?i)brave"] $ws4
 for_window [class="(?i)brave"] focus
 # ----------------------------------------------------------------------------
 set $ws5 "5:"
+for_window [workspace=$ws5] layout tabbed
 assign [class="(?i)Firefox"] $ws5
 for_window [class="(?i)Firefox"] focus
 # ----------------------------------------------------------------------------
@@ -52,8 +57,8 @@ set $ws9 "9:"
 set_from_resource $i3-wm.binding.music i3-wm.binding.music m
 set_from_resource $i3-wm.program.music i3-wm.program.music $(which spotify)
 bindsym $mod+$i3-wm.binding.music exec $i3-wm.program.music
-assign [class="(?i)Spotify"] $ws9
-for_window [class="(?i)Spotify"] focus
+assign [class="Spotify"] $ws9
+for_window [class="Spotify"] focus
 # ----------------------------------------------------------------------------
 set $ws10 "10:"
 set_from_resource $i3-wm.binding.kitty i3-wm.binding.kitty Ctrl+Return

@@ -31,5 +31,9 @@ if command -- pandoc -h > /dev/null 2>&1; then
   alias md2jira='pandoc --from commonmark --to jira'
   alias md2pdf='pandoc --from markdown --pdf-engine=xelatex'
 fi
+if command -- kitty -h > /dev/null 2>&1; then
+  alias icat="kitty +kitten icat"
+fi
+
 alias reboot='sudo systemctl reboot'
 alias poweroff='sudo systemctl poweroff'

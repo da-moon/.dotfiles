@@ -13,7 +13,7 @@ label=xresource:i3xrocks.focused-window-name.label
 
 [battery]
 interval=xresource:i3xrocks.battery.interval
-label=xresource:i3xrocks.battery.label
+# label=xresource:i3xrocks.battery.label
 command=~/.config/regolith/i3xrocks/scripts/battery
 
 [cpu-usage]
@@ -44,10 +44,10 @@ interval=xresource:i3xrocks.wifi.interval
 separator=xresource:i3xrocks.wifi.separator
 command=~/.config/regolith/i3xrocks/scripts/wifi
 
-#[net-traffic]
-#interval=xresource:i3xrocks.nettraffic.interval
-#separator=xresource:i3xrocks.nettraffic.separator
-#command=~/.config/regolith/i3xrocks/scripts/net-traffic
+[net-traffic]
+interval=xresource:i3xrocks.nettraffic.interval
+separator=xresource:i3xrocks.nettraffic.separator
+command=~/.config/regolith/i3xrocks/scripts/net-traffic
 
 [rofication]
 command=rofication-status

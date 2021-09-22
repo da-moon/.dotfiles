@@ -28,3 +28,4 @@ fi
 if command -- rsync -h > /dev/null 2>&1 ; then
   alias cpv='rsync -ah --info=progress2'
 fi
+alias top-cpu='ps -eo pcpu,pid,user,args | sort -k1 -r -n | head -10'

@@ -27,6 +27,6 @@ bindsym $mod+$i3-wm.binding.down focus down
 bindsym $mod+$i3-wm.binding.up focus up
 bindsym $mod+$i3-wm.binding.right focus right
 
-## Navigate // Scratchpad // <><Ctrl> a ##
-set_from_resource $i3-wm.binding.scratchpad i3-wm.binding.scratchpad Ctrl+a
-bindsym $mod+$i3-wm.binding.scratchpad scratchpad show
+### Navigate // Scratchpad // <><Ctrl> a ##
+#set_from_resource $i3-wm.binding.scratchpad i3-wm.binding.scratchpad Ctrl+a
+#bindsym $mod+$i3-wm.binding.scratchpad scratchpad show

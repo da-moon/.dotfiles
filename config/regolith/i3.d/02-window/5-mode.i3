@@ -1,5 +1,10 @@
 # vim: ft=i3config syntax=i3config softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 
+# [ NOTE ] ensure  
+for_window [class="Floating"] floating enable
+for_window [class="Floating"] border normal
+for_window [class="Floating"] resize set 1200 700
+for_window [class="Floating"] move position center
 ## Modify // Window Layout Mode // <> t ##
 set_from_resource $i3-wm.binding.layout_mode i3-wm.binding.layout_mode t
 bindsym $mod+$i3-wm.binding.layout_mode layout toggle tabbed splith splitv

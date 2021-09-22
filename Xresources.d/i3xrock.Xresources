@@ -8,7 +8,6 @@ i3xrocks.focused-window-name.short_length: 10
 i3xrocks.focused-window-name.label: 
 
 i3xrocks.battery.interval: 30
-i3xrocks.battery.label: 
 
 i3xrocks.cpu.interval: 10
 i3xrocks.cpu.separator: false
