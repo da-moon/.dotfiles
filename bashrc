@@ -139,3 +139,4 @@ if command -- rustup -h >/dev/null 2>&1; then
   eval "$(rustup completions bash rustup)"
   eval "$(rustup completions bash cargo)"
 fi
+[ -r "$HOME/.poetry/env" ] && source "$HOME/.poetry/env"
