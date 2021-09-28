@@ -12,3 +12,8 @@ if command -- go version > /dev/null 2>&1 ; then
   [ "$(go env CGO_ENABLED)" != "0" ] && go env -w "CGO_ENABLED=0"
   [ "$(go env CGO_LDFLAGS)" != "-s -w -extldflags '-static'" ] && go env -w "CGO_LDFLAGS=-s -w -extldflags '-static'"
 fi
+if [ -d "${HOME}/.cargo" ];then
+  export CARGO_HOME="${HOME}/.cargo"
+  export PATH="${CARGO_HOME}/bin:${PATH}"
+fi
+[ -r "$HOME/.poetry/env" ] && source "$HOME/.poetry/env"
