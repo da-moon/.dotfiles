@@ -14,14 +14,18 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &>/dev/null; then
   export PATH=${PATH//mnt*([^ ])?( )/}
 fi
 
-[ -d ~/.env.d ] && while read i; do source "$i"; done < <(find ~/.env.d/ -name '*.sh')
-[ -d ~/.env.d.local ] && while read i; do source "$i"; done < <(find ~/.env.d.local/ -name '*.sh')
-[ -d ~/.profile.d ] && while read i; do source "$i"; done < <(find ~/.profile.d/ -name '*.sh')
-[ -d ~/.profile.d.local ] && while read i; do source "$i"; done < <(find ~/.profile.d.local/ -name '*.sh')
-if [ -z ${TERM_PROGRAM+x} ] &&
-  [ -z ${TERM_PROGRAM} ] &&
-  [ -z ${SOMMELIER_VERSION} ] &&
-  [[ -z $(printenv | grep VIM) ]]; then
+# shellcheck disable=1090
+[ -d "${HOME}/.env.d" ] && (while read -r i; do source "$i"; done < <(find "${HOME}/.env.d/" -name '*.sh'))
+# shellcheck disable=1090
+[ -d "${HOME}/.env.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.env.d.local/" -name '*.sh')
+# shellcheck disable=1090
+[ -d "${HOME}/.profile.d" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.profile.d/" -name '*.sh')
+# shellcheck disable=1090
+[ -d "${HOME}/.profile.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.profile.d.local/" -name '*.sh')
+if [ -z "${TERM_PROGRAM+x}" ] &&
+  [ -z "${TERM_PROGRAM}" ] &&
+  [ -z "${SOMMELIER_VERSION}" ] &&
+  [[ -z "$(printenv | grep VIM)" ]]; then
   if command -- colorscript -h >/dev/null 2>&1; then
     color_scripts=(
       "3"
@@ -50,7 +54,7 @@ if [ -z ${TERM_PROGRAM+x} ] &&
       "47"
       "48"
     )
-    colorscript -e ${color_scripts[RANDOM % ${#color_scripts[@]}]}
+    colorscript -e "${color_scripts[RANDOM % ${#color_scripts[@]}]}"
   fi
   if [ ! -r "/tmp/$(date -u +%Y-%m-%d).lock" ]; then
     touch "/tmp/$(date -u +%Y-%m-%d).lock"
@@ -65,34 +69,45 @@ if [ -z ${TERM_PROGRAM+x} ] &&
           fi
         fi
         if command -- apt-get -h >/dev/null 2>&1; then
-          sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y --purge
+          for i in {1..5}; do 
+            ( \
+              sudo apt-get update \
+              && sudo apt-get upgrade -y \
+              && sudo apt-get autoremove -y --purge \
+            ) \
+            || sleep 15;
+          done
         fi
       fi
       if command -- jq --version >/dev/null 2>&1 &&
-        command -- $(which node) --version >/dev/null 2>&1 &&
-        command -- $(which yarn) --version >/dev/null 2>&1; then
+        command -- "$(which node)" --version >/dev/null 2>&1 &&
+        command -- "$(which yarn)" --version >/dev/null 2>&1; then
         if [ -r "$(sudo yarn global dir)/package.json" ]; then
-          pushd $(sudo yarn global dir) >/dev/null 2>&1
+          # [ NOTE ] return should never get called
+          # i just added it to stop shellcheck from complaining
+          pushd "$(sudo yarn global dir)" >/dev/null 2>&1 || return
           yarn outdated --json 2>/dev/null |
             jq -r '. | select (.type == "table").data.body[]|.[]' |
             /bin/grep \
               -Pv '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$' |
             /bin/grep -Pv '^http(s)*:\/\/|^dependencies$' |
             sudo xargs -r -I {} yarn global add --latest --prefix /usr/local {}
-          popd >/dev/null 2>&1
+          # [ NOTE ] exit should never get called
+          # i just added it to stop shellcheck from complaining
+          popd >/dev/null 2>&1 || return
         fi
       # YARN="/bin/bash $(which yarn)"
       # if [ ! -r "/usr/share/yarn/bin/yarn" ];then
       #   YARN="$(which node) $(which yarn)"
       # fi
       # if [ -r "$(sudo "${YARN}" global dir)/package.json" ] ; then
-      #   pushd $(sudo ${YARN} global dir) > /dev/null 2>&1
-      #   ${YARN} outdated --json 2>/dev/null \
+      #   pushd "$(sudo "${YARN}" global dir)" > /dev/null 2>&1
+      #   "${YARN}" outdated --json 2>/dev/null \
       #   | jq -r '. | select (.type == "table").data.body[]|.[]' \
       #   | /bin/grep \
       #     -Pv '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$' \
       #   | /bin/grep -Pv '^http(s)*:\/\/|^dependencies$' \
-      #   | sudo xargs -r -I {} ${YARN} global add --latest --prefix /usr/local {}
+      #   | sudo xargs -r -I {} "${YARN}" global add --latest --prefix /usr/local {}
       #   popd > /dev/null 2>&1
       # fi
       fi
@@ -116,26 +131,26 @@ if [ -z ${TERM_PROGRAM+x} ] &&
       fi
     fi
     # [ NOTE ] => merge xresources and i3 config once per login
-    [ -d ~/.dotfiles ] &&
-      git -C ~/.dotfiles submodule update --init --recursive >/dev/null 2>&1 &&
-      git -C ~/.dotfiles pull --recurse-submodules >/dev/null 2>&1
+    [ -d "${HOME}/.dotfiles" ] &&
+      git -C "${HOME}/.dotfiles" submodule update --init --recursive >/dev/null 2>&1 &&
+      git -C "${HOME}/.dotfiles" pull --recurse-submodules >/dev/null 2>&1
     if command -- xrdb -version >/dev/null 2>&1; then
-      if [ -d ~/.Xresources.d ]; then
-        rm -f ~/.Xresources
-        while read i; do
-          echo "#include \"$i\"" >>~/.Xresources
-        done < <(find ~/.Xresources.d -name '*.Xresources')
-        xrdb -merge ~/.Xresources
+      if [ -d "${HOME}/.Xresources.d" ]; then
+        rm -f "${HOME}/.Xresources"
+        while read -r i; do
+          echo "#include \"$i\"" >>"${HOME}/.Xresources"
+        done < <(find "${HOME}/.Xresources.d" -name '*.Xresources')
+        xrdb -merge "${HOME}/.Xresources"
       fi
     fi
     if command -- i3 -h >/dev/null 2>&1; then
-      if [ -d ~/.i3.d ]; then
-        mkdir -p ~/.config/regolith/i3
-        rm -f ~/.config/regolith/i3/config
-        while read i; do
-          cat $i >>~/.config/regolith/i3/config
-        done < <(find ~/.config/regolith/i3.d -name '*.i3')
-        sed -i -e '/^\s*$/d' -e '/^\s*#/d' ~/.config/regolith/i3/config
+      if [ -d "${HOME}/.i3.d" ]; then
+        mkdir -p "${HOME}/.config/regolith/i3"
+        rm -f "${HOME}/.config/regolith/i3/config"
+        while read -r i; do
+          cat "${i}" >> "${HOME}/.config/regolith/i3/config"
+        done < <(find "${HOME}/.config/regolith/i3.d" -name '*.i3')
+        sed -i -e '/^\s*$/d' -e '/^\s*#/d' "${HOME}/.config/regolith/i3/config"
       fi
     fi
   fi
@@ -143,10 +158,13 @@ if [ -z ${TERM_PROGRAM+x} ] &&
     freshfetch 2>/dev/null
   fi
 fi
-[ -d ~/.alias.d ] && while read i; do source "$i"; done < <(find ~/.alias.d/ -name '*.sh')
-[ -d ~/.alias.d.local ] && while read i; do source "$i"; done < <(find ~/.alias.d.local/ -name '*.sh')
-[ -r /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion
-[ ! -r /.ssh/known_hosts ] && touch ~/.ssh/known_hosts
+# shellcheck disable=1090
+[ -d "${HOME}/.alias.d" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.alias.d/" -name '*.sh')
+# shellcheck disable=1090
+[ -d "${HOME}/.alias.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.alias.d.local/" -name '*.sh')
+# shellcheck disable=SC1091
+[ -r "/usr/share/bash-completion/bash_completion" ] && source "/usr/share/bash-completion/bash_completion"
+[ ! -r "${HOME}/.ssh/known_hosts" ] && touch "${HOME}/.ssh/known_hosts"
 if command -- starship -h >/dev/null 2>&1; then
   eval "$(starship init bash)"
 fi
