@@ -65,7 +65,9 @@ if [ -z "${TERM_PROGRAM+x}" ] &&
         if command -- pacman -h >/dev/null 2>&1; then
           sudo pacman -Syyu --noconfirm
           if command -- aura -h >/dev/null 2>&1; then
-            sudo aura -Ayyux --noconfirm --skipinteg --skippgpcheck
+            sudo aura -Ayyuxac --noconfirm --skipinteg --skippgpcheck
+          elif command -- paru -h >/dev/null 2>&1; then
+            paru -Syyu --removemake --cleanafter --noconfirm
           fi
         fi
         if command -- apt-get -h >/dev/null 2>&1; then
