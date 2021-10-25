@@ -15,7 +15,7 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &>/dev/null; then
 fi
 
 # shellcheck disable=1090
-[ -d "${HOME}/.env.d" ] && (while read -r i; do source "$i"; done < <(find "${HOME}/.env.d/" -name '*.sh'))
+[ -d "${HOME}/.env.d" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.env.d/" -name '*.sh')
 # shellcheck disable=1090
 [ -d "${HOME}/.env.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.env.d.local/" -name '*.sh')
 # shellcheck disable=1090
@@ -74,7 +74,7 @@ if [ -z "${TERM_PROGRAM+x}" ] &&
           for i in {1..5}; do 
             ( \
               sudo apt-get update \
-              && sudo apt-get upgrade -y \
+              && sudo apt-get upgrade -y --allow-downgrades \
               && sudo apt-get autoremove -y --purge \
             ) \
             || sleep 15;
