@@ -76,7 +76,7 @@ if [ -z "${TERM_PROGRAM+x}" ] &&
               sudo apt-get update \
               && sudo apt-get upgrade -y --allow-downgrades \
               && sudo apt-get autoremove -y --purge \
-            ) \
+            ) && break \
             || sleep 15;
           done
         fi
