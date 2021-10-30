@@ -14,6 +14,8 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &>/dev/null; then
   export PATH=${PATH//mnt*([^ ])?( )/}
 fi
 
+# shellcheck disable=SC1091
+[ -r "/usr/share/bash-completion/bash_completion" ] && source "/usr/share/bash-completion/bash_completion"
 # shellcheck disable=1090
 [ -d "${HOME}/.env.d" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.env.d/" -name '*.sh')
 # shellcheck disable=1090
@@ -164,8 +166,6 @@ fi
 [ -d "${HOME}/.alias.d" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.alias.d/" -name '*.sh')
 # shellcheck disable=1090
 [ -d "${HOME}/.alias.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.alias.d.local/" -name '*.sh')
-# shellcheck disable=SC1091
-[ -r "/usr/share/bash-completion/bash_completion" ] && source "/usr/share/bash-completion/bash_completion"
 [ ! -r "${HOME}/.ssh/known_hosts" ] && touch "${HOME}/.ssh/known_hosts"
 if command -- starship -h >/dev/null 2>&1; then
   eval "$(starship init bash)"
