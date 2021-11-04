@@ -26,8 +26,9 @@ fi
 [ -d "${HOME}/.profile.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.profile.d.local/" -name '*.sh')
 if [ -z "${TERM_PROGRAM+x}" ] &&
   [ -z "${TERM_PROGRAM}" ] &&
-  [ -z "${SOMMELIER_VERSION}" ] &&
-  [[ -z "$(printenv | grep VIM)" ]]; then
+  [ -z "${VIMRUNTIME+x}" ] &&
+  [ -z "${VIMRUNTIME}" ] &&
+  [ -z "${SOMMELIER_VERSION}" ];then
   if command -- colorscript -h >/dev/null 2>&1; then
     color_scripts=(
       "3"
