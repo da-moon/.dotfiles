@@ -21,12 +21,6 @@ if command -- sk -h > /dev/null 2>&1 ; then
   alias skf="${SKIM_DEFAULT_COMMAND} | sk"
   alias skvi='nvim $(skfi)'
 fi
-if command -- fzf -h > /dev/null 2>&1; then
-  alias h='fzf_history'
-  if command -- fasd -h > /dev/null 2>&1 ; then
-    alias c='fzf_cd'
-  fi
-fi
 if command -- pandoc -h > /dev/null 2>&1; then
   alias md2jira='pandoc --from commonmark --to jira'
   alias md2pdf='pandoc --from markdown --pdf-engine=xelatex'
@@ -37,3 +31,26 @@ fi
 
 alias reboot='sudo systemctl reboot'
 alias poweroff='sudo systemctl poweroff'
+#
+# ──── FASD ──────────────────────────────────────────────────────────
+#
+
+if command -- fasd -h > /dev/null 2>&1 ; then
+  # any
+  alias a='fasd -a'
+  # show / search / select
+  alias s='fasd -si'
+  # directory
+  alias d='fasd -d'
+  # file
+  alias f='fasd -f'
+  # interactive directory selection
+  alias sd='fasd -sid'
+  # interactive file selection
+  alias sf='fasd -sif'
+  # cd, same functionality as j in autojump
+  alias z='fasd_cd -d'
+  # cd with interactive selection
+  alias zz='fasd_cd -d -i'
+fi
+
