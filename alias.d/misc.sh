@@ -53,4 +53,6 @@ if command -- fasd -h > /dev/null 2>&1 ; then
   # cd with interactive selection
   alias zz='fasd_cd -d -i'
 fi
-
+if fzf -h > /dev/null 2>&1 && bat -h > /dev/null 2>&1  ; then
+  alias fzfbat="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+fi
