@@ -1,4 +1,23 @@
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
+command -- trash -h > /dev/null 2>&1 && alias rm='trash'
+if command -- exa -h > /dev/null 2>&1 ; then
+  alias ls="exa"
+  alias ll="exa -lhF"
+  alias la="exa -alhF"
+  alias llfu='exa -bghHliS --git'
+  alias llt='exa -T'
+fi
+if command -- bat -h > /dev/null 2>&1 ; then
+  alias cat="bat -pp"
+fi
+if command -- rsync -h > /dev/null 2>&1 ; then
+  alias cpv='rsync -ah --info=progress2'
+fi
+if command -- et -h > /dev/null 2>&1 ; then
+  # used in combination with eternal terminal
+  alias ssh-et='ssh -Y -m "hmac-sha2-512" -i "$HOME/.ssh/id_rsa" -L "6666:localhost:6666" -L "2489:localhost:2489" -o "IdentitiesOnly=yes" -o "StrictHostKeyChecking=no" -o "CheckHostIP=no" -o "UserKnownHostsFile=/dev/null" -p 6010'
+fi
+# ─────────────────────────────────────────────────────────────────────
 alias count='find . -type f | wc -l'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
@@ -14,18 +33,4 @@ alias psmem='ps auxf | sort -nr -k 4'
 alias pscpu='ps auxf | sort -nr -k 3'
 alias df='df -H'
 alias du='du -ch'
-command -- trash -h > /dev/null 2>&1 && alias rm='trash'
-if command -- exa -h > /dev/null 2>&1 ; then
-  alias ls="exa"
-  alias ll="exa -lhF"
-  alias la="exa -alhF"
-  alias llfu='exa -bghHliS --git'
-  alias llt='exa -T'
-fi
-if command -- bat -h > /dev/null 2>&1 ; then
-  alias cat="bat -pp"
-fi
-if command -- rsync -h > /dev/null 2>&1 ; then
-  alias cpv='rsync -ah --info=progress2'
-fi
 alias top-cpu='ps -eo pcpu,pid,user,args | sort -k1 -r -n | head -10'
