@@ -3,6 +3,7 @@ alias docker-run='docker run --rm -it -v "$PWD:/workspace"'
 alias ubuntu-c='docker-run -w "/workspace" ubuntu:hirsute'
 alias debian-c='docker-run -w "/workspace" debian:bullseye'
 alias alpine-c='docker-run -w "/workspace" alpine:edge'
+alias pureos-c='docker-run -w "/workspace" pureos/pureos:byzantium-slim'
 
 alias code-server='docker-run --network host -d -u "$(id -u):$(id -g)" codercom/code-server:latest --auth none'
 alias rmcontainers='docker ps -aq | xargs -r docker rm -f'
