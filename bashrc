@@ -114,14 +114,15 @@ if ( [ -z "${TERM_PROGRAM+x}" ] && [ -z "${TERM_PROGRAM}" ] ) \
       fi
     fi
   fi
+  if command -- freshfetch -h >/dev/null 2>&1; then
+  freshfetch 2>/dev/null
+  fi
 fi
 # shellcheck disable=1090
 [ -d "${HOME}/.alias.d" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.alias.d/" -name '*.sh')
 # shellcheck disable=1090
 [ -d "${HOME}/.alias.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.alias.d.local/" -name '*.sh')
-if command -- freshfetch -h >/dev/null 2>&1; then
-  freshfetch 2>/dev/null
-fi
+
 if command -- starship -h >/dev/null 2>&1; then
   eval "$(starship init bash)"
 fi
