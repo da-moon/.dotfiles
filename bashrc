@@ -130,3 +130,5 @@ if command -- rustup -h >/dev/null 2>&1; then
   eval "$(rustup completions bash rustup)"
   eval "$(rustup completions bash cargo)"
 fi
+export PATH=$(echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+
