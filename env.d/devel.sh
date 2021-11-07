@@ -18,3 +18,14 @@ if [ -d "${HOME}/.cargo" ];then
   export PATH="${CARGO_HOME}/bin:${PATH}"
 fi
 [ -r "$HOME/.poetry/env" ] && source "$HOME/.poetry/env"
+if luarocks --version > /dev/null 2>&1 ; then
+  if lua5.1 -v > /dev/null 2>&1 ; then
+    eval "$(luarocks --lua-version=5.1 path)"
+  elif lua5.2 -v > /dev/null 2>&1 ; then
+    eval "$(luarocks --lua-version=5.2 path)"
+  elif lua5.3 -v > /dev/null 2>&1 ; then
+    eval "$(luarocks --lua-version=5.3 path)"
+  elif lua5.4 -v > /dev/null 2>&1 ; then
+    eval "$(luarocks --lua-version=5.4 path)"
+  fi
+fi
