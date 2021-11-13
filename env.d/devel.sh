@@ -29,6 +29,8 @@ if luarocks --version > /dev/null 2>&1 ; then
     eval "$(luarocks --lua-version=5.4 path)"
   fi
 fi
-if [ -d "${HOME}/.local/share/lunarvim/lvim" ];then
-  export LUA_PATH="$LUA_PATH;${HOME}/.local/share/lunarvim/lvim"
-fi
+# if [ -d "${HOME}/.local/share/lunarvim/lvim" ];then
+  # print(package.searchpath('lvim', package.path))
+  # print(package.searchpath('lvim.core.log', package.path))
+  # export LUA_PATH="$LUA_PATH;${HOME}/.local/share/lunarvim/lvim/init.lua"
+# fi
