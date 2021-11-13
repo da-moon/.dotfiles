@@ -4,6 +4,60 @@
 # If not running interactively, don't do anything
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 [[ $- != *i* ]] && return
+function refresh-rc() {
+  echo "#!/usr/bin/env bash" > "${HOME}/.environment" 
+  # shellcheck disable=1090
+  [ -d "${HOME}/.env.d" ] && while read -r i; do \
+  sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.environment" > /dev/null \
+  && printf "\n" >> "${HOME}/.environment" ; \
+  done < <(find "${HOME}/.env.d/" -name '*.sh')
+  # shellcheck disable=1090
+  [ -d "${HOME}/.env.d.local" ] && while read -r i; do \
+  sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.environment" > /dev/null \
+  && printf "\n" >> "${HOME}/.environment" ; \
+  done < <(find "${HOME}/.env.d.local/" -name '*.sh')
+  source "${HOME}/.environment"
+  # ────────────────────────────────────────────────────────────────────────────────
+
+  echo "#!/usr/bin/env bash" > "${HOME}/.bash_functions" 
+  # shellcheck disable=1090
+  [ -d "${HOME}/.profile.d" ] && while read -r i; do \
+  sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_functions" > /dev/null \
+  && printf "\n" >> "${HOME}/.bash_functions" ; \
+  done < <(find "${HOME}/.profile.d/" -name '*.sh')
+  # shellcheck disable=1090
+  [ -d "${HOME}/.profile.d.local" ] && while read -r i; do \
+    sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_functions" > /dev/null \
+  && printf "\n" >> "${HOME}/.bash_functions" ; \
+  done < <(find "${HOME}/.profile.d.local/" -name '*.sh')
+  source "${HOME}/.bash_functions"
+  # ────────────────────────────────────────────────────────────────────────────────
+  echo "#!/usr/bin/env bash" > "${HOME}/.bash_aliases" ; 
+  # shellcheck disable=1090
+  [ -d "${HOME}/.alias.d" ] && while read -r i; do \
+  sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_aliases" > /dev/null \
+  && printf "\n" >> "${HOME}/.bash_aliases" ; \
+  done < <(find "${HOME}/.alias.d/" -name '*.sh')
+  # shellcheck disable=1090
+  [ -d "${HOME}/.alias.d.local" ] && while read -r i; do \
+  sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_aliases" > /dev/null \
+  && printf "\n" >> "${HOME}/.bash_aliases" ; \
+  done < <(find "${HOME}/.alias.d.local/" -name '*.sh')
+  source "${HOME}/.bash_aliases"
+}
+function refresh-x(){
+  rm -f "${HOME}/.Xresources"
+  [ -d "${HOME}/.Xresources.d" ] && while read -r i; do
+    echo "#include \"$i\"" >>"${HOME}/.Xresources"
+  done < <(find "${HOME}/.Xresources.d" -name '*.Xresources')
+  xrdb -merge "${HOME}/.Xresources"
+}
+# ────────────────────────────────────────────────────────────────────────────────
+if [ -d "${HOME}/.dotfiles" ];then
+  git -C "${HOME}/.dotfiles" submodule update --init --recursive >/dev/null 2>&1 &&
+  git -C "${HOME}/.dotfiles" pull --recurse-submodules >/dev/null 2>&1
+fi
+# ────────────────────────────────────────────────────────────────────────────────
 PS1='[\u@\h \W]\$ '
 HISTFILESIZE=10000000
 PROMPT_COMMAND="history -a"
@@ -15,14 +69,6 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &>/dev/null; then
 fi
 # shellcheck disable=SC1091
 [ -r "/usr/share/bash-completion/bash_completion" ] && source "/usr/share/bash-completion/bash_completion"
-# shellcheck disable=1090
-[ -d "${HOME}/.env.d" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.env.d/" -name '*.sh')
-# shellcheck disable=1090
-[ -d "${HOME}/.env.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.env.d.local/" -name '*.sh')
-# shellcheck disable=1090
-[ -d "${HOME}/.profile.d" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.profile.d/" -name '*.sh')
-# shellcheck disable=1090
-[ -d "${HOME}/.profile.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.profile.d.local/" -name '*.sh')
 if ( [ -z "${TERM_PROGRAM+x}" ] && [ -z "${TERM_PROGRAM}" ] ) \
   && ( [ -z "${VIMRUNTIME+x}" ] && [ -z "${VIMRUNTIME}" ] ) \
   && ( [ -z "${VIMRUNTIME+x}" ] && [ -z "${VIMRUNTIME}" ] ) \
@@ -78,20 +124,6 @@ if ( [ -z "${TERM_PROGRAM+x}" ] && [ -z "${TERM_PROGRAM}" ] ) \
         # i just added it to stop shellcheck from complaining
         popd >/dev/null 2>&1 || return
       fi
-    # YARN="/bin/bash $(which yarn)"
-    # if [ ! -r "/usr/share/yarn/bin/yarn" ];then
-    #   YARN="$(which node) $(which yarn)"
-    # fi
-    # if [ -r "$(sudo "${YARN}" global dir)/package.json" ] ; then
-    #   pushd "$(sudo "${YARN}" global dir)" > /dev/null 2>&1
-    #   "${YARN}" outdated --json 2>/dev/null \
-    #   | jq -r '. | select (.type == "table").data.body[]|.[]' \
-    #   | /bin/grep \
-    #     -Pv '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$' \
-    #   | /bin/grep -Pv '^http(s)*:\/\/|^dependencies$' \
-    #   | sudo xargs -r -I {} "${YARN}" global add --latest --prefix /usr/local {}
-    #   popd > /dev/null 2>&1
-    # fi
     fi
     if command -- python3 -m pip -h >/dev/null 2>&1; then
       python3 -m pip list --user --outdated --format=freeze \
@@ -118,17 +150,8 @@ if ( [ -z "${TERM_PROGRAM+x}" ] && [ -z "${TERM_PROGRAM}" ] ) \
   freshfetch 2>/dev/null
   fi
 fi
-# shellcheck disable=1090
-[ -d "${HOME}/.alias.d" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.alias.d/" -name '*.sh')
-# shellcheck disable=1090
-[ -d "${HOME}/.alias.d.local" ] && while read -r i; do source "$i"; done < <(find "${HOME}/.alias.d.local/" -name '*.sh')
-
-if command -- starship -h >/dev/null 2>&1; then
-  eval "$(starship init bash)"
-fi
-if command -- rustup -h >/dev/null 2>&1; then
-  eval "$(rustup completions bash rustup)"
-  eval "$(rustup completions bash cargo)"
-fi
+[ -r "${HOME}/.environment" ] && source "${HOME}/.environment"
+[ -r "${HOME}/.bash_functions" ] && source "${HOME}/.bash_functions"
+[ -r "${HOME}/.bash_aliases" ] && source "${HOME}/.bash_aliases"
 export PATH=$(echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 

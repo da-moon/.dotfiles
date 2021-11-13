@@ -15,7 +15,7 @@ if command -- rsync -h > /dev/null 2>&1 ; then
 fi
 if command -- et -h > /dev/null 2>&1 ; then
   # used in combination with eternal terminal
-  alias ssh-et='ssh -Y -m "hmac-sha2-512" -i "$HOME/.ssh/id_rsa" -L "6666:localhost:6666" -L "2489:localhost:2489" -o "IdentitiesOnly=yes" -o "StrictHostKeyChecking=no" -o "CheckHostIP=no" -o "UserKnownHostsFile=/dev/null" -p 6010'
+  alias ssh-et='ssh -Y -m "hmac-sha2-512" -i "${HOME}/.ssh/id_rsa" -L "6666:localhost:6666" -L "2489:localhost:2489" -o "IdentitiesOnly=yes" -o "StrictHostKeyChecking=no" -o "CheckHostIP=no" -o "UserKnownHostsFile=/dev/null" -p 6010'
 fi
 # ─────────────────────────────────────────────────────────────────────
 alias count='find . -type f | wc -l'

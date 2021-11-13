@@ -1,16 +1,12 @@
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 # ─────────────────────────────────────────────────────────────────────
+[ ! -d "${HOME}/.local/bin" ] && mkdir -p "${HOME}/.local/bin"
 export PATH="${PATH}:${HOME}/.local/bin"
-export PATH="${PATH}:${HOME}/bin"
-# ─────────────────────────────────────────────────────────────────────
-if [ -d ~/.git-fuzzy ] && command -- fzf -h > /dev/null 2>&1 ; then
-  git -C ~/.git-fuzzy pull > /dev/null 2>&1
-  export PATH="$PATH:$HOME/.git-fuzzy/bin"
-fi
-[ -d /var/lib/snapd/snap/bin ] && export PATH="$PATH:/var/lib/snapd/snap/bin"
-[ -d "/snap" ] && export PATH="$PATH:/snap/bin"
 
-[ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin"
+[ ! -d "${HOME}/bin" ] && mkdir -p "${HOME}/.local/bin"
+export PATH="${PATH}:${HOME}/bin"
+[ -d "/var/lib/snapd/snap/bin" ] && export PATH="$PATH:/var/lib/snapd/snap/bin"
+[ -d "/snap" ] && export PATH="$PATH:/snap/bin"
 if command -- pass -h > /dev/null 2>&1 ; then
   export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 fi
@@ -18,7 +14,7 @@ if command -- fasd -h > /dev/null 2>&1 ; then
   eval "$(fasd --init auto)"
 fi
 # if (command -v perl && command -v cpanm) >/dev/null 2>&1; then
-#   test -d "$HOME/perl5/lib/perl5" && eval $(perl -I "$HOME/perl5/lib/perl5" -Mlocal::lib)
+#   test -d "${HOME}/perl5/lib/perl5" && eval $(perl -I "${HOME}/perl5/lib/perl5" -Mlocal::lib)
 # fi
 
 [ -d "${HOME}/.config/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin" ] \

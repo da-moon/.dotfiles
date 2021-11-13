@@ -1,6 +1,7 @@
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 # https://github.com/dweidner/dotfiles/blob/main/shell/utilities.sh
 # https://ivergara.github.io/Supercharging-shell.html
+# https://github.com/farisachugthai/dotfiles/blob/master/unix/.bashrc.d/fzf.bash
 if command -- fzf -h > /dev/null 2>&1; then
   if [ -r "/usr/share/bash-completion/bash_completion" ] && [ -d "/usr/share/bash-completion/completions" ]; then
     if [ -z "$(LC_ALL=C type -t _fzf_complete)" ] || [ ! "$(LC_ALL=C type -t _fzf_complete)" = function ]; then
@@ -42,6 +43,55 @@ if command -- fzf -h > /dev/null 2>&1; then
     fi
     source "/usr/share/fzf/key-bindings.bash"
     source "/usr/share/fzf/completion.bash"
+    # Preview a text file
+    function _fzf_preview_textfile {
+      local FILE="${1%:*}" LINE= START=0 OFF= END=
+      case "$1" in
+        *':'*)
+          LINE="${1##*:}"
+          OFF=$(( LINES / 3 + 1 ))
+          START=$(( LINE>OFF ? LINE-OFF : 0 ))
+          END=$(( LINE + 100 ))
+          ;;
+      esac
+      {
+        if type bat >/dev/null && false; then
+          local LN=()
+          [ -n "$LINE" ] && LN=("-r$START:$END" "-H$LINE")
+          bat -n --color always --tabs 2 "${LN[@]}" "$FILE"
+        else
+          cat -n "$FILE" | tail "-n+$START" | head -100
+        fi
+        "${CMD[@]}" "$FILE"
+      } 2>/dev/null
+    }
+    # Preview a file or a directory
+    function _fzf_preview_fs {
+      local CRESET=$'\033[0m'
+      local CYELLOW=$'\033[0;4;33m'
+      local TYPE=$(file -Eib "$1")
+      {
+        echo "${CYELLOW}Name:$CRESET $1"
+        echo "${CYELLOW}Type:$CRESET $TYPE"
+        echo "${CYELLOW}Info:$CRESET $(ls -lhdG "$1")"
+        echo
+        case "$TYPE" in
+          'inode/directory'*)
+            if type exa >/dev/null; then
+              exa -lhF -T "$1"
+            elif type tree >/dev/null; then
+              tree -C -L 1 -push -a --filelimit 200 "$1"
+            else
+              ls --color=always -lAh "$1"
+            fi
+            ;;
+          *' charset=binary'*) xxd "$1" ;;
+          *) _fzf_preview_textfile "$1" ;;
+        esac
+      } 2>/dev/null
+    }
+    export -f _fzf_preview_textfile
+    export -f _fzf_preview_fs
     source "/usr/share/fzf/fzf-tab-completion.bash"
     bind -x '"\t": fzf_bash_completion'
   fi
