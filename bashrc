@@ -43,44 +43,42 @@ if [ -d "${HOME}/.dotfiles" ];then
 fi
 # ────────────────────────────────────────────────────────────────────────────────
 function refresh-rc() {
-  echo "#!/usr/bin/env bash" > "${HOME}/.environment" 
-  # shellcheck disable=1090
+ 
+  echo "#!/usr/bin/env bash" > "${HOME}/.environment" ; \
   [ -d "${HOME}/.env.d" ] && while read -r i; do \
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.environment" > /dev/null \
   && printf "\n" >> "${HOME}/.environment" ; \
   done < <(find "${HOME}/.env.d/" -name '*.sh')
-  # shellcheck disable=1090
+
   [ -d "${HOME}/.env.d.local" ] && while read -r i; do \
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.environment" > /dev/null \
   && printf "\n" >> "${HOME}/.environment" ; \
-  done < <(find "${HOME}/.env.d.local/" -name '*.sh')
-  source "${HOME}/.environment"
-  # ────────────────────────────────────────────────────────────────────────────────
+  done < <(find "${HOME}/.env.d/.local" -name '*.sh')
 
-  echo "#!/usr/bin/env bash" > "${HOME}/.bash_functions" 
-  # shellcheck disable=1090
+  echo "#!/usr/bin/env bash" > "${HOME}/.bash_functions" ; \
   [ -d "${HOME}/.profile.d" ] && while read -r i; do \
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_functions" > /dev/null \
   && printf "\n" >> "${HOME}/.bash_functions" ; \
-  done < <(find "${HOME}/.profile.d/" -name '*.sh')
-  # shellcheck disable=1090
+  done < <(find "${HOME}/.profile.d/" -name '*.sh') ;
+  
   [ -d "${HOME}/.profile.d.local" ] && while read -r i; do \
-    sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_functions" > /dev/null \
+  sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_functions" > /dev/null \
   && printf "\n" >> "${HOME}/.bash_functions" ; \
-  done < <(find "${HOME}/.profile.d.local/" -name '*.sh')
-  source "${HOME}/.bash_functions"
-  # ────────────────────────────────────────────────────────────────────────────────
-  echo "#!/usr/bin/env bash" > "${HOME}/.bash_aliases" ; 
-  # shellcheck disable=1090
+  done < <(find "${HOME}/.profile.d.local/" -name '*.sh') ;
+
+  echo "#!/usr/bin/env bash" > "${HOME}/.bash_aliases" ; \
   [ -d "${HOME}/.alias.d" ] && while read -r i; do \
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_aliases" > /dev/null \
   && printf "\n" >> "${HOME}/.bash_aliases" ; \
-  done < <(find "${HOME}/.alias.d/" -name '*.sh')
-  # shellcheck disable=1090
+  done < <(find "${HOME}/.alias.d/" -name '*.sh') ;
+
   [ -d "${HOME}/.alias.d.local" ] && while read -r i; do \
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_aliases" > /dev/null \
   && printf "\n" >> "${HOME}/.bash_aliases" ; \
-  done < <(find "${HOME}/.alias.d.local/" -name '*.sh')
+  done < <(find "${HOME}/.alias.d.local/" -name '*.sh') ;
+
+  source "${HOME}/.environment"
+  source "${HOME}/.bash_functions"
   source "${HOME}/.bash_aliases"
 }
 function refresh-x(){
