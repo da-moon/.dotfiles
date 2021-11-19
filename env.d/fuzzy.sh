@@ -12,8 +12,9 @@ if command -- fzf -h > /dev/null 2>&1; then
     if command -- go version > /dev/null 2>&1 ; then
       excludes="${excludes} --exclude $(go env GOPATH | sed -e "s/\/home\/$USER\///g")/pkg"
     fi
-    export FZF_ALT_C_COMMAND="fd --type d --hidden --follow -j $(nproc) --color always ${excludes}"
-    export FZF_CTRL_T_COMMAND="${FZF_ALT_C_COMMAND} --max-depth 6"
+    export FZF_BASE_COMMAND="fd --hidden --follow -j $(nproc) --color always ${excludes}"
+    export FZF_ALT_C_COMMAND="${FZF_BASE_COMMAND} --type d"
+    export FZF_CTRL_T_COMMAND="${FZF_BASE_COMMAND} --type f --max-depth 6"
   fi
   # Tweak the default settings
   export FZF_DEFAULT_OPTS="--multi --height=40% --reverse --tabstop=4 -0"
