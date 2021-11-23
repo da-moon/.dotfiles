@@ -6,7 +6,7 @@
 [[ $- != *i* ]] && return
 # ────────────────────────────────────────────────────────────────────────────────
 PS1='[\u@\h \W]\$ '
-HISTFILESIZE=10000000
+HISTFILESIZE=1000000000
 PROMPT_COMMAND="history -a"
 export TERM="xterm-256color"
 if grep -qEi "(Microsoft|WSL)" /proc/version &>/dev/null; then
