@@ -53,7 +53,7 @@ function refresh-rc() {
   [ -d "${HOME}/.env.d.local" ] && while read -r i; do \
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.environment" > /dev/null \
   && printf "\n" >> "${HOME}/.environment" ; \
-  done < <(find "${HOME}/.env.d/.local" -name '*.sh')
+  done < <(find "${HOME}/.env.d.local" -name '*.sh')
 
   echo "#!/usr/bin/env bash" > "${HOME}/.bash_functions" ; \
   [ -d "${HOME}/.profile.d" ] && while read -r i; do \
