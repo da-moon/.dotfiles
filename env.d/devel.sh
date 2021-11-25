@@ -6,6 +6,8 @@ if [ -d "${HOME}/.goenv" ]; then
   export PATH="${PATH}:${GOENV_ROOT}/bin"
   eval "$(goenv init -)"
 fi
+# curl -sSf https://raw.githubusercontent.com/owenthereal/goup/master/install.sh | sh -s -- --skip-prompt
+[ -r "${HOME}/.go/env" ] && source "${HOME}/.go/env" ;
 if command -- go version > /dev/null 2>&1 ; then
   export PATH="$PATH:$(go env GOROOT)/bin"
   export PATH="$PATH:$(go env GOPATH)/bin"
