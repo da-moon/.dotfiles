@@ -7,4 +7,4 @@ alias pureos-c='docker-run -w "/workspace" pureos/pureos:byzantium-slim'
 
 alias code-server='docker-run --network host -d -u "$(id -u):$(id -g)" codercom/code-server:latest --auth none'
 alias rmcontainers='docker ps -aq | xargs -r docker rm -f'
-alias gitlint="docker run --rm -it --ulimit nofile=1024 -v $(pwd):/repo jorisroovers/gitlint"
+alias gitlint="docker run -u $(id -u):$(id -g) -w /repo --rm -it --ulimit nofile=1024 -v $(pwd):/repo jorisroovers/gitlint"
