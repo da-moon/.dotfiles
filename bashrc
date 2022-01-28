@@ -6,6 +6,10 @@
 [[ $- != *i* ]] && return
 # ────────────────────────────────────────────────────────────────────────────────
 PS1='[\u@\h \W]\$ '
+# PS4='.\011$(date "+%s.%N")\011'
+# exec 3>&2 2>/tmp/bashstart.log
+# set -x
+
 HISTFILESIZE=1000000000
 PROMPT_COMMAND="history -a"
 export TERM="xterm-256color"
@@ -31,9 +35,9 @@ if ( [ -z "${TERM_PROGRAM+x}" ] && [ -z "${TERM_PROGRAM}" ] ) \
     )
     colorscript -e "${color_scripts[RANDOM % ${#color_scripts[@]}]}"
   fi
-  if command -- freshfetch -h >/dev/null 2>&1; then
-  freshfetch 2>/dev/null
-  fi
+  # if command -- freshfetch -h >/dev/null 2>&1; then
+  # freshfetch 2>/dev/null
+  # fi
 fi
 export PATH=$(echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 # ────────────────────────────────────────────────────────────────────────────────
@@ -43,7 +47,6 @@ if [ -d "${HOME}/.dotfiles" ];then
 fi
 # ────────────────────────────────────────────────────────────────────────────────
 function refresh-rc() {
- 
   echo "#!/usr/bin/env bash" > "${HOME}/.environment" ; \
   [ -d "${HOME}/.env.d" ] && while read -r i; do \
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.environment" > /dev/null \
@@ -53,7 +56,7 @@ function refresh-rc() {
   [ -d "${HOME}/.env.d.local" ] && while read -r i; do \
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.environment" > /dev/null \
   && printf "\n" >> "${HOME}/.environment" ; \
-  done < <(find "${HOME}/.env.d.local" -name '*.sh')
+  done < <(find "${HOME}/.env.d.local/" -name '*.sh')
 
   echo "#!/usr/bin/env bash" > "${HOME}/.bash_functions" ; \
   [ -d "${HOME}/.profile.d" ] && while read -r i; do \
@@ -68,7 +71,7 @@ function refresh-rc() {
 
   echo "#!/usr/bin/env bash" > "${HOME}/.bash_aliases" ; \
   [ -d "${HOME}/.alias.d" ] && while read -r i; do \
-  sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_aliases" > /dev/null \
+  sed -e '/^\s*#/d' -e 's/^\s+//g' "$i" | tee -a "${HOME}/.bash_aliases" > /dev/null \
   && printf "\n" >> "${HOME}/.bash_aliases" ; \
   done < <(find "${HOME}/.alias.d/" -name '*.sh') ;
 
@@ -76,7 +79,6 @@ function refresh-rc() {
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.bash_aliases" > /dev/null \
   && printf "\n" >> "${HOME}/.bash_aliases" ; \
   done < <(find "${HOME}/.alias.d.local/" -name '*.sh') ;
-
   source "${HOME}/.environment"
   source "${HOME}/.bash_functions"
   source "${HOME}/.bash_aliases"
@@ -98,3 +100,5 @@ function refresh-x(){
     fi
   fi
 }
+# set +x
+# exec 2>&3 3>&-

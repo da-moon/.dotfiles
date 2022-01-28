@@ -19,12 +19,14 @@ fi
 
 [ -d "${HOME}/.config/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin" ] \
   && export PATH="$PATH:${HOME}/.config/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
-if ! command -- vim -h > /dev/null 2>&1 ; then
-  if command -- nvim -h > /dev/null 2>&1 ; then
-    alias vim="nvim"
-  fi
-fi
-if command -- nvim -h > /dev/null 2>&1 ; then
+#if ! command -- vim -h > /dev/null 2>&1 ; then
+#  if command -- nvim -h > /dev/null 2>&1 ; then
+#    alias vim="nvim"
+#  fi
+#fi
+if command -- hx -h > /dev/null 2>&1 ; then
+  export EDITOR="hx"
+elif command -- nvim -h > /dev/null 2>&1 ; then
   export EDITOR="nvim"
 elif command -- vim -h > /dev/null 2>&1 ; then
   export EDITOR="vim"

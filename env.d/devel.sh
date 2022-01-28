@@ -1,5 +1,7 @@
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
-export LUNARVIM_CONFIG_DIR="${HOME}/.LunarVim.d/"
+
+# exec nvim -u "~/.nvim.d/init.lua" "$@"
+# export LUNARVIM_CONFIG_DIR="${HOME}/.LunarVim.d/"
 if [ -d "${HOME}/.goenv" ]; then
   git -C "${HOME}/.goenv" pull > /dev/null 2>&1
   export GOENV_ROOT="${HOME}/.goenv"
@@ -31,8 +33,3 @@ if luarocks --version > /dev/null 2>&1 ; then
     eval "$(luarocks --lua-version=5.4 path)"
   fi
 fi
-# if [ -d "${HOME}/.local/share/lunarvim/lvim" ];then
-  # print(package.searchpath('lvim', package.path))
-  # print(package.searchpath('lvim.core.log', package.path))
-  # export LUA_PATH="$LUA_PATH;${HOME}/.local/share/lunarvim/lvim/init.lua"
-# fi

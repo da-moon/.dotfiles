@@ -63,3 +63,23 @@ if command -- cargo -h >/dev/null 2>&1; then
     || rustup run --install nightly cargo-install-update install-update --all
   fi
 fi
+if command -- fzf -h > /dev/null 2>&1 ; then
+  if [ -r "/usr/share/bash-completion/bash_completion" ] && [ -d "/usr/share/bash-completion/completions" ]; then
+    if [ -z "$(LC_ALL=C type -t _fzf_complete)" ] || [ ! "$(LC_ALL=C type -t _fzf_complete)" = function ]; then
+        [ ! -d "/usr/share/fzf" ] && sudo mkdir "/usr/share/fzf"
+      if [ ! -r "/usr/share/fzf/key-bindings.bash" ] ; then
+        sudo wget -qO "/usr/share/fzf/key-bindings.bash" "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash" 2>/dev/null
+      fi
+      if [ ! -r "/usr/share/fzf/completion.bash" ]; then
+        sudo wget -qO "/usr/share/fzf/completion.bash" "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash" 2>/dev/null
+      fi
+      if [ ! -r "/usr/share/fzf/fzf-tab-completion.bash" ] ; then
+        sudo wget -qO "/usr/share/fzf/fzf-tab-completion.bash" "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/bash/fzf-bash-completion.sh" 2>/dev/null
+      fi
+    fi
+  fi
+  [ ! -d "${HOME}/.git-fuzzy" ] && git clone "https://github.com/bigH/git-fuzzy" "${HOME}/.git-fuzzy" ;
+  git -C "${HOME}/.git-fuzzy" pull > /dev/null 2>&1 ;
+  [ ! -d "${HOME}/.forgit" ] && git clone "https://github.com/wfxr/forgit" "${HOME}/.forgit" ;
+  git -C "${HOME}/.forgit" pull > /dev/null 2>&1 ;
+fi

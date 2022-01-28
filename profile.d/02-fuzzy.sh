@@ -4,18 +4,6 @@
 # https://github.com/farisachugthai/dotfiles/blob/master/unix/.bashrc.d/fzf.bash
 if command -- fzf -h > /dev/null 2>&1; then
   if [ -r "/usr/share/bash-completion/bash_completion" ] && [ -d "/usr/share/bash-completion/completions" ]; then
-    if [ -z "$(LC_ALL=C type -t _fzf_complete)" ] || [ ! "$(LC_ALL=C type -t _fzf_complete)" = function ]; then
-        [ ! -d "/usr/share/fzf" ] && sudo mkdir "/usr/share/fzf"
-      if [ ! -r "/usr/share/fzf/key-bindings.bash" ] ; then
-        sudo wget -qO "/usr/share/fzf/key-bindings.bash" "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash" 2>/dev/null
-      fi
-      if [ ! -r "/usr/share/fzf/completion.bash" ]; then
-        sudo wget -qO "/usr/share/fzf/completion.bash" "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash" 2>/dev/null
-      fi
-      if [ ! -r "/usr/share/fzf/fzf-tab-completion.bash" ] ; then
-        sudo wget -qO "/usr/share/fzf/fzf-tab-completion.bash" "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/bash/fzf-bash-completion.sh" 2>/dev/null
-      fi
-    fi
     if command -v pass >/dev/null 2>&1; then
       _fzf_complete_pass() {
         FZF_COMPLETION_TRIGGER="" _fzf_complete "-1" "${@}" < <(
@@ -28,7 +16,6 @@ if command -- fzf -h > /dev/null 2>&1; then
         if pass -c "${1}" && [[ "$(pass show "${1}" | grep -c "^otpauth:")" -eq 1 ]]; then
           read -s -r -p "  Press enter for otp"
           echo ""
-
           pass otp -c "${1}"
         fi
       }
