@@ -1,4 +1,7 @@
 # vim: ft=gitconfig syntax=gitconfig softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
+
+[core]
+	filemode = false
 [pager]
     diff = delta
     log = delta
@@ -24,14 +27,40 @@
 [status]
 	submoduleSummary = true
 [alias]
-	spull = !git pull && git submodule foreach --recursive git pull
+  upstream=remote get-url origin
+	spull = !git pull \
+    && git submodule foreach --recursive git pull
 	spush = push --recurse-submodules=on-demand
 	sfetch = submodule foreach --recursive git fetch
 	supdate = submodule update --remote --merge
   root = rev-parse --show-toplevel
+  # default-branch=rev-parse --abbrev-ref origin/HEAD
+  default-branch=rev-parse --abbrev-ref HEAD
+  latest-commit=rev-parse HEAD
+  staged-chages=diff --name-only --staged
+  all-chages=diff --name-only HEAD
+  untracked=ls-files --others --exclude-standard
   commits= log --graph --format='%C(auto)%h%d %s %C(green)%C(bold)%cr'
-[core]
-	filemode = false
-[user]
-	email = you@example.com
-	name = Your Name
+  merge-conflict=!nvim $(git diff --name-only --diff-filter=U)
+  # finds top ten files
+  # largest= 
+  refresh=!git fetch -p \
+    && git branch -vv \
+    | awk '/: gone]/ {print $1}' \
+    | xargs -r -I {} git branch -D '{}'
+  next-patch-release =!git describe --tag 2>/dev/null && ( \
+    git describe --tags --abbrev=0  \
+      | sed s/v// \
+      |  awk -F. '{print $1+1".0.0"}' \
+    ) || echo '0.0.1'
+  next-minor-release =!git describe --tag 2>/dev/null && ( \
+    git describe --tags --abbrev=0  \
+      | sed s/v// \
+      |  awk -F. '{print $1+1".0.0"}' \
+    ) || echo '0.0.1'
+  next-major-release =!git describe --tag 2>/dev/null && ( \
+    git describe --tags --abbrev=0  \
+      | sed s/v// \
+      |  awk -F. '{print $1+1".0.0"}' \
+    ) || echo '0.0.1'
+  commit-summary=log --decorate --graph --oneline

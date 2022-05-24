@@ -39,21 +39,21 @@ alias poweroff='sudo systemctl poweroff'
 
 # if command -- fasd -h > /dev/null 2>&1 ; then
   # any
-  alias a='fasd -a'
-  # show / search / select
-  alias s='fasd -si'
-  # directory
-  alias d='fasd -d'
-  # file
-  alias f='fasd -f'
-  # interactive directory selection
-  alias sd='fasd -sid'
-  # interactive file selection
-  alias sf='fasd -sif'
-  # cd, same functionality as j in autojump
-  alias z='fasd_cd -d'
-  # cd with interactive selection
-  alias zz='fasd_cd -d -i'
+  # alias a='fasd -a'
+  # # show / search / select
+  # alias s='fasd -si'
+  # # directory
+  # alias d='fasd -d'
+  # # file
+  # alias f='fasd -f'
+  # # interactive directory selection
+  # alias sd='fasd -sid'
+  # # interactive file selection
+  # alias sf='fasd -sif'
+  # # cd, same functionality as j in autojump
+  # alias z='fasd_cd -d'
+  # # cd with interactive selection
+  # alias zz='fasd_cd -d -i'
 # fi
 # if fzf -h > /dev/null 2>&1 && bat -h > /dev/null 2>&1  ; then
   alias fzfbat="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"

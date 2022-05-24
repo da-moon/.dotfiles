@@ -1,0 +1,7 @@
+repo_directory = "/home/damoon/.local/share/emplace"
+
+[repo]
+branch = "master"
+file = "packages.ron"
+url = "git@git.sr.ht:~havi/emplace"
+

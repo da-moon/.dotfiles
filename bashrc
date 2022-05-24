@@ -6,10 +6,6 @@
 [[ $- != *i* ]] && return
 # ────────────────────────────────────────────────────────────────────────────────
 PS1='[\u@\h \W]\$ '
-# PS4='.\011$(date "+%s.%N")\011'
-# exec 3>&2 2>/tmp/bashstart.log
-# set -x
-
 HISTFILESIZE=1000000000
 PROMPT_COMMAND="history -a"
 export TERM="xterm-256color"
@@ -100,5 +96,3 @@ function refresh-x(){
     fi
   fi
 }
-# set +x
-# exec 2>&3 3>&-

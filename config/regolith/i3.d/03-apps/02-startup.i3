@@ -28,11 +28,11 @@ exec --no-startup-id $i3-wm.program.nm-applet
 # -----------------------------------------------------------
 ## Launch // notes // <><Shift> n ##
 set_from_resource $i3-wm.binding.notes i3-wm.binding.notes Shift+n
-set_from_resource $i3-wm.program.notes i3-wm.program.notes $(which notable)
+set_from_resource $i3-wm.program.notes i3-wm.program.notes $(which marktext)
 exec --no-startup-id $i3-wm.program.notes
-for_window [class="Notable"] focus
-for_window [class="Notable" window_type="normal"] move scratchpad
-bindsym $mod+$i3-wm.binding.notes [class="Notable"] scratchpad show, resize set 1200 700, move position center
+for_window [class="marktext"] focus
+for_window [class="marktext" window_type="normal"] move scratchpad
+bindsym $mod+$i3-wm.binding.notes [class="marktext"] scratchpad show, resize set 1200 700, move position center
 # -----------------------------------------------------------
 ## Launch // File Explorer // <> f ##
 set_from_resource $i3-wm.binding.files i3-wm.binding.files f

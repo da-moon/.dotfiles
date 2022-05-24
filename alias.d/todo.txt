@@ -1,0 +1,5 @@
+[x] tmpdir: temporary directory creation
+[x] docker-run: add user
+[x] cd : use pushd
+[] alias to remove all LXD Vms/Containers
+yarn-add: sudo yarn global add --prefix /usr/local

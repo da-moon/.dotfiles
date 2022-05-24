@@ -10,9 +10,9 @@ export PATH="${PATH}:${HOME}/bin"
 if command -- pass -h > /dev/null 2>&1 ; then
   export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 fi
-if command -- fasd -h > /dev/null 2>&1 ; then
-  eval "$(fasd --init auto)"
-fi
+# if command -- fasd -h > /dev/null 2>&1 ; then
+#   eval "$(fasd --init auto)"
+# fi
 # if (command -v perl && command -v cpanm) >/dev/null 2>&1; then
 #   test -d "${HOME}/perl5/lib/perl5" && eval $(perl -I "${HOME}/perl5/lib/perl5" -Mlocal::lib)
 # fi
@@ -37,4 +37,4 @@ export VISUAL="$EDITOR"
 if which ruby >/dev/null && which gem >/dev/null; then
     PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
-
+export MANPAGER='sh -c "col -bx | '"$(printf "%q" bat)"' --language man --style plain"' ;
