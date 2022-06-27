@@ -25,3 +25,6 @@ fi
 [ -x "$(command -v repo)" ] && {
     [ -x "$(command -v fzf)" ] && eval "$(repo init bash --fzf)" || eval "$(repo init bash)"
 }
+if command -- zoxide -h >/dev/null 2>&1; then
+  eval "$(zoxide init bash)"
+fi
