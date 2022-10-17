@@ -1,4 +1,5 @@
 # vim: ft=i3config syntax=i3config softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
+# code: language=i3 insertSpaces=true tabSize=2
 
 ###############################################################################
 # programs that i3 would run at startup
@@ -56,8 +57,8 @@ set_from_resource $i3-wm.program.refresh_ui i3-wm.program.refresh_ui /usr/bin/re
 bindsym $mod+$i3-wm.binding.refresh exec --no-startup-id $i3-wm.program.refresh_ui
 # -----------------------------------------------------------
 ## Launch // transparent windows
-set_from_resource $i3-wm.program.compositor.cmd i3-wm.program.compositor.cmd /usr/bin/picom -b --experimental-backends --config ~/.config/picom/config.toml
-exec --no-startup-id $i3-wm.program.compositor.cmd
+# set_from_resource $i3-wm.program.compositor.cmd i3-wm.program.compositor.cmd /usr/bin/picom -b --experimental-backends --config ~/.config/picom/config.toml
+# exec --no-startup-id $i3-wm.program.compositor.cmd
 # -----------------------------------------------------------
 ## Launch // conky
 set_from_resource $i3-wm.program.conky.cmd i3-wm.program.conky.cmd /usr/bin/conky -c ~/.config/conky/conky.conf
