@@ -6,7 +6,7 @@ else
   if command -- pacman -h >/dev/null 2>&1; then
     sudo pacman -Syyu --noconfirm
     if command -- aura -h >/dev/null 2>&1; then
-      sudo aura -Ayyuxac --noconfirm --skipinteg --skippgpcheck
+      sudo aura -Ayyuxac --noconfirm --skipinteg --skippgpcheck --noanalysis
     elif command -- paru -h >/dev/null 2>&1; then
       paru -Syyu --removemake --cleanafter --noconfirm
     fi
@@ -44,15 +44,13 @@ if jq --version >/dev/null 2>&1 && "$(which node)" --version >/dev/null 2>&1 && 
   fi
 fi
 if command -- python3 -m pip -h >/dev/null 2>&1; then
-  python3 -m pip list --user --outdated --format=freeze \
-    | "/bin/grep" -v '^\-e' \
-    | cut -d = -f 1 \
-    | xargs -r -n1 \
+  python3 -m pip list --user --outdated \
+    | awk '!/Package|---/ {print $1}' \
+    | xargs -r -I {} \
       python3 -m pip install \
         --user \
         --upgrade \
-        --quiet \
-        --progress-bar ascii 2>/dev/null ;
+        {} || true
 fi
 if command -- cargo -h >/dev/null 2>&1; then
   if ! command -- cargo-install-update -h >/dev/null 2>&1; then
