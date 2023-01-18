@@ -10,4 +10,6 @@ alias gitleaks='docker run -u $(id -u):$(id -g) -v $(pwd):/path -w /path --rm -i
 alias code-server='docker-run --network host -d -u "$(id -u):$(id -g)" codercom/code-server:latest --auth none'
 alias rmcontainers='docker ps -aq | xargs -r docker rm -f'
 alias gitlint="docker run -u $(id -u):$(id -g) -w /repo --rm -it --ulimit nofile=1024 -v $(pwd):/repo jorisroovers/gitlint"
-alias reveal-md="docker run --rm  -u $(id -u):$(id -g) -p "1948:1948" -p "35729:35729" -v "$(pwd):/slides" webpronl/reveal-md:latest /slides --watch"
+if ! command -- reveal-md -h > /dev/null 2>&1 ; then
+  alias reveal-md="docker run --rm  -u $(id -u):$(id -g) -p "1948:1948" -p "35729:35729" -v "$(pwd):/slides" webpronl/reveal-md:latest /slides --watch"
+fi
