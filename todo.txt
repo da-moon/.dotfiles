@@ -1,0 +1,1 @@
+git alias to stage files of specific extension
