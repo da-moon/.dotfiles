@@ -24,7 +24,7 @@ fi
   alias skvi='nvim $(skfi)'
 # fi
 # if command -- pandoc -h > /dev/null 2>&1; then
-  alias md2jira='pandoc --from commonmark --to jira'
+  alias md2jira='pandoc --from gfm --to jira'
   alias md2pdf='pandoc --from markdown --pdf-engine=xelatex'
   alias md2word='pandoc --from markdown --to docx'
   alias md2ppt='pandoc --from markdown --to pptx'
