@@ -61,3 +61,5 @@ alias poweroff='sudo systemctl poweroff'
   alias fzfbat="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 # fi
 alias tmpdir='pushd "$(mktemp -d)"'
+alias remark-fmt="remark --use remark-toc='\"heading\": \"Table of contents\"' --use remark-frontmatter --use remark-reference-links --use remark-stringify='bullet: \"-\",listItemIndent: \"one\"'"
+alias prettier-md='prettier --print-width=79 --prose-wrap=always --parser markdown'

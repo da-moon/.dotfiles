@@ -2,23 +2,29 @@
 
 [core]
 	filemode = false
+	autocrlf = false
 [pager]
-    diff = delta
-    log = delta
-    reflog = delta
-    show = delta
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
 
 [interactive]
-    diffFilter = delta --color-only
+	difffilter = delta --color-only --features=interactive
 
 [delta]
-    features = side-by-side line-numbers decorations
-    whitespace-error-style = 22 reverse
+	features = side-by-side line-numbers decorations
+	whitespace-error-style = 22 reverse
 
 [delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    file-style = bold yellow ul
-    file-decoration-style = none
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+	commit-style = raw
+	hunk-header-decoration-style = blue box
+	hunk-header-file-style = red
+	hunk-header-line-number-style = "#067a00"
+	hunk-header-style = file line-number syntax
 
 [push]
 	recurseSubmodules = on-demand
@@ -64,3 +70,5 @@
       |  awk -F. '{print $1+1".0.0"}' \
     ) || echo '0.0.1'
   commit-summary=log --decorate --graph --oneline
+[delta "interactive"]
+	keep-plus-minus-markers = false
