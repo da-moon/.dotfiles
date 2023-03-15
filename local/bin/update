@@ -5,7 +5,10 @@ if command -- pmm -h >/dev/null 2>&1; then
 else
 	if command -- pacman -h >/dev/null 2>&1; then
 		if command -- paru -h >/dev/null 2>&1; then
-			paru -Syyu --removemake --cleanafter --noconfirm
+			paru -Syyu --removemake --cleanafter --noconfirm &&
+				[ -d "${HOME}/.cache/paru/clone/" ] &&
+				/bin/rm -rf "${HOME}/.cache/paru/clone" &&
+				mkdir -p "${HOME}/.cache/paru/clone/"
 		else
 			sudo pacman -Syyu --noconfirm
 			if command -- aura -h >/dev/null 2>&1; then
