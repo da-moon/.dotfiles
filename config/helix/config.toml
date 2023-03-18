@@ -15,8 +15,6 @@ line-number = "relative"
 D = ["goto_line_start","select_mode","goto_line_end","yank","normal_mode","goto_line_start","kill_to_line_end"]
 # d : deletes a single char
 d = ["delete_char_forward"]
-# ctrl-/ : toggle comments
-"C-/" = "toggle_comments"
 # V = select the whole line and switch to select mode
 V = ["goto_line_start","select_mode","goto_line_end"]
 # G : go to end of the file
@@ -26,6 +24,8 @@ Y = ["goto_line_start","select_mode","goto_line_end","yank","normal_mode"]
 "C-c" = "normal_mode"
 
 
+# ctrl-/ : toggle comments
+# "C-/" = "toggle_comments"
 
 [keys.normal.g]
 # qq : rewrap/reflow line columns
@@ -46,3 +46,13 @@ U = "switch_to_uppercase"
 "^" = ["goto_line_start"]
 # $ : go to end of the line
 "$" = ["goto_line_end"]
+# ctrl-s : save file
+"C-s"=":write"
+
+# ctrl-/ : toggle comments
+# "C-/" = "toggle_comments"
+
+
+[keys.insert]
+# ctrl-s : save file
+"C-s"=":write"
