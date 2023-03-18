@@ -1,0 +1,48 @@
+theme = "catppuccin_frappe"
+[editor]
+line-number = "relative"
+
+[keys.normal]
+# ctrl-s : save file
+"C-s"=":write"
+# ctrl-r : redo
+"C-r"="redo"
+# ^ : go to start of the line 
+"^" = ["goto_line_start"]
+# $ : go to end of the line
+"$" = ["goto_line_end"]
+# D : delete the whole line
+D = ["goto_line_start","select_mode","goto_line_end","yank","normal_mode","goto_line_start","kill_to_line_end"]
+# d : deletes a single char
+d = ["delete_char_forward"]
+# ctrl-/ : toggle comments
+"C-/" = "toggle_comments"
+# V = select the whole line and switch to select mode
+V = ["goto_line_start","select_mode","goto_line_end"]
+# G : go to end of the file
+G = "goto_last_line"
+Y = ["goto_line_start","select_mode","goto_line_end","yank","normal_mode"] 
+# nops
+"C-c" = "normal_mode"
+
+
+
+[keys.normal.g]
+# qq : rewrap/reflow line columns
+q = { q = ["goto_line_start","select_mode","goto_line_end",":reflow","normal_mode"] }
+# ^ : go to start of the line 
+"^" = ["goto_line_start"]
+# $ : go to end of the line
+"$" = ["goto_line_end"]
+
+[keys.select]
+# v : select a whole word
+v = ["move_next_word_end","normal_mode","move_prev_word_start","select_mode"]
+# u : lowercase
+u = "switch_to_lowercase"
+# U : uppercase
+U = "switch_to_uppercase"
+# ^ : go to start of the line 
+"^" = ["goto_line_start"]
+# $ : go to end of the line
+"$" = ["goto_line_end"]
