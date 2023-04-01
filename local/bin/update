@@ -59,6 +59,9 @@ if command -- python3 -m pip -h >/dev/null 2>&1; then
 			--upgrade \
 			{} || true
 fi
+if command -- rustup -h >/dev/null 2>&1; then
+  rustup update ;
+fi
 if command -- cargo -h >/dev/null 2>&1; then
 	if ! command -- cargo-install-update -h >/dev/null 2>&1; then
 		rustup run stable --install cargo install --all-features cargo-update
