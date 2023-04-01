@@ -19,6 +19,7 @@ fi
 [ -r "${HOME}/.environment" ] && source "${HOME}/.environment"
 [ -r "${HOME}/.bash_functions" ] && source "${HOME}/.bash_functions"
 [ -r "${HOME}/.bash_aliases" ] && source "${HOME}/.bash_aliases"
+direnv version > /dev/null 2>&1 && eval "$(direnv hook bash)" ;
 # ─────────────────────────────────────────────────────────────────────
 # if ( [ -z "${TERM_PROGRAM+x}" ] && [ -z "${TERM_PROGRAM}" ] ) \
 #   && ( [ -z "${VIMRUNTIME+x}" ] && [ -z "${VIMRUNTIME}" ] ) \
