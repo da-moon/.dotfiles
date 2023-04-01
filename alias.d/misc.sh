@@ -63,3 +63,5 @@ alias poweroff='sudo systemctl poweroff'
 alias tmpdir='pushd "$(mktemp -d)"'
 alias remark-fmt="remark --use remark-toc='\"heading\": \"Table of contents\",\"tight\" : true' --use remark-frontmatter --use remark-reference-links --use remark-stringify='bullet: \"-\",listItemIndent: \"one\"'"
 alias prettier-md='prettier --print-width=79 --prose-wrap=always --parser markdown'
+# https://superuser.com/questions/763071/show-whitespace-characters-in-printout
+alias whitespace="sed 's/ /·/g;s/\t/￫/g;s/\r/§/g;s/$/¶/g'"
