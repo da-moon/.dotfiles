@@ -66,3 +66,4 @@ alias remark-fmt="remark --use remark-toc='\"heading\": \"Table of contents\",\"
 alias prettier-md='prettier --print-width=79 --prose-wrap=always --parser markdown'
 # https://superuser.com/questions/763071/show-whitespace-characters-in-printout
 alias whitespace="sed 's/ /·/g;s/\t/￫/g;s/\r/§/g;s/$/¶/g'"
+alias xcd='cd "$(xplr --print-pwd-as-result)"'
