@@ -67,3 +67,6 @@ alias prettier-md='prettier --print-width=79 --prose-wrap=always --parser markdo
 # https://superuser.com/questions/763071/show-whitespace-characters-in-printout
 alias whitespace="sed 's/ /·/g;s/\t/￫/g;s/\r/§/g;s/$/¶/g'"
 alias xcd='cd "$(xplr --print-pwd-as-result)"'
+
+alias xcopy='xclip -sel c';
+alias xpaste='xclip -sel c -o'
