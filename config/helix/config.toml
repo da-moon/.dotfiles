@@ -1,6 +1,12 @@
 theme = "catppuccin_frappe"
+
 [editor]
 line-number = "relative"
+auto-pairs = false
+
+[editor.file-picker]
+hidden= false
+git-ignore=false
 
 [keys.normal]
 # ctrl-s : save file
