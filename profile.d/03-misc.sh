@@ -19,12 +19,13 @@ if command -- starship -h >/dev/null 2>&1; then
   # [ -r "${HOME}/.config/starship-bash.toml" ] && export STARSHIP_CONFIG="${HOME}/.config/starship-bash.toml" ;
   eval "$(starship init bash)"
 fi
-if command -- emplace -h >/dev/null 2>&1; then
-  source <(emplace init bash)
-fi
+# if command -- emplace -h >/dev/null 2>&1; then
+#   source <(emplace init bash)
+# fi
 [ -x "$(command -v repo)" ] && {
     [ -x "$(command -v fzf)" ] && eval "$(repo init bash --fzf)" || eval "$(repo init bash)"
 }
 if command -- zoxide -h >/dev/null 2>&1; then
   eval "$(zoxide init bash)"
 fi
+[ -x "$(command -v zellij)" ] && eval "$(zellij setup --generate-auto-start bash)"
