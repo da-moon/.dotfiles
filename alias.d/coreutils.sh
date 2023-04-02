@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 command -- trash -h > /dev/null 2>&1 && alias rm='trash'
 if command -- exa -h > /dev/null 2>&1 ; then

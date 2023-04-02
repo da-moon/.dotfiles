@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 # https://github.com/dweidner/dotfiles/blob/main/shell/utilities.sh
 # https://ivergara.github.io/Supercharging-shell.html

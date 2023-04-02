@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 alias docker-run='docker run --rm -it -v "$PWD:/workspace"'
 alias docker-run-u='docker-run --user "$(id -u):$(id -g)"'
