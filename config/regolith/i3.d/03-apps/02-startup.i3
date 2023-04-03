@@ -49,7 +49,8 @@ set_from_resource $i3-wm.program.scratchpad-terminal.cmd i3-wm.program.scratchpa
 exec --no-startup-id $i3-wm.program.scratchpad-terminal.cmd 
 for_window [class="Tilda"] focus
 for_window [class="Tilda" window_type="normal"] move scratchpad
-bindsym $mod+$i3-wm.binding.scratchpad-terminal [class="Tilda"] scratchpad show, resize set 1200 700, move position center
+# bindsym $mod+$i3-wm.binding.scratchpad-terminal [class="Tilda"] scratchpad show, resize set 1200 700, move position center
+bindsym $mod+$i3-wm.binding.scratchpad-terminal [class="Tilda"] scratchpad show
 # -----------------------------------------------------------
 ## Session // Refresh Session // <><Shift> r ##
 set_from_resource $i3-wm.binding.refresh i3-wm.binding.refresh Shift+r
