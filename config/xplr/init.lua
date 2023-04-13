@@ -2288,6 +2288,7 @@ require("xpm").setup({
   plugins = {
     { name = "dtomvan/xpm.xplr"              } ,
     { name = "dtomvan/paste-rs.xplr"         },
+    -- CGO_ENABLED=1 CGO_LDFLAGS="-g -O2" paru -Sy --removemake --cleanafter --noconfirm pistol-git
     { name = "sayanarijit/fzf.xplr"          },
     { name = "sayanarijit/xclip.xplr"        },
     { name = "sayanarijit/offline-docs.xplr" },
@@ -2381,8 +2382,7 @@ require("fzf").setup{
   mode = "default",
   key = "ctrl-f",
   bin = "fzf",
-  -- args = "--preview 'pistol {}'",
-  args = "--preview 'bat -pp {}'",
+  args = "--preview 'pistol {}'",
   recursive = false,  -- If true, search all files under $PWD
   enter_dir = false,  -- Enter if the result is directory
 }
