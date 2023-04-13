@@ -1,11 +1,22 @@
 version = "0.21.1"
 local xplr = xplr -- The globally exposed configuration to be overridden.
+
 local home = os.getenv("HOME")
 package.path = home
 .. "/.config/xplr/plugins/?/init.lua;"
 .. home
 .. "/.config/xplr/plugins/?.lua;"
 .. package.path
+
+local xpm_path = home .. "/.local/share/xplr/dtomvan/xpm.xplr"
+local xpm_url = "https://github.com/dtomvan/xpm.xplr"
+package.path = package.path
+  .. ";"
+  .. xpm_path
+  .. "/?.lua;"
+  .. xpm_path
+  .. "/?/init.lua"
+
 
 xplr.config.general.disable_debug_error_mode = false
 xplr.config.general.enable_mouse = false
@@ -2265,7 +2276,94 @@ end
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                         plugins                          │
 --  ╰──────────────────────────────────────────────────────────╯
+os.execute(
+  string.format(
+    "[ -e '%s' ] || git clone '%s' '%s'",
+    xpm_path,
+    xpm_url,
+    xpm_path
+  )
+)
+require("xpm").setup({
+  plugins = {
+    { name = "dtomvan/xpm.xplr"              } ,
+    { name = "dtomvan/paste-rs.xplr"         },
+    { name = "sayanarijit/fzf.xplr"          },
+    { name = "sayanarijit/xclip.xplr"        },
+    { name = "sayanarijit/offline-docs.xplr" },
+    { name = "sayanarijit/registers.xplr"    },
+    { name = "sayanarijit/regex-search.xplr" },
+    { name = "sayanarijit/dual-pane.xplr"    },
+    { name = "sayanarijit/alacritty.xplr"    },
+    { name = "sayanarijit/find.xplr"         },
+    { name = "sayanarijit/map.xplr"          },
+    { name = "sayanarijit/trash-cli.xplr"    },
+    { name = "sayanarijit/zoxide.xplr"       },
+    { name = "Junker/nuke.xplr"              },
+    -- paru -Sy --removemake --cleanafter --noconfirm dragon-dro
+    { name = "sayanarijit/dragon.xplr"       },
+    -- paru -Sy --noconfirm dua-cli
+    { name = "sayanarijit/dua-cli.xplr"      },
+    -- paru -Sy --noconfirm ouch
+    { name = "dtomvan/ouch.xplr"             },
+  },
+  auto_install = true,
+  auto_cleanup = true,
+})
+xplr.config.modes.builtin.default.key_bindings.on_key.x = {
+  help = "xpm",
+  messages = {
+    "PopMode",
+    { SwitchModeCustom = "xpm" },
+  },
+}
+--  ──────────────────────────────────────────────────────────
+require("nuke").setup{
+  pager = "bat", -- default: less -R
+  open = {
+    run_executables = true, -- default: false
+    custom = {
+      {mime_regex = "^video/.*", command = "vlc {}"},
+      {mime_regex = ".*",        command = "xdg-open {}"},
+    },
+  },
+  smart_view = {
+    custom = {
+      {extension = "so", command = "ldd -r {} | less"},
+    }
+  }
+}
+xplr.config.modes.builtin.default.key_bindings.on_key.v = {
+  help     = "nuke",
+  messages = {"PopMode", {SwitchModeCustom = "nuke"}}
+}
+xplr.config.modes.builtin.default.key_bindings.on_key["f3"]    = xplr.config.modes.custom.nuke.key_bindings.on_key.v
+xplr.config.modes.builtin.default.key_bindings.on_key["enter"] = xplr.config.modes.custom.nuke.key_bindings.on_key.o
 
+--  ──────────────────────────────────────────────────────────
+-- Type `M` to switch to single map mode.
+-- Then press `tab` to switch between single and multi map modes.
+-- Press `ctrl-o` to edit the command using your editor.
+local map = require("map")
+map.setup{
+  mode = "default",  -- or `xplr.config.modes.builtin.default`
+  key = "M",
+  editor = os.getenv("EDITOR") or "vim",
+  editor_key = "ctrl-o",
+  prefer_multi_map = false,
+  placeholder = "{}",
+  spacer = "{_}",
+  custom_placeholders = {
+    ["{ext}"] = function(node)
+      -- See https://xplr.dev/en/lua-function-calls#node
+      return xplr.util.shell_quote(node.extension)
+    end,
+
+    ["{name}"] = map.placeholders["{name}"],
+  },
+}
+--  ──────────────────────────────────────────────────────────
+-- Press `ctrl-n` to spawn a new alacritty window with the current selection
 require("alacritty").setup{
   mode = "default",
   key = "ctrl-n",
@@ -2277,6 +2375,8 @@ require("alacritty").setup{
   xplr_bin = "xplr",
   extra_xplr_args = "",
 }
+--  ──────────────────────────────────────────────────────────
+-- Press `ctrl-f` to spawn fzf in $PWD
 require("fzf").setup{
   mode = "default",
   key = "ctrl-f",
@@ -2285,6 +2385,8 @@ require("fzf").setup{
   recursive = false,  -- If true, search all files under $PWD
   enter_dir = false,  -- Enter if the result is directory
 }
+--  ──────────────────────────────────────────────────────────
+-- Type `dd` to trash, `dr` to restore.
 require("trash-cli").setup{
   trash_bin = "trash-put",
   trash_mode = "delete",
@@ -2295,21 +2397,156 @@ require("trash-cli").setup{
   trash_list_bin = "trash-list",
   trash_list_selector = "fzf -m | cut -d' ' -f3-",
 }
+--  ──────────────────────────────────────────────────────────
+-- Type `yy` to copy and `p` to paste whole files.
+-- Type `yp` to copy the paths of focused or selected files.
+-- Type `yP` to copy the parent directory path.
 require("xclip").setup{
   copy_command = "xclip-copyfile",
   copy_paths_command = "xclip -sel clip",
   paste_command = "xclip-pastefile",
   keep_selection = false,
 }
+--  ──────────────────────────────────────────────────────────
+-- Type `Z` to spawn zoxide prompt.
 require("zoxide").setup{
   bin = "zoxide",
   mode = "default",
   key = "Z",
 }
+--  ──────────────────────────────────────────────────────────
+require("offline-docs").setup{
+  mode = "action",
+  key = "?",
+  local_path = os.getenv("HOME") .. "/.local/share/xplr/doc/" .. version
+}
+--  ──────────────────────────────────────────────────────────
+-- Type `"` and then another character to swap the selection with a register.
+require("registers").setup{
+  mode = "default",
+  key = '"',
+}
+--  ──────────────────────────────────────────────────────────
+-- Type `/` and then the pattern to match
+require("regex-search").setup{
+  mode = "default",  -- or xplr.config.modes.builtin.default
+  key = "/",  -- or xplr.config.modes.builtin.default.key_bindings.on_key["/"]
+  prompt = "/",
+  initial_input = "(?i)^",
+}
+require("dual-pane").setup{
+  active_pane_width = { Percentage = 70 },
+  inactive_pane_width = { Percentage = 30 },
+}
+--  ──────────────────────────────────────────────────────────
+require("ouch").setup{
+  mode = "action",
+  key = "o",
+}
+--  ──────────────────────────────────────────────────────────
+-- Type `Pp` to paste files.
+-- Type `Pl` to list pasted files.
+-- Type `Po` to fuzzy search and open the link to file in browser.
+-- Type `Pd` to fuzzy search and delete the file from paste.rs.
+require("paste-rs").setup{
+  mode = "default",
+  key = "P",
+  db_path = "$HOME/paste.rs.list"
+}
+--  ──────────────────────────────────────────────────────────
+-- Select files and type `:sD` to drag
+-- Type `:sD` without selecting anything to drop
+require("dragon").setup{
+  mode           = "selection_ops",
+  key            = "D",
+  drag_args      = "",
+  drop_args      = "",
+  keep_selection = false,
+  bin            = "dragon",
+}
+--  ──────────────────────────────────────────────────────────
+-- Type `:D` to spawn dua-cli in $PWD
+require("dua-cli").setup{
+  mode = "action",
+  key = "D",
+}
+--  ──────────────────────────────────────────────────────────
+-- Press `F` to find files interactively using the `find_command`.
+--
+-- local handle = io.popen('go env GOPATH')
+-- local output = handle:read('*a')
+-- local gopath = output:gsub('[\n\r]', ' ')
+-- handle:close()
+-- string.format(" --exclude '%s'", gopath  ) ..
+-- " --exclude '.npm'" ..
+-- " --exclude '.cache'" ..
+-- " --exclude '.rustup'" ..
+-- " --exclude '.cargo'" ..
+-- " --exclude 'Trash'" ..
+-- " --exclude 'snap'" ..
+-- " --exclude 'site-packages'" ..
+require("find").setup{
+  mode = "default",
+  key = "F",
+  templates = {
+    ["find all"] = {
+      key = "a",
+      find_command = "fd",
+      find_args = "" ..
+      "--hidden" ..
+      " --no-ignore" ..
+      " --exclude 'node_modules'" ..
+      " --exclude '.git'" ..
+      " --exclude '.terraform'" ..
+      " --exclude '.vagrant'" ..
+      " --exclude '*.log'" ..
+      " --exclude '*.tfstate'" ..
+      " --full-path ." ..
+      " .",
+      cursor_position = 8,
+    },
+    ["find files"] = {
+      key = "f",
+      find_command = "fd",
+      find_args = "" ..
+      "--hidden" ..
+      " --no-ignore" ..
+      " --type f" ..
+      " --exclude 'node_modules'" ..
+      " --exclude '.git'" ..
+      " --exclude '.terraform'" ..
+      " --exclude '.vagrant'" ..
+      " --exclude '*.log'" ..
+      " --exclude '*.tfstate'" ..
+      " --full-path ." ..
+      " .",
+      cursor_position = 8,
+    },
+    ["find directories"] = {
+      key = "d",
+      find_command = "fd",
+      find_args = "" ..
+      "--hidden" ..
+      " --no-ignore" ..
+      " --type d" ..
+      " --exclude 'node_modules'" ..
+      " --exclude '.git'" ..
+      " --exclude '.terraform'" ..
+      " --exclude '.vagrant'" ..
+      " --exclude '*.log'" ..
+      " --exclude '*.tfstate'" ..
+      " --full-path ." ..
+      " .",
+      cursor_position = 8,
+    },
+  },
+  refresh_screen_key = "ctrl-r",
+}
+
 return {
-  on_load = {},
+  on_load             = {},
   on_directory_change = {},
-  on_focus_change = {},
-  on_mode_switch = {},
-  on_layout_switch = {},
+  on_focus_change     = {},
+  on_mode_switch      = {},
+  on_layout_switch    = {},
 }
