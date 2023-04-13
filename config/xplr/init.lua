@@ -2494,7 +2494,7 @@ require("find").setup{
       key = "a",
       find_command = "fd",
       find_args = "" ..
-      "--hidden" ..
+      " --hidden" ..
       " --no-ignore" ..
       " --exclude 'node_modules'" ..
       " --exclude '.git'" ..
@@ -2510,7 +2510,7 @@ require("find").setup{
       key = "f",
       find_command = "fd",
       find_args = "" ..
-      "--hidden" ..
+      " --hidden" ..
       " --no-ignore" ..
       " --type f" ..
       " --exclude 'node_modules'" ..
@@ -2521,13 +2521,13 @@ require("find").setup{
       " --exclude '*.tfstate'" ..
       " --full-path ." ..
       " .",
-      cursor_position = 8,
+      cursor_position = 0,
     },
     ["find directories"] = {
       key = "d",
       find_command = "fd",
       find_args = "" ..
-      "--hidden" ..
+      " --hidden" ..
       " --no-ignore" ..
       " --type d" ..
       " --exclude 'node_modules'" ..
@@ -2538,7 +2538,7 @@ require("find").setup{
       " --exclude '*.tfstate'" ..
       " --full-path ." ..
       " .",
-      cursor_position = 8,
+      cursor_position = 0,
     },
   },
   refresh_screen_key = "ctrl-r",
