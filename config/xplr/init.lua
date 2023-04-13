@@ -2363,10 +2363,10 @@ map.setup{
   },
 }
 --  ──────────────────────────────────────────────────────────
--- Press `ctrl-n` to spawn a new alacritty window with the current selection
+-- Press `alt-t` to spawn a new alacritty window with the current selection
 require("alacritty").setup{
   mode = "default",
-  key = "ctrl-n",
+  key = "alt-t",
   send_focus = true,
   send_selection = true,
   send_vroot = true,
@@ -2381,7 +2381,8 @@ require("fzf").setup{
   mode = "default",
   key = "ctrl-f",
   bin = "fzf",
-  args = "--preview 'pistol {}'",
+  -- args = "--preview 'pistol {}'",
+  args = "--preview 'bat -pp {}'",
   recursive = false,  -- If true, search all files under $PWD
   enter_dir = false,  -- Enter if the result is directory
 }
