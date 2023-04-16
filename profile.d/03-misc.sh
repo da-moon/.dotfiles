@@ -29,4 +29,6 @@ fi
 if command -- zoxide -h >/dev/null 2>&1; then
   eval "$(zoxide init bash)"
 fi
-[ -x "$(command -v zellij)" ] && eval "$(zellij setup --generate-auto-start bash)"
+if [ -x "$(command -v zellij)" ] ; then
+  printenv | grep -Pq 'WINDOW|TERMINAL' && eval "$(zellij setup --generate-auto-start bash)"
+fi
