@@ -40,3 +40,6 @@ if which ruby >/dev/null && which gem >/dev/null; then
 fi
 export MANPAGER='sh -c "col -bx | '"$(printf "%q" bat)"' --language man --style plain"' ;
 export BARTIB_FILE="${HOME}/sync/activities.bartib"
+# FIXME:
+export PATH=$HOME/.huber/bin:$PATH
+
