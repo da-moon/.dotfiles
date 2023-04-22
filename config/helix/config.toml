@@ -4,6 +4,9 @@ theme = "catppuccin_frappe"
 line-number = "relative"
 auto-pairs = false
 
+[editor.soft-wrap]
+enable = true
+
 [editor.file-picker]
 hidden= false
 git-ignore=false
