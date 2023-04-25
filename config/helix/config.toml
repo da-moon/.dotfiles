@@ -24,6 +24,7 @@ display-inlay-hints	= true
                         "normal_mode"          ,          
                         "goto_line_start"      ,      
                         "kill_to_line_end"     ,
+                        "delete_char_forward"  ,
                       ]
 "d"                 = [  "delete_char_forward" ]
 "V"                 = [                         
@@ -46,6 +47,7 @@ display-inlay-hints	= true
 "C-up"              = [ "jump_view_up"         ]
 "C-v"               = [ "vsplit"               ]
 "A-v"               = [ "hsplit"               ]
+
 [keys.normal.g]
 "q"                 = { q = [                         
                         "goto_line_start"      ,
