@@ -44,6 +44,8 @@ display-inlay-hints	= true
 "C-right"           = [ "jump_view_right"      ]
 "C-down"            = [ "jump_view_down"       ]
 "C-up"              = [ "jump_view_up"         ]
+"C-v"               = [ "vsplit"               ]
+"A-v"               = [ "hsplit"               ]
 [keys.normal.g]
 "q"                 = { q = [                         
                         "goto_line_start"      ,
