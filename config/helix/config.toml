@@ -1,71 +1,85 @@
-theme = "catppuccin_frappe"
-
+theme               = "catppuccin_frappe"
 [editor]
-line-number = "relative"
-auto-pairs = false
-bufferline = "always"
-
-[editor.soft-wrap]
-enable = true
-
+line-number         = "relative"
+bufferline          = "always"
+auto-pairs          = false
 [editor.file-picker]
-hidden= false
-git-ignore=false
-
+hidden              = false
+git-ignore          = false
+[editor.soft-wrap]
+enable              = true
 [editor.lsp]
 display-inlay-hints	= true
 
 [keys.normal]
-# ctrl-s : save file
-"C-s"=":write"
-# ctrl-r : redo
-"C-r"="redo"
-# ^ : go to start of the line 
-"^" = ["goto_line_start"]
-# $ : go to end of the line
-"$" = ["goto_line_end"]
-# D : delete the whole line
-D = ["goto_line_start","select_mode","goto_line_end","yank","normal_mode","goto_line_start","kill_to_line_end"]
-# d : deletes a single char
-d = ["delete_char_forward"]
-# V = select the whole line and switch to select mode
-V = ["goto_line_start","select_mode","goto_line_end"]
-# G : go to end of the file
-G = "goto_last_line"
-Y = ["goto_line_start","select_mode","goto_line_end","yank","normal_mode"] 
-# nops
-"C-c" = "normal_mode"
-
-
-# ctrl-/ : toggle comments
-# "C-/" = "toggle_comments"
-
+"C-s"               = [ ":write"               ]
+"C-r"               = [ "redo"                 ]
+"^"                 = [ "goto_line_start"      ]
+"$"                 = [ "goto_line_end"        ]
+"D"                 = [                         
+                        "goto_line_start"      ,
+                        "select_mode"          ,          
+                        "goto_line_end"        ,        
+                        "yank"                 ,                 
+                        "normal_mode"          ,          
+                        "goto_line_start"      ,      
+                        "kill_to_line_end"     ,
+                      ]
+"d"                 = [  "delete_char_forward" ]
+"V"                 = [                         
+                        "goto_line_start"      ,      
+                        "select_mode"          ,          
+                        "goto_line_end"        ,
+                      ]
+"G"                 = [ "goto_last_line"       ]
+"C-c"               = [ "normal_mode"          ]
+"Y"                 = [                         
+                        "goto_line_start"      ,
+                        "select_mode"          ,          
+                        "goto_line_end"        ,        
+                        "yank"                 ,                 
+                        "normal_mode"          ,
+                      ]
+"C-left"            = [ "jump_view_left"       ]
+"C-right"           = [ "jump_view_right"      ]
+"C-down"            = [ "jump_view_down"       ]
+"C-up"              = [ "jump_view_up"         ]
 [keys.normal.g]
-# qq : rewrap/reflow line columns
-q = { q = ["goto_line_start","select_mode","goto_line_end",":reflow","normal_mode"] }
-# ^ : go to start of the line 
-"^" = ["goto_line_start"]
-# $ : go to end of the line
-"$" = ["goto_line_end"]
-
+"q"                 = { q = [                         
+                        "goto_line_start"      ,
+                        "select_mode"          ,          
+                        "goto_line_end"        ,        
+                        ":reflow"              ,              
+                        "normal_mode"          , 
+                      ]}
+"^"                 = [ "goto_line_start"      ]
+"$"                 = [ "goto_line_end"        ]
 [keys.select]
-# v : select a whole word
-v = ["move_next_word_end","normal_mode","move_prev_word_start","select_mode"]
-# u : lowercase
-u = "switch_to_lowercase"
-# U : uppercase
-U = "switch_to_uppercase"
-# ^ : go to start of the line 
-"^" = ["goto_line_start"]
-# $ : go to end of the line
-"$" = ["goto_line_end"]
-# ctrl-s : save file
-"C-s"=":write"
-
-# ctrl-/ : toggle comments
-# "C-/" = "toggle_comments"
-
-
+"v"                 = [                         
+                        "move_next_word_end"   ,
+                        "normal_mode"          ,          
+                        "move_prev_word_start" , 
+                        "select_mode"          ,          
+                        "move_next_word_end"   ,
+                      ]
+"u"                 = [ "switch_to_lowercase"  ]
+"U"                 = [ "switch_to_uppercase"  ]
+"^"                 = [ "goto_line_start"      ]
+"$"                 = [ "goto_line_end"        ]
+"C-s"               = [                         
+                        ":write"               ,               
+                        "normal_mode"          ,
+                      ]
+"C-left"            = [ "jump_view_left"       ]
+"C-right"           = [ "jump_view_right"      ]
+"C-down"            = [ "jump_view_down"       ]
+"C-up"              = [ "jump_view_up"         ]
 [keys.insert]
-# ctrl-s : save file
-"C-s"=":write"
+"C-s"               = [                         
+                        ":write"               ,
+                        "normal_mode"          ,
+                      ]
+"C-left"            = [ "jump_view_left"       ]
+"C-right"           = [ "jump_view_right"      ]
+"C-down"            = [ "jump_view_down"       ]
+"C-up"              = [ "jump_view_up"         ]
