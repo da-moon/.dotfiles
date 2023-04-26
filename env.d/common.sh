@@ -43,5 +43,6 @@ export MANPAGER='bat --language man --style plain' ;
 
 export BARTIB_FILE="${HOME}/sync/activities.bartib"
 # FIXME:
-export PATH=$HOME/.huber/bin:$PATH
 
+[ -d "${HOME}/.huber" ] && export PATH="${HOME}/.huber/bin:${PATH}" ;
+export COLORTERM="truecolor" ;
