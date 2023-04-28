@@ -1,93 +1,98 @@
 #!/usr/bin/env bash
-
-if command -- pmm -h >/dev/null 2>&1; then
-	sudo pmm -Syyu --noconfirm
-else
-	if command -- pacman -h >/dev/null 2>&1; then
-		if command -- paru -h >/dev/null 2>&1; then
-			paru -Syyu --removemake --cleanafter --noconfirm || true ;
-				[ -d "${HOME}/.cache/paru/clone/" ] &&
-				/bin/rm -rf "${HOME}/.cache/paru/clone" &&
-				mkdir -p "${HOME}/.cache/paru/clone/"
-		else
-			sudo pacman -Syyu --noconfirm
-			if command -- aura -h >/dev/null 2>&1; then
-				sudo aura -Ayyuxac --noconfirm --skipinteg --skippgpcheck --noanalysis
-			fi
-		fi
-	fi
-	if command -- apt-get -h >/dev/null 2>&1; then
-		for i in {1..5}; do
-			(
-				sudo apt-get update &&
-					sudo apt-get upgrade -y --allow-downgrades &&
-					sudo apt-get autoremove -y --purge
-			) && break ||
-				sleep 15
-		done
-	fi
-fi
-# ─────────────────────────────────────────────────────────────────────
-[ -n "$(which node 2>/dev/null)" ] && [ -r "$(which node 2>/dev/null)" ] && sudo chmod a+x "$(which node)"
-[ -n "$(which yarn 2>/dev/null)" ] && [ -r "$(which yarn 2>/dev/null)" ] && sudo chmod a+x "$(which yarn)"
-# ─────────────────────────────────────────────────────────────────────
-if jq --version >/dev/null 2>&1 && "$(which node)" --version >/dev/null 2>&1 && "$(which yarn)" --version >/dev/null 2>&1; then
-	if [ -r "$(sudo yarn global dir)/package.json" ]; then
-		# [ NOTE ] return should never get called
-		# i just added it to stop shellcheck from complaining
-		pushd "$(sudo yarn global dir)" >/dev/null 2>&1 || return
-		yarn outdated --json 2>/dev/null |
-			jq -r '. | select (.type == "table").data.body[]|.[]' |
-			"/bin/grep" \
-				-Pv '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$' |
-			"/bin/grep" -Pv '^http(s)*:\/\/|^dependencies$' |
-			sudo xargs -r -I {} \
-				yarn global add --latest --prefix "/usr/local" {}
-		# [ NOTE ] exit should never get called
-		# i just added it to stop shellcheck from complaining
-		popd >/dev/null 2>&1 || return
-	fi
-fi
-if command -- python3 -m pip -h >/dev/null 2>&1; then
-	# python3 -m pip list --user --outdated \
-	#   | awk '!/Package|---/ {print $1}' \
-	python3 -m pip --disable-pip-version-check list --user --outdated --format=json |
-		python3 -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" |
-		xargs -r -I {} \
-			python3 -m pip install \
-			--user \
-			--upgrade \
-			{} || true
-fi
+# vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 if command -- rustup -h >/dev/null 2>&1; then
-  rustup update ;
+  rustup update
 fi
 if command -- cargo -h >/dev/null 2>&1; then
-	if ! command -- cargo-install-update -h >/dev/null 2>&1; then
-		rustup run stable --install cargo install --all-features cargo-update
-	fi
-	if command -- cargo-install-update -h >/dev/null 2>&1; then
-		rustup run --install stable cargo-install-update install-update --all ||
-			rustup run --install nightly cargo-install-update install-update --all
-	fi
+  if ! command -- cargo-install-update -h >/dev/null 2>&1; then
+    rustup run stable --install cargo install --all-features cargo-update
+  fi
 fi
 if command -- fzf -h >/dev/null 2>&1; then
-	if [ -r "/usr/share/bash-completion/bash_completion" ] && [ -d "/usr/share/bash-completion/completions" ]; then
-		if [ -z "$(LC_ALL=C type -t _fzf_complete)" ] || [ ! "$(LC_ALL=C type -t _fzf_complete)" = function ]; then
-			[ ! -d "/usr/share/fzf" ] && sudo mkdir "/usr/share/fzf"
-			if [ ! -r "/usr/share/fzf/key-bindings.bash" ]; then
-				sudo wget -qO "/usr/share/fzf/key-bindings.bash" "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash" 2>/dev/null
-			fi
-			if [ ! -r "/usr/share/fzf/completion.bash" ]; then
-				sudo wget -qO "/usr/share/fzf/completion.bash" "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash" 2>/dev/null
-			fi
-			if [ ! -r "/usr/share/fzf/fzf-tab-completion.bash" ]; then
-				sudo wget -qO "/usr/share/fzf/fzf-tab-completion.bash" "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/bash/fzf-bash-completion.sh" 2>/dev/null
-			fi
-		fi
-	fi
-	[ ! -d "${HOME}/.git-fuzzy" ] && git clone "https://github.com/bigH/git-fuzzy" "${HOME}/.git-fuzzy"
-	git -C "${HOME}/.git-fuzzy" pull >/dev/null 2>&1
-	[ ! -d "${HOME}/.forgit" ] && git clone "https://github.com/wfxr/forgit" "${HOME}/.forgit"
-	git -C "${HOME}/.forgit" pull >/dev/null 2>&1
+  if [ -r "/usr/share/bash-completion/bash_completion" ] && [ -d "/usr/share/bash-completion/completions" ]; then
+    if [ -z "$(LC_ALL=C type -t _fzf_complete)" ] || [ ! "$(LC_ALL=C type -t _fzf_complete)" = function ]; then
+      [ ! -d "/usr/share/fzf" ] && sudo mkdir "/usr/share/fzf"
+      if [ ! -r "/usr/share/fzf/key-bindings.bash" ]; then
+        sudo wget -qO "/usr/share/fzf/key-bindings.bash" "https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash" 2>/dev/null
+      fi
+      if [ ! -r "/usr/share/fzf/completion.bash" ]; then
+        sudo wget -qO "/usr/share/fzf/completion.bash" "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash" 2>/dev/null
+      fi
+      if [ ! -r "/usr/share/fzf/fzf-tab-completion.bash" ]; then
+        sudo wget -qO "/usr/share/fzf/fzf-tab-completion.bash" "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/bash/fzf-bash-completion.sh" 2>/dev/null
+      fi
+    fi
+  fi
+  [ ! -d "${HOME}/.git-fuzzy" ] && git clone "https://github.com/bigH/git-fuzzy" "${HOME}/.git-fuzzy"
+  git -C "${HOME}/.git-fuzzy" pull >/dev/null 2>&1
+  [ ! -d "${HOME}/.forgit" ] && git clone "https://github.com/wfxr/forgit" "${HOME}/.forgit"
+  git -C "${HOME}/.forgit" pull >/dev/null 2>&1
+fi
+
+if [ -x "$(command -v topgrade)" ]; then
+  topgrade -y --no-retry
+else
+  if command -- pmm -h >/dev/null 2>&1; then
+    sudo pmm -Syyu --noconfirm
+  else
+    if command -- pacman -h >/dev/null 2>&1; then
+      if command -- paru -h >/dev/null 2>&1; then
+        paru -Syyu --removemake --cleanafter --noconfirm || true
+        [ -d "${HOME}/.cache/paru/clone/" ] &&
+          /bin/rm -rf "${HOME}/.cache/paru/clone" &&
+          mkdir -p "${HOME}/.cache/paru/clone/"
+      else
+        sudo pacman -Syyu --noconfirm
+        if command -- aura -h >/dev/null 2>&1; then
+          sudo aura -Ayyuxac --noconfirm --skipinteg --skippgpcheck --noanalysis
+        fi
+      fi
+    fi
+    if command -- apt-get -h >/dev/null 2>&1; then
+      for i in {1..5}; do
+        (
+          sudo apt-get update &&
+            sudo apt-get upgrade -y --allow-downgrades &&
+            sudo apt-get autoremove -y --purge
+        ) && break ||
+          sleep 15
+      done
+    fi
+  fi
+  # ─────────────────────────────────────────────────────────────────────
+  [ -n "$(which node 2>/dev/null)" ] && [ -r "$(which node 2>/dev/null)" ] && sudo chmod a+x "$(which node)"
+  [ -n "$(which yarn 2>/dev/null)" ] && [ -r "$(which yarn 2>/dev/null)" ] && sudo chmod a+x "$(which yarn)"
+  # ─────────────────────────────────────────────────────────────────────
+  if jq --version >/dev/null 2>&1 && "$(which node)" --version >/dev/null 2>&1 && "$(which yarn)" --version >/dev/null 2>&1; then
+    if [ -r "$(sudo yarn global dir)/package.json" ]; then
+      # [ NOTE ] return should never get called
+      # i just added it to stop shellcheck from complaining
+      pushd "$(sudo yarn global dir)" >/dev/null 2>&1 || return
+      yarn outdated --json 2>/dev/null |
+        jq -r '. | select (.type == "table").data.body[]|.[]' |
+        "/bin/grep" \
+          -Pv '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$' |
+        "/bin/grep" -Pv '^http(s)*:\/\/|^dependencies$' |
+        sudo xargs -r -I {} \
+          yarn global add --latest --prefix "/usr/local" {}
+      # [ NOTE ] exit should never get called
+      # i just added it to stop shellcheck from complaining
+      popd >/dev/null 2>&1 || return
+    fi
+  fi
+  if command -- python3 -m pip -h >/dev/null 2>&1; then
+    # python3 -m pip list --user --outdated \
+    #   | awk '!/Package|---/ {print $1}' \
+    python3 -m pip --disable-pip-version-check list --user --outdated --format=json |
+      python3 -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" |
+      xargs -r -I {} \
+        python3 -m pip install \
+        --user \
+        --upgrade \
+        {} || true
+  fi
+  if command -- cargo-install-update -h >/dev/null 2>&1; then
+    rustup run --install stable cargo-install-update install-update --all ||
+      rustup run --install nightly cargo-install-update install-update --all
+  fi
 fi
