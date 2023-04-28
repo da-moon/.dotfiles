@@ -9,7 +9,10 @@ completion-replace  = true
 true-color          = true
 #  ──────────────────────────────────────────────────────────
 [editor.whitespace]
-render = "all"
+render              = "all"
+#  ──────────────────────────────────────────────────────────
+[editor.indent-guides]
+render              = true
 #  ──────────────────────────────────────────────────────────
 [editor.file-picker]
 hidden              = false
@@ -21,6 +24,7 @@ enable              = true
 [editor.lsp]
 display-inlay-hints	= true
 snippets            = true
+display-messages    = true
 #  ──────────────────────────────────────────────────────────
 [editor.cursor-shape]
 normal              = "block"
@@ -43,36 +47,36 @@ select              = "bar"
 "A-v"               = [ "hsplit"               ]
 "D"                 = [                         
                         "goto_line_start"      ,
-                        "select_mode"          ,          
-                        "goto_line_end"        ,        
-                        "yank"                 ,                 
-                        "normal_mode"          ,          
-                        "goto_line_start"      ,      
+                        "select_mode"          ,
+                        "goto_line_end"        ,
+                        "yank"                 ,
+                        "normal_mode"          ,
+                        "goto_line_start"      ,
                         "kill_to_line_end"     ,
                         "delete_char_forward"  ,
                       ]
 "V"                 = [                         
-                        "goto_line_start"      ,      
-                        "select_mode"          ,          
+                        "goto_line_start"      ,
+                        "select_mode"          ,
                         "goto_line_end"        ,
                       ]
 "Y"                 = [                         
                         "goto_line_start"      ,
-                        "select_mode"          ,          
-                        "goto_line_end"        ,        
-                        "yank"                 ,                 
+                        "select_mode"          ,
+                        "goto_line_end"        ,
+                        "yank"                 ,
                         "normal_mode"          ,
                       ]
 #  ──────────────────────────────────────────────────────────
 [keys.normal.g]
 "^"                 = [ "goto_line_start"      ]
 "$"                 = [ "goto_line_end"        ]
-"q"                 = { q = [                         
+"q"                 = { q = [                  
                         "goto_line_start"      ,
-                        "select_mode"          ,          
-                        "goto_line_end"        ,        
-                        ":reflow"              ,              
-                        "normal_mode"          , 
+                        "select_mode"          ,
+                        "goto_line_end"        ,
+                        ":reflow"              ,
+                        "normal_mode"          ,
                       ]}
 #  ──────────────────────────────────────────────────────────
 [keys.select]
@@ -86,13 +90,13 @@ select              = "bar"
 "C-up"              = [ "jump_view_up"         ]
 "v"                 = [                         
                         "move_next_word_end"   ,
-                        "normal_mode"          ,          
+                        "normal_mode"          ,
                         "move_prev_word_start" , 
-                        "select_mode"          ,          
+                        "select_mode"          ,
                         "move_next_word_end"   ,
                       ]
 "C-s"               = [                         
-                        ":write"               ,               
+                        ":write"               ,
                         "normal_mode"          ,
                       ]
 #  ──────────────────────────────────────────────────────────
