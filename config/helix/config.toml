@@ -1,21 +1,46 @@
 theme               = "catppuccin_frappe"
+#  ──────────────────────────────────────────────────────────
 [editor]
 line-number         = "relative"
 bufferline          = "always"
 auto-pairs          = false
+auto-save           = true
+completion-replace  = true
+true-color          = true
+#  ──────────────────────────────────────────────────────────
+[editor.whitespace]
+render = "all"
+#  ──────────────────────────────────────────────────────────
 [editor.file-picker]
 hidden              = false
 git-ignore          = false
+#  ──────────────────────────────────────────────────────────
 [editor.soft-wrap]
 enable              = true
+#  ──────────────────────────────────────────────────────────
 [editor.lsp]
 display-inlay-hints	= true
-
+snippets            = true
+#  ──────────────────────────────────────────────────────────
+[editor.cursor-shape]
+normal              = "block"
+insert              = "underline"
+select              = "bar"
+#  ──────────────────────────────────────────────────────────
 [keys.normal]
 "C-s"               = [ ":write"               ]
 "C-r"               = [ "redo"                 ]
+"d"                 = [ "delete_char_forward"  ]
 "^"                 = [ "goto_line_start"      ]
 "$"                 = [ "goto_line_end"        ]
+"G"                 = [ "goto_last_line"       ]
+"C-c"               = [ "normal_mode"          ]
+"C-left"            = [ "jump_view_left"       ]
+"C-right"           = [ "jump_view_right"      ]
+"C-down"            = [ "jump_view_down"       ]
+"C-up"              = [ "jump_view_up"         ]
+"C-v"               = [ "vsplit"               ]
+"A-v"               = [ "hsplit"               ]
 "D"                 = [                         
                         "goto_line_start"      ,
                         "select_mode"          ,          
@@ -26,14 +51,11 @@ display-inlay-hints	= true
                         "kill_to_line_end"     ,
                         "delete_char_forward"  ,
                       ]
-"d"                 = [  "delete_char_forward" ]
 "V"                 = [                         
                         "goto_line_start"      ,      
                         "select_mode"          ,          
                         "goto_line_end"        ,
                       ]
-"G"                 = [ "goto_last_line"       ]
-"C-c"               = [ "normal_mode"          ]
 "Y"                 = [                         
                         "goto_line_start"      ,
                         "select_mode"          ,          
@@ -41,14 +63,10 @@ display-inlay-hints	= true
                         "yank"                 ,                 
                         "normal_mode"          ,
                       ]
-"C-left"            = [ "jump_view_left"       ]
-"C-right"           = [ "jump_view_right"      ]
-"C-down"            = [ "jump_view_down"       ]
-"C-up"              = [ "jump_view_up"         ]
-"C-v"               = [ "vsplit"               ]
-"A-v"               = [ "hsplit"               ]
-
+#  ──────────────────────────────────────────────────────────
 [keys.normal.g]
+"^"                 = [ "goto_line_start"      ]
+"$"                 = [ "goto_line_end"        ]
 "q"                 = { q = [                         
                         "goto_line_start"      ,
                         "select_mode"          ,          
@@ -56,9 +74,16 @@ display-inlay-hints	= true
                         ":reflow"              ,              
                         "normal_mode"          , 
                       ]}
+#  ──────────────────────────────────────────────────────────
+[keys.select]
+"u"                 = [ "switch_to_lowercase"  ]
+"U"                 = [ "switch_to_uppercase"  ]
 "^"                 = [ "goto_line_start"      ]
 "$"                 = [ "goto_line_end"        ]
-[keys.select]
+"C-left"            = [ "jump_view_left"       ]
+"C-right"           = [ "jump_view_right"      ]
+"C-down"            = [ "jump_view_down"       ]
+"C-up"              = [ "jump_view_up"         ]
 "v"                 = [                         
                         "move_next_word_end"   ,
                         "normal_mode"          ,          
@@ -66,24 +91,17 @@ display-inlay-hints	= true
                         "select_mode"          ,          
                         "move_next_word_end"   ,
                       ]
-"u"                 = [ "switch_to_lowercase"  ]
-"U"                 = [ "switch_to_uppercase"  ]
-"^"                 = [ "goto_line_start"      ]
-"$"                 = [ "goto_line_end"        ]
 "C-s"               = [                         
                         ":write"               ,               
                         "normal_mode"          ,
                       ]
+#  ──────────────────────────────────────────────────────────
+[keys.insert]
 "C-left"            = [ "jump_view_left"       ]
 "C-right"           = [ "jump_view_right"      ]
 "C-down"            = [ "jump_view_down"       ]
 "C-up"              = [ "jump_view_up"         ]
-[keys.insert]
 "C-s"               = [                         
                         ":write"               ,
                         "normal_mode"          ,
                       ]
-"C-left"            = [ "jump_view_left"       ]
-"C-right"           = [ "jump_view_right"      ]
-"C-down"            = [ "jump_view_down"       ]
-"C-up"              = [ "jump_view_up"         ]
