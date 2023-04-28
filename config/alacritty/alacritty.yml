@@ -17,4 +17,5 @@ cursor:
 font:
   normal:
     family: "Cascadia Code iCursive Cg"
+# working_directory: "/home/damoon/sync"
 # working_directory: "shared-drives/C:/Users/damoon/Sync"

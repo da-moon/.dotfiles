@@ -30,5 +30,9 @@ if command -- zoxide -h >/dev/null 2>&1; then
   eval "$(zoxide init bash)"
 fi
 if [ -x "$(command -v zellij)" ] ; then
-  printenv | grep -Pq 'WINDOW|TERMINAL' && eval "$(zellij setup --generate-auto-start bash)"
+  if printenv | grep -Pq 'WINDOW|TERMINAL'; then
+    [ -d "${HOME}/sync" ] && pushd "${HOME}/sync" > /dev/null 2>&1 ;
+    export ZELLIJ_AUTO_EXIT="true" ;
+    eval "$(zellij setup --generate-auto-start bash)" ;
+  fi
 fi
