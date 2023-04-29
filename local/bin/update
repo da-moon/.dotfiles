@@ -28,7 +28,7 @@ if command -- fzf -h >/dev/null 2>&1; then
   [ ! -d "${HOME}/.forgit" ] && git clone "https://github.com/wfxr/forgit" "${HOME}/.forgit"
   git -C "${HOME}/.forgit" pull >/dev/null 2>&1
 fi
-
+[ -x "$(command -v reflector)" ] && sudo reflector -p https --verbose --country US --sort rate --save "/etc/pacman.d/mirrorlist" ;
 if [ -x "$(command -v topgrade)" ]; then
   topgrade -y --no-retry
 else
