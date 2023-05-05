@@ -15,6 +15,8 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &>/dev/null; then
   export PATH=${PATH//mnt*([^ ])?( )/}
 fi
 # shellcheck disable=SC1091
+[[ ! -r "${HOME}/.bash-preexec.sh" ]] && curl -fSslLo "${HOME}/.bash-preexec.sh" "https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh"
+source "${HOME}/.bash-preexec.sh"
 [ -r "/usr/share/bash-completion/bash_completion" ] && source "/usr/share/bash-completion/bash_completion"
 [ -r "${HOME}/.environment" ] && source "${HOME}/.environment"
 [ -r "${HOME}/.bash_functions" ] && source "${HOME}/.bash_functions"
