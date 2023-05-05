@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
-if [ -x "$(command -v zoxide)" ];then
-  alias cd="z" ;
-else
-  alias cd="pushd" ;
-fi
-alias ..='cd ..'
 
 alias nocmt="sed -e '/#/d' -e '/^[[:space:]]*$/d'"
 alias pprintenv="printenv | awk 'BEGIN{FS=OFS=\"=\";}{printf \"%-30s%-18s\n\",\$1,\$2}'"

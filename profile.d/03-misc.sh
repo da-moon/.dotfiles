@@ -26,13 +26,10 @@ fi
 [ -x "$(command -v repo)" ] && {
     [ -x "$(command -v fzf)" ] && eval "$(repo init bash --fzf)" || eval "$(repo init bash)"
 }
-if command -- zoxide -h >/dev/null 2>&1; then
-  eval "$(zoxide init bash)"
-fi
-if [ -x "$(command -v zellij)" ] ; then
-  if printenv | grep -Pq 'WINDOW|TERMINAL'; then
-    [ -d "${HOME}/sync" ] && pushd "${HOME}/sync" > /dev/null 2>&1 ;
-    export ZELLIJ_AUTO_EXIT="true" ;
-    eval "$(zellij setup --generate-auto-start bash)" ;
-  fi
-fi
+# if [ -x "$(command -v zellij)" ] ; then
+#   if printenv | grep -Pq 'WINDOW|TERMINAL'; then
+#     # [ -d "${HOME}/sync" ] && pushd "${HOME}/sync" > /dev/null 2>&1 ;
+#     # export ZELLIJ_AUTO_EXIT="true" ;
+#     eval "$(zellij setup --generate-auto-start bash)" ;
+#   fi
+# fi
