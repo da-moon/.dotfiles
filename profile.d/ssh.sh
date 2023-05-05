@@ -12,24 +12,3 @@ chmod 644 "${HOME}/.ssh/known_hosts"
 [ -r "${HOME}/.ssh/config" ] && chmod 644 "${HOME}/.ssh/config"
 [ -r "${HOME}/.ssh/id_rsa" ] && chmod 600 "${HOME}/.ssh/id_rsa"
 [ -r "${HOME}/.ssh/id_rsa.pub" ] && chmod 644 "${HOME}/.ssh/id_rsa.pub"
-if command -- rustup -h >/dev/null 2>&1; then
-  eval "$(rustup completions bash rustup)"
-  eval "$(rustup completions bash cargo)"
-fi
-if command -- starship -h >/dev/null 2>&1; then
-  # [ -r "${HOME}/.config/starship-bash.toml" ] && export STARSHIP_CONFIG="${HOME}/.config/starship-bash.toml" ;
-  eval "$(starship init bash)"
-fi
-# if command -- emplace -h >/dev/null 2>&1; then
-#   source <(emplace init bash)
-# fi
-[ -x "$(command -v repo)" ] && {
-    [ -x "$(command -v fzf)" ] && eval "$(repo init bash --fzf)" || eval "$(repo init bash)"
-}
-# if [ -x "$(command -v zellij)" ] ; then
-#   if printenv | grep -Pq 'WINDOW|TERMINAL'; then
-#     # [ -d "${HOME}/sync" ] && pushd "${HOME}/sync" > /dev/null 2>&1 ;
-#     # export ZELLIJ_AUTO_EXIT="true" ;
-#     eval "$(zellij setup --generate-auto-start bash)" ;
-#   fi
-# fi
