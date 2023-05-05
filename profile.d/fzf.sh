@@ -25,9 +25,9 @@ function _fzf_preview_textfile {
   case "$1" in
     *':'*)
       LINE="${1##*:}"
-      OFF=$(( LINES / 3 + 1 ))
-      START=$(( LINE>OFF ? LINE-OFF : 0 ))
-      END=$(( LINE + 100 ))
+      OFF=$((LINES / 3 + 1))
+      START=$((LINE > OFF ? LINE - OFF : 0))
+      END=$((LINE + 100))
       ;;
   esac
   {
@@ -69,21 +69,20 @@ function _fzf_preview_fs {
 # Preview a text file
 export -f _fzf_preview_textfile
 export -f _fzf_preview_textfile
-if [ -x "$(command -v fzf)" ];then
+if [ -x "$(command -v fzf)" ]; then
   if [ -r "/usr/share/bash-completion/bash_completion" ] && [ -d "/usr/share/bash-completion/completions" ]; then
     source "/usr/share/fzf/key-bindings.bash"
     source "/usr/share/fzf/completion.bash"
   fi
 fi
-if command -- fzf -h > /dev/null 2>&1; then
-    if command -v pass >/dev/null 2>&1; then
-      [[ -n ${BASH} ]] && complete -F _fzf_complete_pass -o default -o bashdefault pass
-      [[ -n ${BASH} ]] && complete -F _fzf_complete_pass -o default -o bashdefault passfor
-    fi
-    if command -v make >/dev/null 2>&1; then
-      [[ -n ${BASH} ]] && complete -F _fzf_complete_make -o default -o bashdefault make
-    fi
-  # source "/usr/share/fzf/fzf-tab-completion.bash"
-    bind -x '"\t": fzf_bash_completion'
+if command -- fzf -h >/dev/null 2>&1; then
+  if command -v pass >/dev/null 2>&1; then
+    [[ -n ${BASH} ]] && complete -F _fzf_complete_pass -o default -o bashdefault pass
+    [[ -n ${BASH} ]] && complete -F _fzf_complete_pass -o default -o bashdefault passfor
   fi
+  if command -v make >/dev/null 2>&1; then
+    [[ -n ${BASH} ]] && complete -F _fzf_complete_make -o default -o bashdefault make
+  fi
+  # source "/usr/share/fzf/fzf-tab-completion.bash"
+  bind -x '"\t": fzf_bash_completion'
 fi
