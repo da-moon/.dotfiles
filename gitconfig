@@ -265,3 +265,5 @@
 # # # Find commits by commit message
 # # git config --global alias.sh-find-message       = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 
+[init]
+	defaultBranch = master
