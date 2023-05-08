@@ -32,7 +32,7 @@ insert              = "underline"
 select              = "bar"
 #  ──────────────────────────────────────────────────────────
 [keys.normal]
-"C-s"               = [ ":write"                            ]
+"C-s"               = [ ":write!"                            ]
 "A-f"               = [ "file_picker"                       ]
 "C-f"               = [ "file_picker_in_current_directory"  ]
 "A-b"               = [ "buffer_picker"                     ]
