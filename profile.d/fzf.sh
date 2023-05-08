@@ -83,6 +83,6 @@ if command -- fzf -h >/dev/null 2>&1; then
   if command -v make >/dev/null 2>&1; then
     [[ -n ${BASH} ]] && complete -F _fzf_complete_make -o default -o bashdefault make
   fi
-  # source "/usr/share/fzf/fzf-tab-completion.bash"
+  source "/usr/share/fzf/fzf-tab-completion.bash"
   bind -x '"\t": fzf_bash_completion'
 fi
