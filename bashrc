@@ -38,6 +38,7 @@ source "${HOME}/.bash-preexec.sh"
 #   # fi
 # fi
 export PATH=$(echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+export GPG_TTY="$(tty)";
 # ────────────────────────────────────────────────────────────────────────────────
 function refresh-rc() {
   echo "#!/usr/bin/env bash" > "${HOME}/.environment" ; \
