@@ -271,3 +271,5 @@
 	signingkey = 4F0BDB86C4684DDD
 [commit]
 	gpgsign = true
+[format]
+	signoff = true
