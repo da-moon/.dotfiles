@@ -1,0 +1,57 @@
+[[language]]
+name = "markdown"
+formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "markdown"] }
+auto-format = true
+
+[[language]]
+name = "json"
+formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "json"] }
+auto-format = true
+
+[[language]]
+name = "yaml"
+formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser=yaml"] }
+auto-format = true
+
+[[language]]
+name = "graphql"
+formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser=graphql"] }
+auto-format = true
+
+[[language]]
+name = "bash"
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = 'shfmt', args = ["--binary-next-line", "--keep-padding", "--indent=2"] }
+auto-format = true
+
+[[language]]
+name = "python"
+formatter = { command = "black", args = ["--quiet", "-"] }
+auto-format = true
+
+[[language]]
+name = "html"
+formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "html"] }
+auto-format = true
+
+[[language]]
+name = "css"
+formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "css"] }
+auto-format = true
+
+[[language]]
+name = "javascript"
+formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "typescript"
+formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "jsx"
+formatter = { command = 'deno', args = ["fmt", "--ext=jsx","--line-width=79", "--prose-wrap=always", "-" ] }
+auto-format = true
+
+

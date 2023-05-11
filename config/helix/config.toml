@@ -38,7 +38,7 @@ right               = [
 render              = "all"
 #  ──────────────────────────────────────────────────────────
 [editor.indent-guides]
-render              = true
+render              = false
 #  ──────────────────────────────────────────────────────────
 [editor.file-picker]
 hidden              = false
