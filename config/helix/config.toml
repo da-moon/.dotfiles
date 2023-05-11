@@ -7,6 +7,32 @@ auto-pairs          = false
 auto-save           = true
 completion-replace  = true
 true-color          = true
+text-width	        = 63
+[editor.statusline]
+separator           = "│"
+mode.normal         = "NORMAL"
+mode.insert         = "INSERT"
+mode.select         = "SELECT"
+
+left                = [
+                        "file-modification-indicator",
+                        "mode"                       ,
+                        "spinner"                    ,
+                      ]
+center              = [
+                        "position"                   ,
+                        "position-percentage"        ,
+                        "total-line-numbers"         ,
+                        "file-name"                  ,
+                        "version-control"            ,
+                      ]
+right               = [
+                        "diagnostics"                ,
+                        "selections"                 ,
+                        "file-encoding"              ,
+                        "file-line-ending"           ,
+                        "file-type"                  ,
+                      ]
 #  ──────────────────────────────────────────────────────────
 [editor.whitespace]
 render              = "all"
@@ -32,7 +58,7 @@ insert              = "underline"
 select              = "bar"
 #  ──────────────────────────────────────────────────────────
 [keys.normal]
-"C-s"               = [ ":write!"                            ]
+"C-s"               = [ ":write!"                           ]
 "A-f"               = [ "file_picker"                       ]
 "C-f"               = [ "file_picker_in_current_directory"  ]
 "A-b"               = [ "buffer_picker"                     ]
