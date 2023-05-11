@@ -42,7 +42,7 @@ render              = true
 #  ──────────────────────────────────────────────────────────
 [editor.file-picker]
 hidden              = false
-git-ignore          = false
+git-ignore          = true
 #  ──────────────────────────────────────────────────────────
 [editor.soft-wrap]
 enable              = true
@@ -54,8 +54,8 @@ display-messages    = true
 #  ──────────────────────────────────────────────────────────
 [editor.cursor-shape]
 normal              = "block"
-insert              = "underline"
-select              = "bar"
+select              = "underline"
+insert              = "bar"
 #  ──────────────────────────────────────────────────────────
 [keys.normal]
 "C-s"               = [ ":write!"                           ]
