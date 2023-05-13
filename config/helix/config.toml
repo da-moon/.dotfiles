@@ -1,5 +1,5 @@
 theme               = "nord"
-#  ──────────────────────────────────────────────────────────
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor]
 line-number         = "relative"
 bufferline          = "always"
@@ -8,12 +8,12 @@ auto-save           = true
 completion-replace  = true
 true-color          = true
 text-width	        = 63
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.statusline]
 separator           = "│"
 mode.normal         = "NORMAL"
 mode.insert         = "INSERT"
 mode.select         = "SELECT"
-
 left                = [
                         "file-modification-indicator",
                         "mode"                       ,
@@ -33,108 +33,171 @@ right               = [
                         "file-line-ending"           ,
                         "file-type"                  ,
                       ]
-#  ──────────────────────────────────────────────────────────
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.whitespace]
 render              = "all"
-#  ──────────────────────────────────────────────────────────
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.indent-guides]
 render              = false
-#  ──────────────────────────────────────────────────────────
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.file-picker]
 hidden              = false
 git-ignore          = true
-#  ──────────────────────────────────────────────────────────
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.soft-wrap]
 enable              = true
-#  ──────────────────────────────────────────────────────────
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.lsp]
 display-inlay-hints	= true
 snippets            = true
 display-messages    = true
-#  ──────────────────────────────────────────────────────────
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.cursor-shape]
 normal              = "block"
 select              = "underline"
 insert              = "bar"
-#  ──────────────────────────────────────────────────────────
-[keys.normal]
-"C-s"               = [ ":write!"                           ]
-"A-f"               = [ "file_picker"                       ]
-"C-f"               = [ "file_picker_in_current_directory"  ]
-"A-b"               = [ "buffer_picker"                     ]
-"C-r"               = [ "redo"                              ]
-"d"                 = [ "delete_char_forward"               ]
-"^"                 = [ "goto_line_start"                   ]
-"$"                 = [ "goto_line_end"                     ]
-"G"                 = [ "goto_last_line"                    ]
-"C-c"               = [ "normal_mode"                       ]
-"C-left"            = [ "jump_view_left"                    ]
-"C-right"           = [ "jump_view_right"                   ]
-"C-down"            = [ "jump_view_down"                    ]
-"C-up"              = [ "jump_view_up"                      ]
-"C-v"               = [ "vsplit"                            ]
-"A-v"               = [ "hsplit"                            ]
-"D"                 = [                                      
-                        "goto_line_start"                   ,
-                        "select_mode"                       ,
-                        "goto_line_end"                     ,
-                        "yank"                              ,
-                        "normal_mode"                       ,
-                        "goto_line_start"                   ,
-                        "kill_to_line_end"                  ,
-                        "delete_char_forward"               ,
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.normal                                                                                       ]
+"^"                 = [ "goto_line_start"                                                          ]
+"$"                 = [ "goto_line_end"                                                            ]
+"G"                 = [ "goto_last_line"                                                           ]
+"A-b"               = [ "buffer_picker"                                                            ]
+"A-f"               = [ "file_picker"                                                              ]
+"C-f"               = [ "file_picker_in_current_directory"                                         ]
+"R"                 = [ "replace_with_yanked"                                                      ]
+"y"                 = [ "yank"                                                                     ]
+"p"                 = [ "paste_after"                                                              ]
+"P"                 = [ "paste_before"                                                             ]
+"d"                 = [ "delete_selection"                                                         ]
+"c"                 = [ "change_selection"                                                         ]
+"C-s"               = [ ":write!"                                                                  ]
+"C-down"            = [ "jump_view_down"                                                           ]
+"C-left"            = [ "jump_view_left"                                                           ]
+"C-right"           = [ "jump_view_right"                                                          ]
+"C-up"              = [ "jump_view_up"                                                             ]
+"C-c"               = [ "normal_mode"                                                              ]
+"C-r"               = [ "redo"                                                                     ]
+"ret"               = [                                                                             
+                        "open_below"                                                               ,
+                        "normal_mode"                                                              ,
                       ]
-"V"                 = [                                      
-                        "goto_line_start"                   ,
-                        "select_mode"                       ,
-                        "goto_line_end"                     ,
+"C-a"               = [                                                                             
+                        "select_all"                                                               ,
+                        "select_mode"                                                              ,
                       ]
-"Y"                 = [                                      
-                        "goto_line_start"                   ,
-                        "select_mode"                       ,
-                        "goto_line_end"                     ,
-                        "yank"                              ,
-                        "normal_mode"                       ,
+"C-space"           = [                                                                             
+                        ":new"                                                                     ,
+                        "file_picker_in_current_directory"                                         ,
                       ]
-#  ──────────────────────────────────────────────────────────
-[keys.normal.g                                              ]
-"^"                 = [ "goto_line_start"                   ]
-"$"                 = [ "goto_line_end"                     ]
-"q"                 = { q = [                                
-                        "goto_line_start"                   ,
-                        "select_mode"                       ,
-                        "goto_line_end"                     ,
-                        ":reflow"                           ,
-                        "normal_mode"                       ,
-                      ]}
-#  ──────────────────────────────────────────────────────────
-[keys.select                                                ]
-"u"                 = [ "switch_to_lowercase"               ]
-"U"                 = [ "switch_to_uppercase"               ]
-"^"                 = [ "goto_line_start"                   ]
-"$"                 = [ "goto_line_end"                     ]
-"C-left"            = [ "jump_view_left"                    ]
-"C-right"           = [ "jump_view_right"                   ]
-"C-down"            = [ "jump_view_down"                    ]
-"C-up"              = [ "jump_view_up"                      ]
-"v"                 = [                                      
-                        "move_next_word_end"                ,
-                        "normal_mode"                       ,
-                        "move_prev_word_start" ,             
-                        "select_mode"                       ,
-                        "move_next_word_end"                ,
-                      ] 
-"C-s"               = [                                      
-                        ":write"                            ,
-                        "normal_mode"                       ,
+"C-v"               = [                                                                             
+                        ":vsplit-new"                                                              ,
+                        "file_picker_in_current_directory"                                         ,
                       ]
-#  ──────────────────────────────────────────────────────────
-[keys.insert                                                ]
-"C-left"            = [ "jump_view_left"                    ]
-"C-right"           = [ "jump_view_right"                   ]
-"C-down"            = [ "jump_view_down"                    ]
-"C-up"              = [ "jump_view_up"                      ]
-"C-s"               = [                                      
-                        ":write"                            ,
-                        "normal_mode"                       ,
+"A-v"               = [                                                                             
+                        ":hsplit-new"                                                              ,
+                        "file_picker_in_current_directory"                                         ,
                       ]
+"D"                 = [                                                                             
+                        "goto_line_start"                                                          ,
+                        "select_mode"                                                              ,
+                        "goto_line_end"                                                            ,
+                        "yank"                                                                     ,
+                        "normal_mode"                                                              ,
+                        "goto_line_start"                                                          ,
+                        "kill_to_line_end"                                                         ,
+                        "delete_char_forward"                                                      ,
+                      ]
+"V"                 = [                                                                             
+                        "goto_line_start"                                                          ,
+                        "select_mode"                                                              ,
+                        "goto_line_end"                                                            ,
+                      ]
+"Y"                 = [
+                        "goto_line_start"                                                          ,
+                        "select_mode"                                                              ,
+                        "goto_line_end"                                                            ,
+                        "yank"                                                                     ,
+                        "normal_mode"                                                              ,
+                      ]
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.normal.space.j                                                                               ]
+"space"                 = [ "jumplist_picker"                                                          ]
+"ret"                 = [ "save_selection"                                                           ]
+"right"             = [ "jump_forward"                                                             ]
+"left"              = [ "jump_backward"                                                            ]
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.normal.space                                                                                 ]
+"p"                 = [ "paste_clipboard_after"                                                    ]
+"P"                 = [ "paste_clipboard_before"                                                   ]
+"y"                 = [ "yank_joined_to_clipboard"                                                 ]
+"Y"                 = [ "yank_main_selection_to_clipboard"                                         ]
+"R"                 = [ "replace_selections_with_clipboard"                                        ]
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.normal.minus                                                                                 ]
+"d"                 = [ ":set-option file-picker.max-depth 1"                                      ]
+"D"                 = [ ":set-option file-picker.max-depth None"                                   ]
+"g"                 = [
+                        ":toggle-option file-picker.git-ignore"                                    ,
+                        ":get-option file-picker.git-ignore"                                       ,
+                      ]
+"h"                 = [
+                        ":toggle-option file-picker.hidden"                                        ,
+                        ":get-option file-picker.hidden"                                           ,
+                      ]
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.normal.g                                                                                     ]
+"^"                 = [ "goto_line_start"                                                          ]
+"$"                 = [ "goto_line_end"                                                            ]
+"q"                 = { q = [
+                        "goto_line_start"                                                          ,
+                        "select_mode"                                                              ,
+                        "goto_line_end"                                                            ,
+                        ":reflow"                                                                  ,
+                        "normal_mode"                                                              ,
+                      ]                                                                            }
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.select                                                                                       ]
+"u"                 = [ "switch_to_lowercase"                                                      ]
+"U"                 = [ "switch_to_uppercase"                                                      ]
+"^"                 = [ "goto_line_start"                                                          ]
+"$"                 = [ "goto_line_end"                                                            ]
+"C-left"            = [ "jump_view_left"                                                           ]
+"C-right"           = [ "jump_view_right"                                                          ]
+"C-down"            = [ "jump_view_down"                                                           ]
+"C-up"              = [ "jump_view_up"                                                             ]
+"v"                 = [
+                        "move_next_word_end"                                                       ,
+                        "normal_mode"                                                              ,
+                        "move_prev_word_start"                                                     ,
+                        "select_mode"                                                              ,
+                        "move_next_word_end"                                                       ,
+                      ]
+"C-s"               = [
+                        ":write"                                                                   ,
+                        "normal_mode"                                                              ,
+                      ]
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.insert                                                                                       ]
+"C-left"            = [ "jump_view_left"                                                           ]
+"C-right"           = [ "jump_view_right"                                                          ]
+"C-down"            = [ "jump_view_down"                                                           ]
+"C-up"              = [ "jump_view_up"                                                             ]
+"C-s"               = [
+                        ":write"                                                                   ,
+                        "normal_mode"                                                              ,
+                      ]
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.normal."+"                                                                                   ]
+"+"                 = [ ":reload"                                                                  ]
+"c"                 = [ ":config-reload"                                                           ]
+"C"                 = [ ":config-open"                                                             ]
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.normal."="                                                                                   ]
+"ret"               = [ ":run-shell-command make"                                                  ]
+"+"                 = [ ":run-shell-command task"                                                  ]
+")"                 = [ ":run-shell-command just"                                                  ]
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.normal."=".t                                                                                 ]
+"i"                 = [ ":run-shell-command terraform init"                                        ]
+"a"                 = [ ":run-shell-command terraform apply -auto-approve"                         ]
+"d"                 = [ ":run-shell-command terraform destroy -auto-approve"                       ]
