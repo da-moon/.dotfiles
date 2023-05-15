@@ -121,8 +121,8 @@ insert              = "bar"
                       ]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.normal.space.j                                                                               ]
-"space"                 = [ "jumplist_picker"                                                          ]
-"ret"                 = [ "save_selection"                                                           ]
+"space"             = [ "jumplist_picker"                                                          ]
+"ret"               = [ "save_selection"                                                           ]
 "right"             = [ "jump_forward"                                                             ]
 "left"              = [ "jump_backward"                                                            ]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -201,3 +201,5 @@ insert              = "bar"
 "i"                 = [ ":run-shell-command terraform init"                                        ]
 "a"                 = [ ":run-shell-command terraform apply -auto-approve"                         ]
 "d"                 = [ ":run-shell-command terraform destroy -auto-approve"                       ]
+
+
