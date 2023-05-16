@@ -38,8 +38,9 @@ export VISUAL="$EDITOR"
 if which ruby >/dev/null && which gem >/dev/null; then
     PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
-#export MANPAGER='sh -c "col -bx | '"$(printf "%q" bat)"' --language man --style plain"' ;
-export MANPAGER='bat --language man --style plain' ;
+export MANPAGER='sh -c "col -bx | '"$(printf "%q" bat)"' --language man --style plain"' ;
+# export MANPAGER='bat --language man --style plain' ;
+
 
 export BARTIB_FILE="${HOME}/sync/activities.bartib"
 # FIXME:
