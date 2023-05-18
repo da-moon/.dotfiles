@@ -30,7 +30,7 @@ if command -- fzf -h >/dev/null 2>&1; then
 fi
 [ -x "$(command -v reflector)" ] && sudo reflector -p https --verbose --country US --sort rate --save "/etc/pacman.d/mirrorlist" ;
 if [ -x "$(command -v topgrade)" ]; then
-  topgrade -y --no-retry
+  topgrade -y --no-retry --skip-notify
 else
   if command -- pmm -h >/dev/null 2>&1; then
     sudo pmm -Syyu --noconfirm

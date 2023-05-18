@@ -200,6 +200,5 @@ insert              = "bar"
 [keys.normal."=".t                                                                                 ]
 "i"                 = [ ":run-shell-command terraform init"                                        ]
 "a"                 = [ ":run-shell-command terraform apply -auto-approve"                         ]
-"d"                 = [ ":run-shell-command terraform destroy -auto-approve"                       ]
-
+"d"                 = [ ":run-shell-command terraform destroy -auto-approve"                       ] 
 
