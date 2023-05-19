@@ -93,3 +93,6 @@
 	rel-changes = ls-files -m -o --exclude-standard
 	ignored = ls-files --others --ignored --exclude-standard
 	fa = "!f() { cd \"$(git rev-parse --show-toplevel)\" && git ls-files -m -o --exclude-standard | fzf -0 --print0 --multi --reverse --height=40% --tabstop=2 --prompt=\" │ \" --color=\"prompt:0,hl:178,hl+:178\" --preview-window=\"right:60%\" --height=\"80%\" --bind=\"tab:ignore\" --bind=\"shift-tab:ignore\" --bind=\"ctrl-t:ignore\" --bind=\"ctrl-g:ignore\" --bind=\"right:toggle+down\" --bind=\"left:toggle+up\" --bind=\"ctrl-space:select-all\" --bind=\"alt-space:deselect-all\" --preview=\"git difftool --tool=delta  {}\" | xargs -0 -t -o -I {} git add \"{}\";  }; f"
+	next-minor-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.%s.0\", $1,$2+1}END {if (NR==0){print \"0.0.1\"}}'"
+	next-major-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.0.0\", $1+1}END {if (NR==0){print \"0.0.1\"}}'"
+	next-patch-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.%s.%s\", $1,$2,$3+1}END {if (NR==0){print \"0.0.1\"}}'"
