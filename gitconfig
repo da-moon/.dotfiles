@@ -1,275 +1,95 @@
-# vim: ft=gitconfig syntax=gitconfig softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 commentstring=#%s expandtab 
-
-
-
-
-# git config --global core.editor "${EDITOR:-vi}";
-# git config --global core.autocrlf false;
-# git config --global core.autocrlf false;
 [core]
-  filemode = false
-  autocrlf = false
-
-# git config --global push.recurseSubmodules "on-demand" ;
+	autocrlf = false
 [push]
-  recurseSubmodules = on-demand
-
-# git config --global diff.submodule "log" ;
-[diff]
-  submodule = log
-
-#git config --global status.submoduleSummary "true"
+	recursesubmodules = on-demand
+[pull]
+	rebase = true
+[rebase]
+	autostash = true
 [status]
-  submoduleSummary = true
-# git config --global pager.diff delt ;
-# git config --global pager.log delta ;
-# git config --global pager.reflog delta ;
-# git config --global pager.show delta ;
-[pager]
-  diff = delta
-  log = delta
-  reflog = delta
-  show = delta
-#git config --global interactive.difffilter "delta --color-only --features=interactive" ;
+	submodulesummary = true
+[commit]
+	gpgsign = true
 [interactive]
-  difffilter = delta --color-only --features=interactive
-
-# git config --global delta.features "side-by-side line-numbers decorations" ;
-# git config --global delta.whitespace-error-style "22 reverse" ;
+	difffilter = delta --color-only --features
+[pager]
+	diff = ([[ -x $(command -v delta) ]] && delta || less --tab=2 -RFX)
+	grep = ([[ -x $(command -v delta) ]] && delta || less -RFX)
+	blame = ([[ -x $(command -v delta) ]] && delta || less -RFX)
+	log = ([[ -x $(command -v delta) ]] && delta || less -RFX)
+	reflog = ([[ -x $(command -v delta) ]] && delta || less -RFX)
+	show = ([[ -x $(command -v delta) ]] && delta || less -RFX)
+[diff]
+	submodule = log
+	tool = difftastic
+[diff "image"]
+	command = compare $2 $1 png:- | montage -geometry +4+4 $2 - $1 png:- | display -title \"$1\"
+[diff "difftastic"]
+	command = difft
+	binary = true
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft $LOCAL $REMOTE
+[difftool "delta"]
+	cmd = diff -u --unified=3 --ignore-case -w $LOCAL $REMOTE | delta
 [delta]
-  features = side-by-side line-numbers decorations
-  whitespace-error-style = 22 reverse
-
-# git config --global delta.decorations.commit-decoration-style "bold yellow box ul" ;
-# git config --global delta.decorations.file-style "bold yellow ul" ;
-# git config --global delta.decorations.file-decoration-style "none" ;
-# git config --global delta.decorations.commit-style "raw" ;
-# git config --global delta.decorations.hunk-header-decoration-style "blue box" ;
-# git config --global delta.decorations.hunk-header-file-style "red" ;
-# git config --global delta.decorations.hunk-header-line-number-style "#067a00" ;
-# git config --global delta.decorations.hunk-header-style "file line-number syntax" ;
-# git config --global delta.interactive.keep-plus-minus-markers "false" ;
+	features = side-by-side line-numbers decorations
+	whitespace-error-style = 22 reverse
 [delta "decorations"]
-  commit-decoration-style = bold yellow box ul
-  file-style = bold yellow ul
-  file-decoration-style = none
-  commit-style = raw
-  hunk-header-decoration-style = blue box
-  hunk-header-file-style = red
-  hunk-header-line-number-style = "#067a00"
-  hunk-header-style = file line-number syntax
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+	commit-style = raw
+	hunk-header-decoration-style = blue box
+	hunk-header-file-style = red
+	hunk-header-line-number-style = "#067a00"
+	hunk-header-style = file line-number syntax
 [delta "interactive"]
-  keep-plus-minus-markers = false
-
-
-
+	keep-plus-minus-markers = false
+[gui]
+	editor = code -w
+[fetch]
+	prune = true
+[merge]
+	log = true
+	tool = code
+[mergetool "code"]
+	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [alias]
+	view-contributors = shortlog -e -s -n
 	upstream = remote get-url origin
+	root = rev-parse --show-toplevel
+	scope = rev-parse --show-prefix
+	url = ls-remote --get-url
+	aliases = config --get-regexp alias
 	spush = push --recurse-submodules=on-demand
 	sfetch = submodule foreach --recursive git fetch
 	supdate = submodule update --remote --merge
-	root = rev-parse --show-toplevel
-  # default-branch=rev-parse --abbrev-ref origin/HEAD
 	default-branch = rev-parse --abbrev-ref HEAD
-	latest-commit = rev-parse HEAD
-	staged-chages = diff --name-only --staged
-	all-chages = diff --name-only HEAD
+	current-branch = !git for-each-ref --format=\"%(upstream:short)\" $(git symbolic-ref -q HEAD)
+	branch-prune = "!git fetch -p && for b in $(git for-each-ref --format=\"%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)\" refs/heads); do git branch -d $b; done"
+	ca = commit --signoff --gpg-sign --amend --reuse-message=HEAD
+	c = commit --signoff --gpg-sign
+	commit-summary = log --color --graph --pretty=format:\"%C(red)%h%C(reset) %s %C(bold blue)[%an](mailto:%ae)%C(reset) %C(green)%C(bold)%cr\" --abbrev-commit
+	head-hash = rev-parse HEAD
+	latest-commit = log -1 HEAD --stat
 	untracked = ls-files --others --exclude-standard
-	commits = log --graph --format='%C(auto)%h%d %s %C(green)%C(bold)%cr'
-	merge-conflict = !nvim $(git diff --name-only --diff-filter=U)
-  # finds top ten files
-  # largest= 
-  refresh=!git fetch -p \
-    && git branch -vv \
-    | awk '/: gone]/ {print $1}' \
-    | xargs -r -I {} git branch -D '{}'
-  next-patch-release =!git describe --tag 2>/dev/null && ( \
-    git describe --tags --abbrev=0  \
-      | sed s/v// \
-      |  awk -F. '{print $1+1".0.0"}' \
-    ) || echo '0.0.1'
-  next-minor-release =!git describe --tag 2>/dev/null && ( \
-    git describe --tags --abbrev=0  \
-      | sed s/v// \
-      |  awk -F. '{print $1+1".0.0"}' \
-    ) || echo '0.0.1'
-  next-major-release =!git describe --tag 2>/dev/null && ( \
-    git describe --tags --abbrev=0  \
-      | sed s/v// \
-      |  awk -F. '{print $1+1".0.0"}' \
-    ) || echo '0.0.1'
-	commit-summary = log --decorate --graph --oneline
-  # spull = !git pull \
-  #   && git submodule foreach --recursive git pull
-	spull = "!git pull; git submodule foreach --recursive git pull"
-	branch-prune = "!git fetch -p && for b in $(git for-each-ref --format='%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)' refs/heads); do git branch -d $b; done"
-	ps-branch-prune = !git branch --list --format \"%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)\" | ? { $_ -ne \"\" } | % { git branch -D $_ }
-	branch-prune-2 = !git branch -D $(git branch --list --format \"%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)\"
-	elease-notes = log --color --graph --pretty=format:'%h %s (%an)' --abbrev-commit
-	eadable-release-notes = log --color --graph --pretty=format:'%Cred%h%Creset %s %C(bold blue)(%an)%Creset' --abbrev-commit
-	c = commit -am
-	s = status -s
-	p = push
-	l = "\\!git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative # logs'"
-	sh-main = !\"basename $(git symbolic-ref refs/remotes/origin/HEAD)\"
-	sh-d = "!\"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat\""
-	up = "!\"git pull --rebase --progress --verbose --prune --tags --all --recurse-submodules; git submodule update --init \""
-	go = switch -c
-	sh-save = "\"!fs() { git add -A; git commit -am \\\"$@\\\"; git push; }; fs\""
-	sh-backup = "\"!gb() { target=$(echo ${1#*:} | tr / _); git clone --mirror $1 ${target} && cd ${target}; git bundle create ${2-../}/${target%%.git}.bundle --all; cd - && rm -rf ${target}; }; gb\""
-	unstage = reset --soft HEAD~
-	undo = reset --hard HEAD~
-	commit-all = "!git add -A ; git commit -am"
-	url = ls-remote --get-url
-	amend = commit --amend --reuse-message=HEAD
-	aliases = config --get-regexp alias
-	last = log -1 HEAD --stat
-	hash = rev-parse HEAD
-	last-year = shortlog -sn --all --no-merges --since \"1 year ago\"
-	markdown = log --color --pretty=format:'* %Cred%h%Creset %s %C(bold blue)[%an](mailto:%ae)%Creset' --abbrev-commit --dense --no-merges
-	release-notes = !sh -c \"git markdown --reverse ...$(git describe --tags --abbrev=0)\"
-	tags = for-each-ref --format='%(refname:short) (%(committerdate:relative))' --sort=committerdate refs/tags
-	delete-branch = branch -D
-	prune-tags = fetch --prune --tags
-	prune-all = clean -xdf
-	trim = "!git reflog expire --expire=now --all ; git gc --prune=now"
-	remotes = remote -v
-	empty = commit --allow-empty -m
-	branches = branch -av
-	view-branches = branch -av
-	view-remote-branches = branch -r
-	view-tags = !git tags
-	view-latest-tag = describe --tags --abbrev=0
-	view-remote-tags = ls-remote --tags origin
-	sh-view-local-tags = !git ls-remote --tags origin | git show-ref --tags --exclude-existing
-	view-latest-changes = "show --pretty=\"format:\" --name-only "
-	view-url = !git ls-remote --get-url
-	view-remotes = !git remote -v
-	view-contributors = shortlog -e -s -n
-	sh-conflicts = !git ls-files -u | cut -f 2 | sort -u
-	sh-find-branch = "\"!f() { git branch -a --contains $1; }; f\""
-	sh-find-tag = "\"!f() { git describe --always --contains $1; }; f\""
-
-
-# git config --global alias.commits               "log --graph --format='%C(auto)%h%d %s %C(green)%C(bold)%cr'"
-# git config --global alias.upstream              'remote get-url origin'
-# git config --global alias.upstream              'remote get-url origin'
-# git config --global alias.spush                 'push --recurse-submodules=on-demand'
-# git config --global alias.sfetch                'submodule foreach --recursive git fetch'
-# git config --global alias.supdate               'submodule update --remote --merge'
-# git config --global alias.root                  'rev-parse --show-toplevel'
-# git config --global alias.default-branch        'rev-parse --abbrev-ref HEAD'
-# git config --global alias.latest-commit         'rev-parse HEAD'
-# git config --global alias.staged-chages         'diff --name-only --staged'
-# git config --global alias.all-chages            'diff --name-only HEAD'
-# git config --global alias.untracked             'ls-files --others --exclude-standard'
-# git config --global alias.commit-summary        'log --decorate --graph --oneline'
-# git config --global alias.merge-conflict        '!nvim $(git diff --name-only --diff-filter=U)'
-# git config --global alias.spull                 '!git pull; git submodule foreach --recursive git pull'
-# # ╭─────────────────────────────────────────────────────────────────────────────────────────╮
-# # │https://stackoverflow.com/questions/7726949/remove-tracking-branches-no-longer-on-remote │
-# # ╰─────────────────────────────────────────────────────────────────────────────────────────╯
-# git config --global alias.branch-prune          '!git fetch -p && for b in $(git for-each-ref --format='\''%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)'\'' refs/heads); do git branch -d $b; done'
-# git config --global alias.ps-branch-prune       '!git branch --list --format "%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)" | ? { $_ -ne "" } | % { git branch -D $_ }'
-# git config --global alias.branch-prune-2        '!git branch -D $(git branch --list --format "%(if:equals=[gone])%(upstream:track)%(then)%(refname:short)%(end)"'
-# # ╭──────────────────────────────────────────────────────────────────────────╮
-# # │https://github.com/carlossless/dotfiles/blob/master/git/heyjobs.gitconfig │
-# # ╰──────────────────────────────────────────────────────────────────────────╯
-# git config --global alias.elease-notes          "log --color --graph --pretty=format:'%h %s (%an)' --abbrev-commit"
-# git config --global alias.eadable-release-notes "log --color --graph --pretty=format:'%Cred%h%Creset %s %C(bold blue)(%an)%Creset' --abbrev-commit"
-# # ╭───────────────────────────────────────────────────────────╮
-# # │https://github.com/OzzyCzech/dotfiles/blob/main/.gitconfig │
-# # ╰───────────────────────────────────────────────────────────╯
-# git config --global alias.c                     'commit -am'
-# git config --global alias.s                     'status -s'
-# git config --global alias.p                     'push'
-# git config --global alias.l                     "\!git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative # logs'"
-# # Determinate what's default branch
-# git config --global alias.sh-main               '!"basename $(git symbolic-ref refs/remotes/origin/HEAD)"'
-#  # Show the diff between the latest commit and the current state
-# git config --global alias.sh-d                  '!"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"'
-# # Pull in remote changes for the current repository and all its submodules
-# git config --global alias.up                    '!"git pull --rebase --progress --verbose --prune --tags --all --recurse-submodules; git submodule update --init "'
-# # Switch to a branch, creating it if necessary
-# git config --global alias.go                    'switch -c'
-# # Commit ALL && push ALL
-# git config --global alias.sh-save               '"!fs() { git add -A; git commit -am \"$@\"; git push; }; fs"'
-# # Backup whole git repo to bundle
-# git config --global alias.sh-backup             '"!gb() { target=$(echo ${1#*:} | tr / _); git clone --mirror $1 ${target} && cd ${target}; git bundle create ${2-../}/${target%%.git}.bundle --all; cd - && rm -rf ${target}; }; gb"'
-# # Unstage last commit
-# git config --global alias.unstage               'reset --soft HEAD~'
-# # Undo last commit
-# git config --global alias.undo                  'reset --hard HEAD~'
-# # Commit all changes
-# git config --global alias.commit-all            '!git add -A ; git commit -am'
-# # show current remote url
-# git config --global alias.url                   'ls-remote --get-url'
-# # Amend the currently staged files to the latest commit
-# git config --global alias.amend                 'commit --amend --reuse-message=HEAD'
-# # List aliases
-# git config --global alias.aliases               'config --get-regexp alias'
-# # show only last commit log
-# git config --global alias.last                  'log -1 HEAD --stat'
-# # show has
-# git config --global alias.hash                  'rev-parse HEAD'
-# # Last ... something    
-# git config --global alias.last-year             'shortlog -sn --all --no-merges --since "1 year ago"'
-# # show logs as markdown formatted list
-# git config --global alias.markdown              "log --color --pretty=format:'* %Cred%h%Creset %s %C(bold blue)[%an](mailto:%ae)%Creset' --abbrev-commit --dense --no-merges"
-# # prepare release notes
-# git config --global alias.release-notes         '!sh -c "git markdown --reverse ...$(git describe --tags --abbrev=0)"'
-# # Show verbose output about tags, branches or remotes
-# git config --global alias.tags                  "for-each-ref --format='%(refname:short) (%(committerdate:relative))' --sort=committerdate refs/tags"
-# # delete branch
-# git config --global alias.delete-branch         'branch -D'
-
-# # Remove branches that have already been merged with master
-# # a.k.a. ‘delete merged’
-# #git config --global alias.sh-delete-merged      = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-
-# # prune local tags (delete not pushed tags)
-# git config --global alias.prune-tags            'fetch --prune --tags'
-# # remove untracked dirs, ignored files with force !
-# git config --global alias.prune-all             'clean -xdf'
-# # Thin out older metadata within the repository, reduceses filesystem footprint
-# git config --global alias.trim                  '!git reflog expire --expire=now --all ; git gc --prune=now'
-# # show all remotes
-# git config --global alias.remotes               'remote -v'
-# # allow empty commit with message
-# git config --global alias.empty                 'commit --allow-empty -m'
-# # view branches
-# git config --global alias.branches              'branch -av'
-# # Return the repository's root directory (useful for shell prompts)
-# git config --global alias.root                  'rev-parse --show-toplevel'
-# # Show everything
-# git config --global alias.view-branches         'branch -av'
-# git config --global alias.view-remote-branches  'branch -r'
-# git config --global alias.view-tags             '!git tags'
-# git config --global alias.view-latest-tag       'describe --tags --abbrev=0'
-# git config --global alias.view-remote-tags      'ls-remote --tags origin'
-# git config --global alias.sh-view-local-tags    '!git ls-remote --tags origin | git show-ref --tags --exclude-existing'
-# # show latest changes
-# git config --global alias.view-latest-changes   'show --pretty="format:" --name-only '
-# git config --global alias.view-url              '!git ls-remote --get-url'
-# git config --global alias.view-remotes          '!git remote -v'
-# git config --global alias.view-contributors     'shortlog -e -s -n'
-# # show all conflicts
-# git config --global alias.sh-conflicts          '!git ls-files -u | cut -f 2 | sort -u'
-# # Find branches containing commit
-# git config --global alias.sh-find-branch        '"!f() { git branch -a --contains $1; }; f"'
-# # Find tags containing commit
-# git config --global alias.sh-find-tag           '"!f() { git describe --always --contains $1; }; f"'
-# # # Find commits by source code
-# # git config --global alias.sh-find-commits       = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
-
-# # # Find commits by commit message
-# # git config --global alias.sh-find-message       = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
-
-[init]
-	defaultBranch = master
-[user]
-	signingkey = 4F0BDB86C4684DDD
-[commit]
-	gpgsign = true
-[format]
-	signoff = true
+	tracked = !git ls-tree -r $(git symbolic-ref --quiet --short HEAD || git rev-parse HEAD) --name-only
+	tags = for-each-ref --format=\"%(refname:short) (%(committerdate:relative))\" --sort=committerdate refs/tags
+	latest-tag = describe --tags --abbrev=0
+	release-notes = log --color --pretty=format:\"* %C(red)%h%C(reset) %s %C(bold blue)[%an](mailto:%ae)%C(reset)\" --abbrev-commit --dense --no-merges
+	staged = diff --name-only --staged
+	difft = difftool --tool difftastic
+	diffd = difftool --tool delta
+	not-staged = diff-files --name-only -B -R -M
+	all-changes = diff --name-only HEAD
+	ui = "!f() { cd \"$(git rev-parse --show-toplevel)\" && gitui; }; f"
+	zip = !git archive --format=zip --output=$(basename -s.git $(git remote get-url origin))-$(git describe --abbrev=0).zip $(git describe --abbrev=0)
+	tar = !git archive --format=tar --output=$(basename -s.git $(git remote get-url origin))-$(git describe --abbrev=0).zip $(git describe --abbrev=0)
+	conflicts = ! $EDITOR $(git diff --name-only --diff-filter=U)
+	issues = ! gh issue list --assignee \"@me\"
+	changes = diff-index --name-only -B -R -M -C HEAD
+	rel-changes = ls-files -m -o --exclude-standard
+	ignored = ls-files --others --ignored --exclude-standard
+	fa = "!f() { cd \"$(git rev-parse --show-toplevel)\" && git ls-files -m -o --exclude-standard | fzf -0 --print0 --multi --reverse --height=40% --tabstop=2 --prompt=\" │ \" --color=\"prompt:0,hl:178,hl+:178\" --preview-window=\"right:60%\" --height=\"80%\" --bind=\"tab:ignore\" --bind=\"shift-tab:ignore\" --bind=\"ctrl-t:ignore\" --bind=\"ctrl-g:ignore\" --bind=\"right:toggle+down\" --bind=\"left:toggle+up\" --bind=\"ctrl-space:select-all\" --bind=\"alt-space:deselect-all\" --preview=\"git difftool --tool=delta  {}\" | xargs -0 -t -o -I {} git add \"{}\";  }; f"
