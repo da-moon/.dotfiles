@@ -77,7 +77,7 @@
 	untracked = ls-files --others --exclude-standard
 	tracked = !git ls-tree -r $(git symbolic-ref --quiet --short HEAD || git rev-parse HEAD) --name-only
 	tags = for-each-ref --format=\"%(refname:short) (%(committerdate:relative))\" --sort=committerdate refs/tags
-	latest-tag = describe --tags --abbrev=0
+	latest-tag = !git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null
 	release-notes = log --color --pretty=format:\"* %C(red)%h%C(reset) %s %C(bold blue)[%an](mailto:%ae)%C(reset)\" --abbrev-commit --dense --no-merges
 	staged = diff --name-only --staged
 	difft = difftool --tool difftastic
