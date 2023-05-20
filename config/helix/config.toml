@@ -135,7 +135,7 @@ insert              = "bar"
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.normal.minus                                                                                 ]
 "d"                 = [ ":set-option file-picker.max-depth 1"                                      ]
-"D"                 = [ ":set-option file-picker.max-depth None"                                   ]
+"D"                 = [ ":set-option file-picker.max-depth null"                                   ]
 "g"                 = [
                         ":toggle-option file-picker.git-ignore"                                    ,
                         ":get-option file-picker.git-ignore"                                       ,
