@@ -1,4 +1,4 @@
-theme               = "nord"
+theme               = "github_light_high_contrast"
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor]
 line-number         = "relative"
@@ -58,14 +58,21 @@ select              = "underline"
 insert              = "bar"
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.normal                                                                                       ]
+"tab"               = [ "insert_tab"                                                               ]
+"\\"                = [ "toggle_comments"                                                          ]
 "^"                 = [ "goto_line_start"                                                          ]
 "$"                 = [ "goto_line_end"                                                            ]
+"<"                 = [ "goto_line_start"                                                          ]
+">"                 = [ "goto_line_end"                                                            ]
+"]"                 = [ "indent"                                                                   ]
+"["                 = [ "unindent"                                                                 ]
 "G"                 = [ "goto_last_line"                                                           ]
 "A-b"               = [ "buffer_picker"                                                            ]
 "A-f"               = [ "file_picker"                                                              ]
 "C-f"               = [ "file_picker_in_current_directory"                                         ]
 "R"                 = [ "replace_with_yanked"                                                      ]
 "y"                 = [ "yank"                                                                     ]
+"Y"                 = [ "yank_main_selection_to_clipboard"                                         ]
 "p"                 = [ "paste_after"                                                              ]
 "P"                 = [ "paste_before"                                                             ]
 "d"                 = [ "delete_selection"                                                         ]
@@ -75,11 +82,26 @@ insert              = "bar"
 "C-left"            = [ "jump_view_left"                                                           ]
 "C-right"           = [ "jump_view_right"                                                          ]
 "C-up"              = [ "jump_view_up"                                                             ]
-"C-c"               = [ "normal_mode"                                                              ]
+"A-right"           = [                                                                             
+                        ":vsplit-new"                                                              ,
+                        "file_picker_in_current_directory"                                         ,
+                      ]
+"A-up"              = [                                                                             
+                        ":hsplit-new"                                                              ,
+                        "file_picker_in_current_directory"                                         ,
+                      ]
 "C-r"               = [ "redo"                                                                     ]
 "ret"               = [                                                                             
                         "open_below"                                                               ,
                         "normal_mode"                                                              ,
+                      ]
+"S-right"           = [                                                                             
+                        "move_next_word_end"                                                       ,
+                        "collapse_selection"                                                       ,
+                      ]
+"S-left"            = [                                                                             
+                        "move_prev_word_start"                                                     ,
+                        "collapse_selection"                                                       ,
                       ]
 "C-a"               = [                                                                             
                         "select_all"                                                               ,
@@ -89,15 +111,24 @@ insert              = "bar"
                         ":new"                                                                     ,
                         "file_picker_in_current_directory"                                         ,
                       ]
+"C-c"               = [                                                                             
+                        "save_selection"                                                           ,
+                        "goto_line_start"                                                          ,
+                        "select_mode"                                                              ,
+                        "goto_line_end"                                                            ,
+                        "yank"                                                                     ,
+                        "normal_mode"                                                              ,
+                        "jump_backward"                                                            ,
+                      ]
 "C-v"               = [                                                                             
-                        ":vsplit-new"                                                              ,
-                        "file_picker_in_current_directory"                                         ,
+                        "save_selection"                                                           ,
+                        "goto_line_start"                                                          ,
+                        "open_above"                                                               ,
+                        "normal_mode"                                                              ,
+                        "paste_before"                                                             ,
+                        "jump_backward"                                                            ,
                       ]
-"A-v"               = [                                                                             
-                        ":hsplit-new"                                                              ,
-                        "file_picker_in_current_directory"                                         ,
-                      ]
-"D"                 = [                                                                             
+"C-x"               = [                                                                             
                         "goto_line_start"                                                          ,
                         "select_mode"                                                              ,
                         "goto_line_end"                                                            ,
@@ -112,38 +143,20 @@ insert              = "bar"
                         "select_mode"                                                              ,
                         "goto_line_end"                                                            ,
                       ]
-"Y"                 = [
-                        "goto_line_start"                                                          ,
-                        "select_mode"                                                              ,
-                        "goto_line_end"                                                            ,
-                        "yank"                                                                     ,
-                        "normal_mode"                                                              ,
-                      ]
+
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.normal.space.j                                                                               ]
 "space"             = [ "jumplist_picker"                                                          ]
 "ret"               = [ "save_selection"                                                           ]
 "right"             = [ "jump_forward"                                                             ]
 "left"              = [ "jump_backward"                                                            ]
-#  ────────────────────────────────────────────────────────────────────────────────────────────────
+
 [keys.normal.space                                                                                 ]
 "p"                 = [ "paste_clipboard_after"                                                    ]
 "P"                 = [ "paste_clipboard_before"                                                   ]
 "y"                 = [ "yank_joined_to_clipboard"                                                 ]
 "Y"                 = [ "yank_main_selection_to_clipboard"                                         ]
 "R"                 = [ "replace_selections_with_clipboard"                                        ]
-#  ────────────────────────────────────────────────────────────────────────────────────────────────
-[keys.normal.minus                                                                                 ]
-"d"                 = [ ":set-option file-picker.max-depth 1"                                      ]
-"D"                 = [ ":set-option file-picker.max-depth null"                                   ]
-"g"                 = [
-                        ":toggle-option file-picker.git-ignore"                                    ,
-                        ":get-option file-picker.git-ignore"                                       ,
-                      ]
-"h"                 = [
-                        ":toggle-option file-picker.hidden"                                        ,
-                        ":get-option file-picker.hidden"                                           ,
-                      ]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.normal.g                                                                                     ]
 "^"                 = [ "goto_line_start"                                                          ]
@@ -156,6 +169,26 @@ insert              = "bar"
                         "normal_mode"                                                              ,
                       ]                                                                            }
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
+[keys.normal.t                                                                                     ]
+"d"                 = [ ":set-option file-picker.max-depth 1"                                      ]
+"D"                 = [ ":set-option file-picker.max-depth null"                                   ]
+"f"                 = [
+                        ":toggle-option auto-format"                                               ,
+                        ":get-option auto-format"                                                  ,
+                      ]
+"g"                 = [
+                        ":toggle-option file-picker.git-ignore"                                    ,
+                        ":get-option file-picker.git-ignore"                                       ,
+                      ]
+"h"                 = [
+                        ":toggle-option file-picker.hidden"                                        ,
+                        ":get-option file-picker.hidden"                                           ,
+                      ]
+"p"                 = [
+                        ":toggle-option auto-pairs"                                                ,
+                        ":get-option auto-pairs"                                                   ,
+                      ]
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.select                                                                                       ]
 "u"                 = [ "switch_to_lowercase"                                                      ]
 "U"                 = [ "switch_to_uppercase"                                                      ]
@@ -165,6 +198,12 @@ insert              = "bar"
 "C-right"           = [ "jump_view_right"                                                          ]
 "C-down"            = [ "jump_view_down"                                                           ]
 "C-up"              = [ "jump_view_up"                                                             ]
+"C-c"               = [ "yank"                                                                     ]
+"C-v"               = [ "replace_with_yanked"                                                      ]
+"\\"                = [
+                        "toggle_comments"                                                                   ,
+                        "normal_mode"                                                              ,
+                      ]
 "v"                 = [
                         "move_next_word_end"                                                       ,
                         "normal_mode"                                                              ,
@@ -172,11 +211,15 @@ insert              = "bar"
                         "select_mode"                                                              ,
                         "move_next_word_end"                                                       ,
                       ]
+"Y"                 = [
+                        "normal_mode"                                                              ,
+                        "yank_main_selection_to_clipboard"                                                              ,
+                      ]
 "C-s"               = [
                         ":write"                                                                   ,
-                        "normal_mode"                                                              ,
+                        "normal_mode"                                                            ,
                       ]
-#  ────────────────────────────────────────────────────────────────────────────────────────────────
+#  ─────────────────────────────────────────────────────────────────────────────────────────────
 [keys.insert                                                                                       ]
 "C-left"            = [ "jump_view_left"                                                           ]
 "C-right"           = [ "jump_view_right"                                                          ]
