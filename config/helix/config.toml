@@ -198,10 +198,8 @@ insert              = "bar"
 "C-right"           = [ "jump_view_right"                                                          ]
 "C-down"            = [ "jump_view_down"                                                           ]
 "C-up"              = [ "jump_view_up"                                                             ]
-"C-c"               = [ "yank"                                                                     ]
-"C-v"               = [ "replace_with_yanked"                                                      ]
 "\\"                = [
-                        "toggle_comments"                                                                   ,
+                        "toggle_comments"                                                          ,
                         "normal_mode"                                                              ,
                       ]
 "v"                 = [
@@ -213,7 +211,24 @@ insert              = "bar"
                       ]
 "Y"                 = [
                         "normal_mode"                                                              ,
-                        "yank_main_selection_to_clipboard"                                                              ,
+                        "yank_main_selection_to_clipboard"                                         ,
+                      ]
+"C-c"               = [
+                        "yank"                                                                     ,
+                        "select_mode"                                                              ,
+                        "collapse_selection"                                                       ,
+                        "normal_mode"                                                              ,
+                      ]
+"C-v"               = [
+                        "replace_with_yanked"                                                      ,
+                        "collapse_selection"                                                       ,
+                        "normal_mode"                                                              ,
+                      ]
+"C-x"               = [
+                        "delete_selection"                                                         ,
+                        "select_mode"                                                              ,
+                        "collapse_selection"                                                       ,
+                        "normal_mode"                                                              ,
                       ]
 "C-s"               = [
                         ":write"                                                                   ,
