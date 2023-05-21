@@ -81,35 +81,58 @@ insert              = "bar"
 "C-left"            = [ "jump_view_left"                                                           ]
 "C-right"           = [ "jump_view_right"                                                          ]
 "C-up"              = [ "jump_view_up"                                                             ]
-"A-right"           = [                                                                             
+"}"                 = [                                                                             
                         ":vsplit-new"                                                              ,
                         "file_picker_in_current_directory"                                         ,
                       ]
-"A-up"              = [                                                                             
+"{"                 = [                                                                             
                         ":hsplit-new"                                                              ,
                         "file_picker_in_current_directory"                                         ,
                       ]
 "C-r"               = [ "redo"                                                                     ]
+"backspace"         = [                                                                             
+                        "move_char_left"                                                           ,
+                        "select_mode"                                                              ,
+                        "delete_selection_noyank"                                                  ,
+                        "normal_mode"                                                              ,
+                      ]
+"del"               = [                                                                             
+                        "select_mode"                                                              ,
+                        "delete_selection_noyank"                                                  ,
+                        "normal_mode"                                                              ,
+                        "move_char_right"                                                          ,
+                        "move_char_left"                                                           ,
+                      ]
 "ret"               = [                                                                             
                         "open_below"                                                               ,
                         "normal_mode"                                                              ,
                       ]
 "S-right"           = [                                                                             
                         "move_next_word_end"                                                       ,
-                        "collapse_selection"                                                       ,
+                        "select_mode"                                                       ,
                       ]
 "S-left"            = [                                                                             
                         "move_prev_word_start"                                                     ,
-                        "collapse_selection"                                                       ,
+                        "select_mode"                                                       ,
                       ]
 "C-a"               = [                                                                             
                         "select_all"                                                               ,
                         "select_mode"                                                              ,
                       ]
-"C-space"           = [                                                                             
+"A-ret"             = [                                                                             
                         ":new"                                                                     ,
                         "file_picker_in_current_directory"                                         ,
                       ]
+# "C-space"           = [                                                                             
+#                         "insert_tab"                                                               ,
+#                         "move_char_left"                                                           ,
+#                         "select_mode"                                                              ,
+#                         "move_prev_word_end"                                                       ,
+#                         "collapse_selection"                                                       ,
+#                         "yank"                                                                     ,
+#                         "delete_selection_noyank"                                                  ,
+#                         "paste_after"                                                             ,
+#                       ]
 "C-c"               = [                                                                             
                         "save_selection"                                                           ,
                         "goto_line_start"                                                          ,
@@ -118,6 +141,7 @@ insert              = "bar"
                         "yank"                                                                     ,
                         "normal_mode"                                                              ,
                         "jump_backward"                                                            ,
+                        "collapse_selection"                                                       ,
                       ]
 "C-v"               = [                                                                             
                         "save_selection"                                                           ,
@@ -126,6 +150,7 @@ insert              = "bar"
                         "normal_mode"                                                              ,
                         "paste_before"                                                             ,
                         "jump_backward"                                                            ,
+                        "collapse_selection"                                                       ,
                       ]
 "C-x"               = [                                                                             
                         "goto_line_start"                                                          ,
@@ -136,6 +161,7 @@ insert              = "bar"
                         "goto_line_start"                                                          ,
                         "kill_to_line_end"                                                         ,
                         "delete_char_forward"                                                      ,
+                        "collapse_selection"                                                       ,
                       ]
 "V"                 = [                                                                             
                         "goto_line_start"                                                          ,
@@ -197,6 +223,9 @@ insert              = "bar"
 "C-right"           = [ "jump_view_right"                                                          ]
 "C-down"            = [ "jump_view_down"                                                           ]
 "C-up"              = [ "jump_view_up"                                                             ]
+"S-right"           = [ "move_next_word_end"                                                       ]
+"S-left"            = [ "move_prev_word_start"                                                     ]
+"backspace"         = [ "delete_selection_noyank"                                                  ]
 "\\"                = [
                         "toggle_comments"                                                          ,
                         "normal_mode"                                                              ,
