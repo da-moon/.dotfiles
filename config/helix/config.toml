@@ -72,7 +72,6 @@ insert              = "bar"
 "C-f"               = [ "file_picker_in_current_directory"                                         ]
 "R"                 = [ "replace_with_yanked"                                                      ]
 "y"                 = [ "yank"                                                                     ]
-"Y"                 = [ "yank_main_selection_to_clipboard"                                         ]
 "p"                 = [ "paste_after"                                                              ]
 "P"                 = [ "paste_before"                                                             ]
 "d"                 = [ "delete_selection"                                                         ]
@@ -209,9 +208,14 @@ insert              = "bar"
                         "select_mode"                                                              ,
                         "move_next_word_end"                                                       ,
                       ]
-"Y"                 = [
+"C"                 = [
                         "normal_mode"                                                              ,
                         "yank_main_selection_to_clipboard"                                         ,
+                      ]
+"V"                 = [
+                        "replace_selections_with_clipboard"                                                      ,
+                        "collapse_selection"                                                       ,
+                        "normal_mode"                                                              ,
                       ]
 "C-c"               = [
                         "yank"                                                                     ,
@@ -232,7 +236,7 @@ insert              = "bar"
                       ]
 "C-s"               = [
                         ":write"                                                                   ,
-                        "normal_mode"                                                            ,
+                        "normal_mode"                                                              ,
                       ]
 #  ─────────────────────────────────────────────────────────────────────────────────────────────
 [keys.insert                                                                                       ]
