@@ -72,6 +72,13 @@ export -f _fzf_complete_pass
 export -f _fzf_complete_make
 export -f _fzf_preview_textfile
 export -f _fzf_preview_fs
+
+if [ -r "${HOME}/.fzf/bin/fzf" ]; then
+  if [[ ! "$PATH" == *"${HOME}/.fzf/bin}"* ]]; then
+    PATH="${PATH:+${PATH}:}${HOME}/.fzf/bin"
+  fi
+fi
+
 if [ -x "$(command -v fzf)" ]; then
   if [ -r "/usr/share/bash-completion/bash_completion" ] && [ -d "/usr/share/bash-completion/completions" ]; then
     [ -r "/usr/share/fzf/key-bindings.bash" ] && source "/usr/share/fzf/key-bindings.bash"
