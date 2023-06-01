@@ -3,6 +3,18 @@
 # https://github.com/dweidner/dotfiles/blob/main/shell/utilities.sh
 # https://ivergara.github.io/Supercharging-shell.html
 # https://github.com/farisachugthai/dotfiles/blob/master/unix/.bashrc.d/fzf.bash
+function ghpr() {
+  GH_FORCE_TTY=100% \
+    gh pr list --limit 300 \
+    | fzf \
+      --ansi \
+      --preview 'GH_FORCE_TTY=100% gh pr view {1}' \
+      --preview-window 'down,70%' \
+      --header-lines 3 \
+    | awk '{print $1}' \
+    | xargs gh pr checkout
+}
+
 function passfor() {
   if pass -c "${1}" && [[ "$(pass show "${1}" | grep -c "^otpauth:")" -eq 1 ]]; then
     read -s -r -p "  Press enter for otp"

@@ -41,6 +41,7 @@ export PATH=$(echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", len
 export GPG_TTY="$(tty)";
 # ────────────────────────────────────────────────────────────────────────────────
 function refresh-rc() {
+  sudo find ~/ -xtype l -delete
   echo "#!/usr/bin/env bash" > "${HOME}/.environment" ; \
   [ -d "${HOME}/.env.d" ] && while read -r i; do \
   sed -e '/^\s*#/d' "$i" | tee -a "${HOME}/.environment" > /dev/null \
