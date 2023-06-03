@@ -197,6 +197,8 @@ insert              = "bar"
 [keys.normal.t                                                                                     ]
 "d"                 = [ ":set-option file-picker.max-depth 1"                                      ]
 "D"                 = [ ":set-option file-picker.max-depth null"                                   ]
+"w"                 = [ ":set-option whitespace.render none"                                       ]
+"W"                 = [ ":set-option whitespace.render all"                                        ]
 "f"                 = [
                         ":toggle-option auto-format"                                               ,
                         ":get-option auto-format"                                                  ,
