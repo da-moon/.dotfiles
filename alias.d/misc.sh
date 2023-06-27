@@ -6,11 +6,12 @@ alias pprintenv="printenv | awk 'BEGIN{FS=OFS=\"=\";}{printf \"%-30s%-18s\n\",\$
 alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowdate='date -u +"%Y-%m-%d"'
+alias timestamp='date +"%FT%RZ"'
 # if command -- aria2c -h > /dev/null 2>&1 ; then
   alias dl="aria2c --optimize-concurrent-downloads -k 1M -j16 -x 16 -c --file-allocation=falloc"
 # fi
-if ! command -- code -h > /dev/null 2>&1 ; then
-  if command -- code-insiders -h > /dev/null 2>&1 ; then
+if ! command -- code -h >/dev/null  2>&1; then
+  if command -- code-insiders -h >/dev/null  2>&1; then
     alias code="code-insiders"
   fi
 fi
@@ -66,5 +67,5 @@ alias prettier-md='prettier --print-width=79 --prose-wrap=always --parser markdo
 alias whitespace="sed 's/ /·/g;s/\t/￫/g;s/\r/§/g;s/$/¶/g'"
 alias xcd='cd "$(xplr --print-pwd-as-result)"'
 
-alias xcopy='xclip -sel c';
+alias xcopy='xclip -sel c'
 alias xpaste='xclip -sel c -o'
