@@ -26,3 +26,21 @@ smtp-passwd.cmd = "pass show proton"
 smtp-port = 1025
 smtp-starttls = true
 smtp-insecure = true
+
+[gmail-personal]
+
+email = "damoon.azarpazhooh@gmail.com"
+
+backend = "imap"
+imap-host = "imap.gmail.com"
+imap-port = 993
+imap-login = "damoon.azarpazhooh@gmail.com"
+imap-auth = "passwd"
+imap-passwd.cmd = "pass show gmail/personal"
+
+sender = "smtp"
+smtp-host = "smtp.gmail.com"
+smtp-port = 465
+smtp-login = "clement.douin@gmail.com"
+smtp-auth = "passwd"
+smtp-passwd.cmd = "pass show gmail/personal"
