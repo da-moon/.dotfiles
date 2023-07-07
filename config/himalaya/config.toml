@@ -1,19 +1,28 @@
-name = "Damoon Azarpazhooh"
-downloads-dir = "/home/damoon/Downloads"
-default-page-size = 50
+display-name = "Damoon Azarpazhooh"
+downloads-dir = "~/downloads"
+folder-listing-page-size = 50
+email-listing-page-size = 50
+
 
 [protonmail]
 default = true
+display-name = "Damoon Azarpazhooh"
 email = "damoon@protonmail.com"
 
+backend = "imap"
 imap-host = "127.0.0.1"
-imap-port = 1143
 imap-login = "damoon@protonmail.com"
-imap-passwd-cmd = "pass show proton"
+imap-auth = "passwd"
+imap-passwd.cmd = "pass show proton"
+imap-port = 1143
 imap-starttls = true
+imap-insecure = true
 
+sender = "smtp"
 smtp-host = "127.0.0.1"
-smtp-port = 1025
 smtp-login = "damoon@protonmail.com"
-smtp-passwd-cmd = "pass show proton"
+smtp-auth = "passwd"
+smtp-passwd.cmd = "pass show proton"
+smtp-port = 1025
 smtp-starttls = true
+smtp-insecure = true
