@@ -27,7 +27,7 @@ smtp-port = 1025
 smtp-starttls = true
 smtp-insecure = true
 
-[gmail-personal]
+[gmail]
 
 email = "damoon.azarpazhooh@gmail.com"
 
@@ -41,6 +41,39 @@ imap-passwd.cmd = "pass show gmail/personal"
 sender = "smtp"
 smtp-host = "smtp.gmail.com"
 smtp-port = 465
-smtp-login = "clement.douin@gmail.com"
+smtp-login = "damoon.azarpazhooh@gmail.com"
 smtp-auth = "passwd"
 smtp-passwd.cmd = "pass show gmail/personal"
+
+[gmail.folder-aliases]
+
+inbox = "INBOX"
+sent = "[Gmail]/Sent Mail"
+drafts = "[Gmail]/Drafts"
+trash = "[Gmail]/Trash"
+
+
+[badal]
+
+email = "damoon.azarpazhooh@badal.io"
+
+backend = "imap"
+imap-host = "imap.gmail.com"
+imap-port = 993
+imap-login = "damoon.azarpazhooh@badal.io"
+imap-auth = "passwd"
+imap-passwd.cmd = "pass show gmail/badal"
+
+sender = "smtp"
+smtp-host = "smtp.gmail.com"
+smtp-port = 465
+smtp-login = "damoon.azarpazhooh@badal.io"
+smtp-auth = "passwd"
+smtp-passwd.cmd = "pass show gmail/badal"
+
+[badal.folder-aliases]
+inbox = "INBOX"
+sent = "[Gmail]/Sent Mail"
+drafts = "[Gmail]/Drafts"
+trash = "[Gmail]/Trash"
+
