@@ -96,3 +96,7 @@
 	next-minor-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.%s.0\", $1,$2+1}END {if (NR==0){print \"0.0.1\"}}'"
 	next-major-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.0.0\", $1+1}END {if (NR==0){print \"0.0.1\"}}'"
 	next-patch-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.%s.%s\", $1,$2,$3+1}END {if (NR==0){print \"0.0.1\"}}'"
+[user]
+	signingkey = 4F0BDB86C4684DDD
+[gpg]
+	program = /usr/local/bin/gpg-without-tty
