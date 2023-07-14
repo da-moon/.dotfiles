@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
+export CGO_ENABLED=1
+export CGO_LDFLAGS="-g -O2"
 if command -- rustup -h >/dev/null 2>&1; then
   rustup update
 fi
@@ -28,19 +30,31 @@ if command -- fzf -h >/dev/null 2>&1; then
   [ ! -d "${HOME}/.forgit" ] && git clone "https://github.com/wfxr/forgit" "${HOME}/.forgit"
   git -C "${HOME}/.forgit" pull >/dev/null 2>&1
 fi
-# [ -x "$(command -v reflector)" ] && sudo reflector -p https --verbose --country US --sort rate --save "/etc/pacman.d/mirrorlist" ;
+[ -x "$(command -v reflector)" ] && sudo reflector --verbose --protocol https --threads 16 --country US --sort delay --latest 4 --save "/etc/pacman.d/mirrorlist"
 if [ -x "$(command -v topgrade)" ]; then
   topgrade -y --no-retry --skip-notify
+  if command -- paru -h >/dev/null 2>&1; then
+    [ -d "${HOME}/.cache/paru/clone/" ] \
+      && sudo /bin/rm -rf "${HOME}/.cache/paru/clone" \
+      && mkdir -p "${HOME}/.cache/paru/clone/"
+    paru -Syyu --removemake --cleanafter --noconfirm || true
+    [ -d "${HOME}/.cache/paru/clone/" ] \
+      && sudo /bin/rm -rf "${HOME}/.cache/paru/clone" \
+      && mkdir -p "${HOME}/.cache/paru/clone/"
+  fi
 else
   if command -- pmm -h >/dev/null 2>&1; then
     sudo pmm -Syyu --noconfirm
   else
     if command -- pacman -h >/dev/null 2>&1; then
       if command -- paru -h >/dev/null 2>&1; then
+        [ -d "${HOME}/.cache/paru/clone/" ] \
+          && sudo /bin/rm -rf "${HOME}/.cache/paru/clone" \
+          && mkdir -p "${HOME}/.cache/paru/clone/"
         paru -Syyu --removemake --cleanafter --noconfirm || true
         [ -d "${HOME}/.cache/paru/clone/" ] \
-                                            && /bin/rm -rf "${HOME}/.cache/paru/clone" \
-                                                  && mkdir -p "${HOME}/.cache/paru/clone/"
+          && /bin/rm -rf "${HOME}/.cache/paru/clone" \
+          && mkdir -p "${HOME}/.cache/paru/clone/"
       else
         sudo pacman -Syyu --noconfirm
         if command -- aura -h >/dev/null 2>&1; then
@@ -52,10 +66,10 @@ else
       for i in {1..5}; do
         ( 
           sudo apt-get update \
-                              && sudo apt-get upgrade -y --allow-downgrades \
-                                                       && sudo apt-get autoremove -y --purge
+            && sudo apt-get upgrade -y --allow-downgrades \
+            && sudo apt-get autoremove -y --purge
         ) && break \
-                   || sleep 15
+          || sleep 15
       done
     fi
   fi
@@ -69,11 +83,11 @@ else
       # i just added it to stop shellcheck from complaining
       pushd "$(sudo yarn global dir)" >/dev/null 2>&1 || return
       yarn outdated --json 2>/dev/null \
-                                       | jq -r '. | select (.type == "table").data.body[]|.[]' \
-                                                              | "/bin/grep" \
+        | jq -r '. | select (.type == "table").data.body[]|.[]' \
+        | "/bin/grep" \
           -Pv '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$' \
-                                                                                                            | "/bin/grep" -Pv '^http(s)*:\/\/|^dependencies$' \
-                                                        | sudo xargs -r -I {} \
+        | "/bin/grep" -Pv '^http(s)*:\/\/|^dependencies$' \
+        | sudo xargs -r -I {} \
           yarn global add --latest --prefix "/usr/local" {}
       # [ NOTE ] exit should never get called
       # i just added it to stop shellcheck from complaining
@@ -84,8 +98,8 @@ else
     # python3 -m pip list --user --outdated \
     #   | awk '!/Package|---/ {print $1}' \
     python3 -m pip --disable-pip-version-check list --user --outdated --format=json \
-                                                                                    | python3 -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" \
-                                                                                                 | xargs -r -I {} \
+      | python3 -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" \
+      | xargs -r -I {} \
         python3 -m pip install \
         --user \
         --upgrade \
@@ -93,6 +107,6 @@ else
   fi
   if command -- cargo-install-update -h >/dev/null 2>&1; then
     rustup run --install stable cargo-install-update install-update --all \
-                                                                          || rustup run --install nightly cargo-install-update install-update --all
+      || rustup run --install nightly cargo-install-update install-update --all
   fi
 fi
