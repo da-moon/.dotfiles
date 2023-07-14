@@ -2,6 +2,11 @@
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 export CGO_ENABLED=1
 export CGO_LDFLAGS="-g -O2"
+if type -P "go" >/dev/null; then
+  if ! type -P "go-global-update" >/dev/null; then
+    go install "github.com/Gelio/go-global-update@latest"
+  fi
+fi
 if command -- rustup -h >/dev/null 2>&1; then
   rustup update
 fi
@@ -108,5 +113,8 @@ else
   if command -- cargo-install-update -h >/dev/null 2>&1; then
     rustup run --install stable cargo-install-update install-update --all \
       || rustup run --install nightly cargo-install-update install-update --all
+  fi
+  if type -P "go-global-update" >/dev/null; then
+    go-global-update
   fi
 fi
