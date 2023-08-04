@@ -58,6 +58,9 @@ select              = "underline"
 insert              = "bar"
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.normal                                                                                       ]
+# https://github.com/TheR1D/shell_gpt
+A-c = [":pipe sgpt --code --temperature 0.3 --no-cache 'Replace this code with a better version and complete it.'"]
+A-C = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", ":append-output cat /tmp/helix-gpt | sgpt --code --temperature 0.3 --no-cache 'Finish this code. Start typing from where I left.'", ":sh echo done!"]
 "tab"               = [ "insert_tab"                                                               ]
 "\\"                = [ "toggle_comments"                                                          ]
 "^"                 = [ "goto_line_start"                                                          ]

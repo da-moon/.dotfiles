@@ -200,8 +200,6 @@ plugins {
 // Default: $SHELL
 //
 default_shell "bash"
-// default_cwd "/tmp"
-
 
 // Toggle between having pane frames around the panes
 // Options:
