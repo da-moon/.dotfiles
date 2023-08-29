@@ -18,4 +18,8 @@ font:
   normal:
     family: "Cascadia Code iCursive Cg"
 working_directory: "/home/damoon/sync"
+shell:
+  program: /bin/bash
+  args:
+    - --login
 # working_directory: "shared-drives/C:/Users/damoon/Sync"
