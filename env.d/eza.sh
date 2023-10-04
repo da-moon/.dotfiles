@@ -4,6 +4,6 @@ if command -- eza -h >/dev/null  2>&1; then
   alias ls="eza"
   alias ll="eza -lhF"
   alias la="eza -alhF"
-  alias llfu='exa -bghHliS --git'
+  alias llfu='eza -bghHliS --git'
   alias llt='eza -T'
 fi

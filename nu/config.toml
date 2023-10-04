@@ -11,7 +11,7 @@ skip_welcome_message  = false
 startup               = [
   "alias q = exit",
   "alias d = lsd -lA",
-  "alias x = exa -laFG --group-directories-first --icons",
+  "alias x = eza -laFG --group-directories-first --icons",
   "def nuver [] {version | pivot key value}",
 ]
 table_mode            = "other"

@@ -65,8 +65,8 @@ function _fzf_preview_fs {
     echo
     case "$TYPE" in
       'inode/directory'*)
-        if type exa >/dev/null; then
-          exa -lhF -T "$1"
+        if type eza >/dev/null; then
+          eza -lhF -T "$1"
       elif   type tree >/dev/null; then
           tree -C -L 1 -push -a --filelimit 200 "$1"
       else
