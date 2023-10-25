@@ -100,3 +100,5 @@
 	signingkey = 4F0BDB86C4684DDD
 [gpg]
 	program = /usr/local/bin/gpg-without-tty
+[gpg "ssh"]
+	allowedSignersFile = /home/damoon/.config/git/allowed_signers
