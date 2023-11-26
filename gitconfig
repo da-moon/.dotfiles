@@ -96,6 +96,7 @@
 	next-minor-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.%s.0\", $1,$2+1}END {if (NR==0){print \"0.0.1\"}}'"
 	next-major-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.0.0\", $1+1}END {if (NR==0){print \"0.0.1\"}}'"
 	next-patch-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.%s.%s\", $1,$2,$3+1}END {if (NR==0){print \"0.0.1\"}}'"
+	commitgpt = "!git --no-pager diff --staged --ignore-all-space --diff-algorithm=minimal --unified=3 . | sc -c \"write conventional commit message  no longer that 100 characters for the following changes. scope of the commit is the most frequently seen directory path of changed files. every sentence in commit body should start in a new line and be a bullet point. commit body should be in markdown format\" > .git/COMMIT_EDITMSG; $EDITOR .git/COMMIT_EDITMSG"
 [user]
 	signingkey = 4F0BDB86C4684DDD
 [gpg]

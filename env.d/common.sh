@@ -8,7 +8,7 @@ export PATH="${PATH}:${HOME}/.local/bin"
 export PATH="${PATH}:${HOME}/bin"
 [ -d "/var/lib/snapd/snap/bin" ] && export PATH="$PATH:/var/lib/snapd/snap/bin"
 [ -d "/snap" ] && export PATH="$PATH:/snap/bin"
-if command -- pass -h > /dev/null 2>&1 ; then
+if command -- pass -h >/dev/null  2>&1; then
   export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 fi
 # if command -- fasd -h > /dev/null 2>&1 ; then
@@ -25,24 +25,24 @@ fi
 #    alias vim="nvim"
 #  fi
 #fi
-if command -- hx -h > /dev/null 2>&1 ; then
+if command -- hx -h >/dev/null  2>&1; then
   export EDITOR="hx"
-elif command -- nvim -h > /dev/null 2>&1 ; then
+elif command -- nvim -h >/dev/null  2>&1; then
   export EDITOR="nvim"
-elif command -- vim -h > /dev/null 2>&1 ; then
+elif command -- vim -h >/dev/null  2>&1; then
   export EDITOR="vim"
 else
   export EDITOR="vi"
 fi
 export VISUAL="$EDITOR"
-if which ruby >/dev/null && which gem >/dev/null; then
+if which ruby >/dev/null 2>&1 && which gem >/dev/null 2>&1; then
     PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 #export MANPAGER='sh -c "col -bx | '"$(printf "%q" bat)"' --language man --style plain"' ;
-export MANPAGER='bat --language man --style plain' ;
+export MANPAGER='bat --language man --style plain'
 
 export BARTIB_FILE="${HOME}/sync/activities.bartib"
 # FIXME:
 
-[ -d "${HOME}/.huber" ] && export PATH="${HOME}/.huber/bin:${PATH}" ;
-export COLORTERM="truecolor" ;
+[ -d "${HOME}/.huber" ] && export PATH="${HOME}/.huber/bin:${PATH}"
+export COLORTERM="truecolor"

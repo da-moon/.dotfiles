@@ -290,7 +290,6 @@ A-C = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", ":append-output c
 [keys.normal."+".g                                                                                 ]
 
 "o"                 = [ ":open .git/COMMIT_EDITMSG"                                                ]
-"c"                 = [ ":run-shell-command codegpt commit --preview"                              ]
 "C"                 = [ ":run-shell-command git commit --signoff --gpg-sign -F.git/COMMIT_EDITMSG" ]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.normal."="                                                                                   ]
