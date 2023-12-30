@@ -1,5 +1,6 @@
 [core]
 	autocrlf = false
+	filemode = false
 [push]
 	recursesubmodules = on-demand
 [pull]
