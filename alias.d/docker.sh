@@ -14,4 +14,4 @@ alias gitlint="docker run -u $(id -u):$(id -g) -w /repo --rm -it --ulimit nofile
 if ! command -- reveal-md -h >/dev/null  2>&1; then
   alias reveal-md="docker run --rm -it  -u $(id -u):$(id -g) -p "1948:1948" -p "35729:35729" -v "$(pwd):/slides" webpronl/reveal-md:latest /slides --watch"
 fi
-alias mlflow="docker run --rm -it -p 5000:5000 ghcr.io/mlflow/mlflow:latest mlflow ui --backend-store-uri sqlite:///mlflow.db"
+alias mlflow="docker run --rm -it -u $(id -u):$(id -g) -w /workspace -v $(pwd):/workspace -p 5000:5000 ghcr.io/mlflow/mlflow:latest mlflow ui --host 0.0.0.0"
