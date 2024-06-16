@@ -8,8 +8,8 @@ unfocused_hollow = false
 [env]
 TERM = "xterm-256color"
 
-[font.normal]
-family = "Cascadia Code iCursive Cg"
+# [font.normal]
+# family = "Cascadia Code iCursive Cg"
 
 [shell]
 args = ["--login"]

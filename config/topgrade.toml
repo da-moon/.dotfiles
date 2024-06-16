@@ -1,4 +1,4 @@
 [misc]
 assume_yes = true
 run_in_tmux = false
-
+disable = ["vscode"]

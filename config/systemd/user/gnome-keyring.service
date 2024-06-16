@@ -2,6 +2,6 @@
 Description=Keyring
 [Service]
 ExecStart=/usr/local/bin/export-keys
-KillUserProcesses=no
+KillUserProcesses=yes
 [Install]
 WantedBy=default.target
