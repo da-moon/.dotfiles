@@ -9,4 +9,5 @@
 alias yarn-pkgs='cat  $(sudo yarn global dir)/package.json  | jq -r ".dependencies|keys[]"'
 # fi
 # command -- aura --version >/dev/null 2>&1 && alias aura='sudo aura'
-alias aura='sudo aura' ;
+alias aura='sudo aura'
+alias apk='sudo apk'
