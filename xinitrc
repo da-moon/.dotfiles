@@ -1,5 +1,14 @@
 #!/bin/sh
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
+if grep -iq 'alpine' '/etc/os-release'; then
+  export LANG=en_US.UTF-8
+  export LC_ALL=en_US.UTF-8
+  export SSH_AUTH_SOCK
+  export $(dbus-launch)
+  /usr/libexec/pipewire-launcher
+  /usr/local/libexec/pipewire-module-xrdp/load_pw_modules.sh
+  exec startplasma-x11
+fi
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
