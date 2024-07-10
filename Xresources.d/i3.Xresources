@@ -1,1 +1,2 @@
 i3-wm.program.terminal: /usr/bin/alacritty
+wm.program.terminal: /usr/bin/alacritty
