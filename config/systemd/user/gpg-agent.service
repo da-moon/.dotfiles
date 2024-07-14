@@ -1,0 +1,30 @@
+# NOTE: use the following snippet to enable this service
+# 
+# [ -r "/usr/lib/systemd/user/gpg-agent-browser.socket" ] && systemctl --user mask gpg-agent-browser.socket
+# [ -r "/usr/lib/systemd/user/gpg-agent-extra.socket" ] && systemctl --user mask gpg-agent-extra.socket
+# [ -r "/usr/lib/systemd/user/gpg-agent-ssh.socket" ] && systemctl --user mask gpg-agent-ssh.socket
+# [ -r "/usr/lib/systemd/user/gpg-agent.service" ] && systemctl --user mask gpg-agent.service
+# [ -r "/usr/lib/systemd/user/gpg-agent.socket" ] && systemctl --user mask gpg-agent.socket
+# rcup -f
+# systemctl --user enable --now gpg-agent
+[Unit]
+Description=GnuPG private key agent
+IgnoreOnIsolate=true
+
+[Service]
+
+Type=forking
+ExecStartPre=/bin/sh -c 'echo "ExecStartPre: Killing existing gpg-agent" ; /usr/bin/gpgconf --kill gpg-agent'
+ExecStart=/bin/sh -c 'echo "ExecStart: Starting gpg-agent daemon" ; /usr/bin/gpg-agent --daemon --verbose'
+ExecStartPost=/bin/sh -c 'echo "ExecStartPost: Unlocking key" ; echo "$PASSPHRASE" | /usr/bin/gpg --batch --passphrase-fd 0 --pinentry-mode loopback --local-user $GPG_KEY_ID -o /dev/null --sign /dev/null'
+ExecReload=/bin/sh -c 'echo "ExecReloadPre: Reloading agent" ; /usr/bin/gpg-connect-agent reloadagent /bye'
+ExecReload=/bin/sh -c 'echo "ExecReload: Unlocking key" ; echo "00000000" | /usr/bin/gpg --batch --passphrase-fd 0 --pinentry-mode loopback --local-user $GPG_KEY_ID -o /dev/null --sign /dev/null'
+ExecStop=/bin/sh -c 'echo "ExecStop: Killing gpg-agent" ; /usr/bin/gpgconf --kill gpg-agent'
+ExecStop=/bin/sh -c 'echo "ExecStop: Sending killagent command" ; /usr/bin/gpg-connect-agent killagent /bye'
+Restart=on-abort
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
