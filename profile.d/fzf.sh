@@ -103,6 +103,8 @@ if [ -x "$(command -v fzf)" ]; then
     if command -v make >/dev/null 2>&1; then
       [[ -n ${BASH} ]] && complete -F _fzf_complete_make -o default -o bashdefault make
     fi
+    # paru -Sy --removemake --cleanafter --noconfirm --needed aur/fzf-tab-completion-git
+    # sudo ln -sf "/usr/share/fzf-tab-completion/bash/fzf-bash-completion.sh" "/usr/share/fzf/fzf-tab-completion.bash"
     bind -x '"\t": fzf_bash_completion'
     if command -- fd -h >/dev/null  2>&1; then
       excludes="--exclude .git"

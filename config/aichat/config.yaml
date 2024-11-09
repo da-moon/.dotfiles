@@ -1,0 +1,134 @@
+# NOTE: clear out env vars
+#
+# while read i; do unset $i; done < <(printenv | grep API_KEY| cut -d= -f1)
+# ──────────────────────────────────────────────────────────────────────────────
+# model: "gemini:gemini-1.5-pro-latest"
+model: "vertexai:gemini-1.5-pro-001"
+# ──────────────────────────────────────────────────────────────────────────────
+# model: "claude:claude-3-5-sonnet-20240620"
+# model: "openrouter:anthropic/claude-3.5-sonnet"
+# model: "openai:gpt-4o"
+# model: "mistral:mistral-large-latest"
+# model: "openrouter:qwen/qwen-2-72b-instruct"
+# model: "openrouter:cohere/command-r-plus"
+# ──────────────────────────────────────────────────────────────────────────────
+# model: "mistral:codestral-latest"
+# ──────────────────────────────────────────────────────────────────────────────
+# model: "groq:llama3-70b-8192"
+# model: "perplexity:llama-3-sonar-large-32k-chat"
+# model: "perplexity:llama-3-sonar-large-32k-online"
+# model: "perplexity:llama-3.1-sonar-large-128k-online"
+# model: "perplexity:llama-3.1-sonar-large-128k-chat"
+# model: "perplexity:llama-3.1-sonar-huge-128k-online"
+# ──────────────────────────────────────────────────────────────────────────────
+prelude: "role:basic"
+temperature: 0.7
+top_p: 0.9
+compress_threshold: 128000
+stream: true
+save: true
+keybindings: vi
+editor: "hx"
+wrap: no
+wrap_code: true
+save_session: true
+
+document_loaders:
+  pdf: "pdftotext $1 -"
+  docx: "pandoc --to plain $1"
+highlight: true
+light_theme: false
+
+summarize_prompt: |
+  You are an AI assistant with a virtual representation of a file system. Your
+  task is to summarize the conversation and file system changes, ensuring
+  continuity for the next session.
+
+  1. **Conversation Context**: Briefly summarize the main themes, goals, and key
+    points of the conversation. Focus on the user's objectives and any
+    significant decisions or insights.
+
+  2. **File System Changes**: List all accepted modifications to the virtual file
+    system. For each change, provide:
+
+    - File path
+    - Type of change (e.g., content update, new file, deletion)
+    - Brief description of the change
+
+  3. **Updated File System State**: Describe how to apply the changes to the
+    original YAML representation. Use a concise format that the LLM can easily
+    process to update its internal representation.
+
+  4. **Continuation Guidance**: Provide a short statement on how to proceed with
+    the conversation, maintaining context and goals.
+
+  Format your summary as follows:
+
+  ---
+
+  **Conversation Context**: [Concise summary of themes, goals, and key points]
+
+  **File System Changes**:
+
+  - [File path]: [Type of change] - [Brief description]
+  - ...
+
+  **Updated File System State**: Apply the following changes to the original
+  YAML:
+
+  - [File path]: [Update instruction]
+  - ...
+
+  **Continuation Guidance**: [Brief statement on how to proceed]
+
+  ---
+
+  Ensure your summary is clear, concise, and focused on enabling seamless
+  continuation of the conversation and accurate maintenance of the virtual file
+  system state.
+summary_prompt: "This is a summary of the chat history as a recap: "
+clients:
+  - type: gemini
+    patch:
+      chat_completions:
+        ".*":
+          body:
+            safetySettings:
+              - category: HARM_CATEGORY_HARASSMENT
+                threshold: BLOCK_NONE
+              - category: HARM_CATEGORY_HATE_SPEECH
+                threshold: BLOCK_NONE
+              - category: HARM_CATEGORY_SEXUALLY_EXPLICIT
+                threshold: BLOCK_NONE
+              - category: HARM_CATEGORY_DANGEROUS_CONTENT
+                threshold: BLOCK_NONE
+  # https://cloud.google.com/vertex-ai/docs/reference/rest
+  - type: vertexai
+    patch:
+      chat_completions:
+        "gemini-.*":
+          body:
+            safetySettings:
+              - category: HARM_CATEGORY_HARASSMENT
+                threshold: BLOCK_NONE
+              - category: HARM_CATEGORY_HATE_SPEECH
+                threshold: BLOCK_NONE
+              - category: HARM_CATEGORY_SEXUALLY_EXPLICIT
+                threshold: BLOCK_NONE
+              - category: HARM_CATEGORY_DANGEROUS_CONTENT
+                threshold: BLOCK_NONE
+
+  - type: claude
+  - type: openai
+  - type: openai-compatible
+    name: groq
+    api_base: https://api.groq.com/openai/v1
+  - type: openai-compatible
+    name: mistral
+    api_base: https://api.mistral.ai/v1
+  - type: openai-compatible
+    name: openrouter
+    api_base: https://openrouter.ai/api/v1
+  - type: openai-compatible
+    name: perplexity
+    api_base: https://api.perplexity.ai

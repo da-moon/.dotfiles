@@ -70,3 +70,7 @@ alias xcd='cd "$(xplr --print-pwd-as-result)"'
 alias xcopy='xclip -sel c'
 alias xpaste='xclip -sel c -o'
 alias lxc='incus'
+
+# alias zeditor='zeditor'
+# alias zed='WAYLAND_DISPLAY= zed'
+alias zed='env -u WAYLAND_DISPLAY zed'

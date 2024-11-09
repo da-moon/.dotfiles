@@ -1,170 +1,170 @@
 # https://github.com/leona/helix-gpt
-[language-server.gpt]
-command = "helix-gpt"
-args = ["--handler","copilot"]
+# [language-server.gpt]
+# command = "helix-gpt"
+# args = ["--handler","openai"]
 
 [[language]]
 name = "markdown"
-formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "markdown"] }
+formatter = { command = 'prettier', args = [
+    "--print-width=79",
+    "--prose-wrap=always",
+    "--parser",
+    "markdown",
+] }
 auto-format = true
-language-servers = [
-  "marksman",
-  "gpt",
-]
+language-servers = ["marksman", "gpt"]
 
 [[language]]
 name = "json"
-formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "json"] }
+formatter = { command = 'prettier', args = [
+    "--print-width=79",
+    "--prose-wrap=always",
+    "--parser",
+    "json",
+] }
 auto-format = true
-language-servers = [
-  "vscode-json-language-server",
-  "gpt",
-]
+language-servers = ["vscode-json-language-server", "gpt"]
 
 [[language]]
 name = "yaml"
-formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser=yaml"] }
+formatter = { command = 'prettier', args = [
+    "--print-width=79",
+    "--prose-wrap=always",
+    "--parser=yaml",
+] }
 auto-format = true
-language-servers = [
-  "yaml-language-server",
-  "ansible-language-server",
-  "gpt",
-]
+language-servers = ["yaml-language-server", "ansible-language-server", "gpt"]
+[[language]]
+name = "xml"
+# formatter = { command = 'xidel', args = ["--output-node-format=xml", "--output-node-indent", "--silent","--extract=."] }
+# npx prettier-pnp -- --pn xml --single-attribute-per-line=true --print-width=79 --prose-wrap=always milestone-from-tdd.xml
+# prettier --print-width=79 --prose-wrap=always --plugin=/usr/lib/node_modules/@prettier/plugin-xml/src/plugin.js --parser=xml --single-attribute-per-line=true --xml-whitespace-sensitivity=ignore example.xml
+formatter = { command = 'prettier', args = [
+    "--print-width=79",
+    "--prose-wrap=always",
+    "--plugin=/usr/lib/node_modules/@prettier/plugin-xml/src/plugin.js",
+    "--parser=xml",
+    "--single-attribute-per-line=true",
+    "--xml-whitespace-sensitivity=ignore",
+] }
+auto-format = true
+language-servers = ["gpt"]
 
 [[language]]
 name = "graphql"
-formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser=graphql"] }
+formatter = { command = 'prettier', args = [
+    "--print-width=79",
+    "--prose-wrap=always",
+    "--parser=graphql",
+] }
 auto-format = true
-language-servers = [
-  "graphql-language-service",
-  "gpt",
-]
+language-servers = ["graphql-language-service", "gpt"]
 
 [[language]]
 name = "bash"
 indent = { tab-width = 2, unit = "  " }
-formatter = { command = 'shfmt', args = ["--binary-next-line", "--keep-padding", "--indent=2"] }
+formatter = { command = 'shfmt', args = [
+    "--binary-next-line",
+    "--keep-padding",
+    "--indent=2",
+] }
 auto-format = true
-language-servers = [
-  "bash-language-server",
-  "gpt",
-]
+language-servers = ["bash-language-server", "gpt"]
 
 [[language]]
 name = "python"
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
-language-servers = [
-  "pylsp",
-  "gpt",
-]
+language-servers = ["pylsp", "gpt"]
 
 [[language]]
 name = "html"
-formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "html"] }
+formatter = { command = 'prettier', args = [
+    "--print-width=79",
+    "--prose-wrap=always",
+    "--parser",
+    "html",
+] }
 auto-format = true
-language-servers = [
-  "vscode-html-language-server",
-  "gpt",
-]
+language-servers = ["vscode-html-language-server", "gpt"]
 
 [[language]]
 name = "css"
-formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "css"] }
+formatter = { command = 'prettier', args = [
+    "--print-width=79",
+    "--prose-wrap=always",
+    "--parser",
+    "css",
+] }
 auto-format = true
-language-servers = [
-  "vscode-css-language-server",
-  "gpt",
-]
+language-servers = ["vscode-css-language-server", "gpt"]
 
 [[language]]
 name = "javascript"
-formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "typescript"] }
+formatter = { command = 'prettier', args = [
+    "--print-width=79",
+    "--prose-wrap=always",
+    "--parser",
+    "typescript",
+] }
 auto-format = true
-language-servers = [
-  "typescript-language-server",
-  "gpt",
-]
+language-servers = ["typescript-language-server", "gpt"]
 
 [[language]]
 name = "typescript"
-formatter = { command = 'prettier', args = ["--print-width=79", "--prose-wrap=always", "--parser", "typescript"] }
+formatter = { command = 'prettier', args = [
+    "--print-width=79",
+    "--prose-wrap=always",
+    "--parser",
+    "typescript",
+] }
 auto-format = true
-language-servers = [
-  "typescript-language-server",
-  "gpt",
-]
+language-servers = ["typescript-language-server", "gpt"]
 
 [[language]]
 name = "jsx"
-formatter = { command = 'deno', args = ["fmt", "--ext=jsx","--line-width=79", "--prose-wrap=always", "-" ] }
+formatter = { command = 'deno', args = [
+    "fmt",
+    "--ext=jsx",
+    "--line-width=79",
+    "--prose-wrap=always",
+    "-",
+] }
 auto-format = true
-language-servers = [
-  "typescript-language-server",
-  "gpt",
-]
+language-servers = ["typescript-language-server", "gpt"]
 
 [[language]]
 name = "awk"
-language-servers = [
-  "awk-language-server",
-  "gpt",
-]
+language-servers = ["awk-language-server", "gpt"]
 
 [[language]]
 name = "hcl"
-language-servers = [
-  "terraform-ls",
-  "gpt",
-]
+language-servers = ["terraform-ls", "gpt"]
 
 [[language]]
 name = "tfvars"
-language-servers = [
-  "terraform-ls",
-  "gpt",
-]
+language-servers = ["terraform-ls", "gpt"]
 
 [[language]]
 name = "cmake"
-language-servers = [
-  "cmake-language-server",
-  "gpt",
-]
+language-servers = ["cmake-language-server", "gpt"]
 
 [[language]]
 name = "rust"
-language-servers = [
-  "rust-analyzer",
-  "gpt",
-]
+language-servers = ["rust-analyzer", "gpt"]
 
 [[language]]
 name = "toml"
-language-servers = [
-  "taplo",
-  "gpt",
-]
+language-servers = ["taplo", "gpt"]
 
 [[language]]
 name = "protobuf"
-language-servers = [
-  "bufls", 
-  "pbkit",
-  "gpt",
-]
+language-servers = ["bufls", "pbkit", "gpt"]
 
 [[language]]
 name = "go"
-language-servers = [
-  "gopls", 
-  "golangci-lint-lsp",
-  "gpt",
-]
+language-servers = ["gopls", "golangci-lint-lsp", "gpt"]
 
 [[language]]
 name = "gotmpl"
-language-servers = [
-  "gopls", 
-  "gpt",
-]
+language-servers = ["gopls", "gpt"]

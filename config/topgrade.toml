@@ -2,5 +2,5 @@
 assume_yes = true
 run_in_tmux = false
 skip_notify = true
-disable = ["vscode","vim"]
+disable = ["vscode","vim","ruby_gems", "vagrant"]
 sudo_command = "sudo"

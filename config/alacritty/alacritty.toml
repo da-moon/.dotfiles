@@ -1,5 +1,3 @@
-import = ["/home/damoon/.config/alacritty/ayu-mirage.toml"]
-working_directory = "/home/damoon/sync"
 
 [cursor]
 style = "Block"
@@ -8,9 +6,15 @@ unfocused_hollow = false
 [env]
 TERM = "xterm-256color"
 
+[general]
+working_directory = "/home/damoon/sync"
+import = ["/home/damoon/.config/alacritty/ayu-mirage.toml"]
+
+[terminal]
+
 # [font.normal]
 # family = "Cascadia Code iCursive Cg"
 
-[shell]
+[terminal.shell]
 args = ["--login"]
 program = "/bin/bash"
