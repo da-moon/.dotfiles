@@ -59,7 +59,8 @@ else
       else
         sudo pacman -Syyu --noconfirm
         if command -- aura -h >/dev/null 2>&1; then
-          sudo aura -Ayyuxac --noconfirm --skipinteg --skippgpcheck --noanalysis
+          # sudo aura -Ayyuxac --noconfirm --skipinteg --skippgpcheck --noanalysis
+          sudo aura -Ayuxac --noconfirm --skipinteg --skippgpcheck
         fi
       fi
     fi

@@ -10,6 +10,16 @@ alias timestamp='date +"%FT%RZ"'
 # if command -- aria2c -h > /dev/null 2>&1 ; then
   alias dl="aria2c --optimize-concurrent-downloads -k 1M -j16 -x 16 -c --file-allocation=falloc"
 # fi
+
+# -a urls.txt
+#
+# URL output_template
+# https://example.com/video1 "Custom Name 1.%(ext)s"
+# https://example.com/video2 "Different Name 2.%(ext)s"
+#
+# yt-dlp -o "Custom Name 1.%(ext)s" URL1 -o "Custom Name 2.%(ext)s" URL2
+#
+alias dl-v='yt-dlp --hls-use-mpegts --downloader aria2c --downloader-args aria2c:" --optimize-concurrent-downloads -k 1M -j16 -x 16 -c --file-allocation=falloc"'
 if ! command -- code -h >/dev/null  2>&1; then
   if command -- code-insiders -h >/dev/null  2>&1; then
     alias code="code-insiders"
