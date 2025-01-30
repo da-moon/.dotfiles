@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-eval "$(broot --print-shell-function bash)"
+if broot --version >/dev/null  2>&1; then
+  eval "$(broot --print-shell-function bash)"
+fi

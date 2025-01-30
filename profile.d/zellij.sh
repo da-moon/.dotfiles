@@ -5,7 +5,7 @@ if [ -x "$(command -v zellij)" ]; then
     terminal="$(ps -o comm= -p $(ps -o ppid= -p $$))"
     # if printenv | grep -Pq 'WINDOW|TERMINAL'; then
     case "${terminal}" in
-       "warp" | "tilda" | "poetry" | "node" | "zed-editor")
+       "warp" | "zellij" | "tilda" | "poetry" | "node" | "zed-editor")
         # No action needed, terminal matches one of the conditions
       ;;
       *)

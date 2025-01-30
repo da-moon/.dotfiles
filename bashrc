@@ -37,22 +37,22 @@ fi
 [ -r "${HOME}/.bash_functions" ] && source "${HOME}/.bash_functions"
 [ -r "${HOME}/.environment" ] && source "${HOME}/.environment"
 [ -r "${HOME}/.bash_aliases" ] && source "${HOME}/.bash_aliases"
-# # ─────────────────────────────────────────────────────────────────────
-# # if ( [ -z "${TERM_PROGRAM+x}" ] && [ -z "${TERM_PROGRAM}" ] ) \
-# #   && ( [ -z "${VIMRUNTIME+x}" ] && [ -z "${VIMRUNTIME}" ] ) \
-# #   && ( [ -z "${VIMRUNTIME+x}" ] && [ -z "${VIMRUNTIME}" ] ) \
-# #   && ([ -z "${SOMMELIER_VERSION+x}" ] || [ -z "${SOMMELIER_VERSION}" ]); then
-# #   if command -- colorscript -h >/dev/null 2>&1; then
-# #     color_scripts=(
-# #       "3" "9" "14" "15" "16" "17" "21" "22" "23" "24" "27" "28" "29" "30"
-# #       "31" "34" "36" "39" "41" "42" "44" "45" "46" "47" "48"
-# #     )
-# #     colorscript -e "${color_scripts[RANDOM % ${#color_scripts[@]}]}"
-# #   fi
-# #   # if command -- freshfetch -h >/dev/null 2>&1; then
-# #   # freshfetch 2>/dev/null
-# #   # fi
-# # fi
+# ─────────────────────────────────────────────────────────────────────
+# if ( [ -z "${TERM_PROGRAM+x}" ] && [ -z "${TERM_PROGRAM}" ] ) \
+#   && ( [ -z "${VIMRUNTIME+x}" ] && [ -z "${VIMRUNTIME}" ] ) \
+#   && ( [ -z "${VIMRUNTIME+x}" ] && [ -z "${VIMRUNTIME}" ] ) \
+#   && ([ -z "${SOMMELIER_VERSION+x}" ] || [ -z "${SOMMELIER_VERSION}" ]); then
+#   if command -- colorscript -h >/dev/null 2>&1; then
+#     color_scripts=(
+#       "3" "9" "14" "15" "16" "17" "21" "22" "23" "24" "27" "28" "29" "30"
+#       "31" "34" "36" "39" "41" "42" "44" "45" "46" "47" "48"
+#     )
+#     colorscript -e "${color_scripts[RANDOM % ${#color_scripts[@]}]}"
+#   fi
+#   # if command -- freshfetch -h >/dev/null 2>&1; then
+#   # freshfetch 2>/dev/null
+#   # fi
+# fi
 export PATH=$(echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
 # ────────────────────────────────────────────────────────────────────────────────
 function refresh-rc() {

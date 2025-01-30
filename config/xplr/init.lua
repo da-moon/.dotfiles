@@ -1,4 +1,4 @@
-version = "0.21.1"
+version = "0.21.9"
 local xplr = xplr -- The globally exposed configuration to be overridden.
 
 local home = os.getenv("HOME")
@@ -16,7 +16,6 @@ package.path = package.path
   .. "/?.lua;"
   .. xpm_path
   .. "/?/init.lua"
-
 
 xplr.config.general.disable_debug_error_mode = false
 xplr.config.general.enable_mouse = false
@@ -1281,7 +1280,8 @@ xplr.config.modes.builtin.action = {
         help = "shell",
         messages = {
           "PopMode",
-          { Call0 = { command = os.getenv("SHELL") or "bash", args = { "-i" } } },
+          -- { Call0 = { command = os.getenv("SHELL") or "bash", args = { "-i" } } },
+          { Call0 = { command = "nu", args = { "-i" } } },
           "ExplorePwdAsync",
         },
       },
@@ -2301,6 +2301,7 @@ require("xpm").setup({
     { name = "sayanarijit/map.xplr"          },
     { name = "sayanarijit/trash-cli.xplr"    },
     { name = "sayanarijit/zoxide.xplr"       },
+    { name = "sayanarijit/tree-view.xplr"    },
     { name = "Junker/nuke.xplr"              },
     -- paru -Sy --removemake --cleanafter --noconfirm dragon-dro
     { name = "sayanarijit/dragon.xplr"       },

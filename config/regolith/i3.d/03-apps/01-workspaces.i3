@@ -7,11 +7,19 @@
 ## Launch // Terminal // <> Enter ##
 set $ws1 "1:"
 for_window [workspace=$ws1] layout tabbed
-set_from_resource $i3-wm.program.terminal $i3-wm.program.terminal $(which alacritty)
+
+# set_from_resource $i3-wm.program.terminal $i3-wm.program.terminal $(which alacritty)
+# set_from_resource $i3-wm.binding.terminal i3-wm.binding.terminal Return
+# bindsym $mod+$i3-wm.binding.terminal exec $i3-wm.program.terminal
+# assign [class="(?i)Alacritty"] $ws1
+# for_window [class="(?i)Alacritty"] focus
+
+set_from_resource $i3-wm.program.terminal $i3-wm.program.terminal $(which warp-terminal)
 set_from_resource $i3-wm.binding.terminal i3-wm.binding.terminal Return
 bindsym $mod+$i3-wm.binding.terminal exec $i3-wm.program.terminal
-assign [class="(?i)Alacritty"] $ws1
-for_window [class="(?i)Alacritty"] focus
+assign [class="(?i)dev.warp.Warp"] $ws1
+for_window [class="(?i)dev.warp.Warp"] focus
+
 # -----------------------------------------------------------
 set $ws2 "2:"
 for_window [workspace=$ws2] layout tabbed

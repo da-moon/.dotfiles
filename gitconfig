@@ -107,3 +107,6 @@
 [gpg "ssh"]
 	allowedSignersFile = /home/damoon/.config/git/allowed_signers
 
+[http]
+	lowSpeedLimit = 1000
+	lowSpeedTime = 10
