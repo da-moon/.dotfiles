@@ -1,0 +1,48 @@
+GOOSE_MODEL: claude-3-5-sonnet-latest
+GOOSE_PROVIDER: anthropic
+extensions:
+  computercontroller:
+    enabled: true
+    name: computercontroller
+    type: builtin
+  developer:
+    enabled: true
+    name: developer
+    type: builtin
+  fetch:
+    args:
+      - mcp-server-fetch
+    cmd: uvx
+    enabled: true
+    envs: {}
+    name: fetch
+    type: stdio
+  git:
+    args:
+      - mcp-server-git
+    cmd: uvx
+    enabled: true
+    envs: {}
+    name: git
+    type: stdio
+  kg-memory:
+    args:
+      - -y
+      - "@modelcontextprotocol/server-memory"
+    cmd: npx
+    enabled: false
+    envs: {}
+    name: kg-memory
+    type: stdio
+  memory:
+    enabled: true
+    name: memory
+    type: builtin
+  tavily:
+    args:
+      - mcp-tavily
+    cmd: uvx
+    enabled: true
+    envs: {}
+    name: tavily
+    type: stdio
