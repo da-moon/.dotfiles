@@ -1,79 +1,73 @@
+###############################################################################
+#                             Global configuration                             #
+###############################################################################
+
+# Display name used by default for all accounts (if not overridden per account).
 display-name = "Damoon Azarpazhooh"
-downloads-dir = "~/downloads"
-folder-listing-page-size = 50
-email-listing-page-size = 50
+
+# A simple signature, included in all new and reply emails by default.
+signature = "Regards,\nDamoon"
+
+# Signature delimiter placed right above the signature content.
+signature-delim = "-- \n"
+
+# Default directory for attachments/downloads.
+downloads-dir = "~/emails/downloads"
 
 
-[protonmail]
+###############################################################################
+#                             Gmail account                                   #
+###############################################################################
+[accounts.gmail]
+
+# Make it the default account if you want all commands to use it by default.
 default = true
-display-name = "Damoon Azarpazhooh"
-email = "damoon@protonmail.com"
 
-backend = "imap"
-imap-host = "127.0.0.1"
-imap-login = "damoon@protonmail.com"
-imap-auth = "passwd"
-imap-passwd.cmd = "pass show proton"
-imap-port = 1143
-imap-starttls = true
-imap-insecure = true
-
-sender = "smtp"
-smtp-host = "127.0.0.1"
-smtp-login = "damoon@protonmail.com"
-smtp-auth = "passwd"
-smtp-passwd.cmd = "pass show proton"
-smtp-port = 1025
-smtp-starttls = true
-smtp-insecure = true
-
-[gmail]
-
+# Basic identity settings.
 email = "damoon.azarpazhooh@gmail.com"
+display-name = "Damoon Azarpazhooh"
 
-backend = "imap"
-imap-host = "imap.gmail.com"
-imap-port = 993
-imap-login = "damoon.azarpazhooh@gmail.com"
-imap-auth = "passwd"
-imap-passwd.cmd = "pass show gmail/personal"
+# Folder (mailbox) aliases – especially important for Gmail, where Sent Mail, Drafts, etc.
+folder.aliases.inbox  = "INBOX"
+folder.aliases.sent   = "[Gmail]/Sent Mail"
+folder.aliases.drafts = "[Gmail]/Drafts"
+folder.aliases.trash  = "[Gmail]/Trash"
 
-sender = "smtp"
-smtp-host = "smtp.gmail.com"
-smtp-port = 465
-smtp-login = "damoon.azarpazhooh@gmail.com"
-smtp-auth = "passwd"
-smtp-passwd.cmd = "pass show gmail/personal"
+# --- IMAP settings ---
+backend.type                  = "imap"
+backend.host                  = "imap.gmail.com"
+backend.port                  = 993
+backend.encryption.type       = "tls"
+backend.login                 = "damoon.azarpazhooh@gmail.com"
+backend.auth.type             = "password"
+backend.auth.cmd              = "pass show gmail/personal"
 
-[gmail.folder-aliases]
+# --- SMTP settings ---
+message.send.backend.type            = "smtp"
+message.send.backend.host            = "smtp.gmail.com"
+message.send.backend.port            = 465
+message.send.backend.encryption.type = "tls"
+message.send.backend.login           = "damoon.azarpazhooh@gmail.com"
+message.send.backend.auth.type       = "password"
+message.send.backend.auth.cmd        = "pass show gmail/personal"
 
-inbox = "INBOX"
-sent = "[Gmail]/Sent Mail"
-drafts = "[Gmail]/Drafts"
-trash = "[Gmail]/Trash"
+# Increase folder and message listing page sizes 
+folder.list.page-size = 50
+envelope.list.page-size = 50
 
+# Let's also enable a few nice extras from the sample config:
 
-[badal]
+# Always store a copy of sent messages in the "sent" folder (Gmail's [Gmail]/Sent Mail).
+message.send.save-copy = true
 
-email = "damoon.azarpazhooh@badal.io"
-
-backend = "imap"
-imap-host = "imap.gmail.com"
-imap-port = 993
-imap-login = "damoon.azarpazhooh@badal.io"
-imap-auth = "passwd"
-imap-passwd.cmd = "pass show gmail/badal"
-
-sender = "smtp"
-smtp-host = "smtp.gmail.com"
-smtp-port = 465
-smtp-login = "damoon.azarpazhooh@badal.io"
-smtp-auth = "passwd"
-smtp-passwd.cmd = "pass show gmail/badal"
-
-[badal.folder-aliases]
-inbox = "INBOX"
-sent = "[Gmail]/Sent Mail"
-drafts = "[Gmail]/Drafts"
-trash = "[Gmail]/Trash"
-
+envelope.list.datetime-fmt = "%F %R%:z"
+envelope.list.datetime-local-tz = true
+folder.list.table.preset = "||  |-|||           "
+folder.list.table.name-color = "blue"
+folder.list.table.desc-color = "green"
+envelope.list.table.preset = "||  |-|||           "
+envelope.list.table.id-color = "red"
+envelope.list.table.flags-color = "black"
+envelope.list.table.subject-color = "green"
+envelope.list.table.sender-color = "blue"
+envelope.list.table.date-color = "yellow"

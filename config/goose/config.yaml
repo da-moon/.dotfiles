@@ -1,5 +1,5 @@
-GOOSE_MODEL: claude-3-5-sonnet-latest
 GOOSE_PROVIDER: anthropic
+GOOSE_MODEL: claude-3-5-sonnet-latest
 extensions:
   computercontroller:
     enabled: true
@@ -13,7 +13,7 @@ extensions:
     args:
       - mcp-server-fetch
     cmd: uvx
-    enabled: true
+    enabled: false
     envs: {}
     name: fetch
     type: stdio
@@ -30,14 +30,46 @@ extensions:
       - -y
       - "@modelcontextprotocol/server-memory"
     cmd: npx
-    enabled: false
+    enabled: true
     envs: {}
     name: kg-memory
     type: stdio
   memory:
-    enabled: true
+    enabled: false
     name: memory
     type: builtin
+  puppeteer-docker:
+    args:
+      - run
+      - -i
+      - --rm
+      - --init
+      - -e
+      - DOCKER_CONTAINER=true
+      - mcp/puppeteer
+    cmd: docker
+    enabled: false
+    envs: {}
+    name: puppeteer-docker
+    type: stdio
+  puppeteer-local:
+    args:
+      - -y
+      - "@modelcontextprotocol/server-puppeteer"
+    cmd: npx
+    enabled: false
+    envs: {}
+    name: puppeteer-local
+    type: stdio
+  sequential-thinking:
+    args:
+      - -y
+      - "@modelcontextprotocol/server-sequential-thinking"
+    cmd: npx
+    enabled: false
+    envs: {}
+    name: sequential-thinking
+    type: stdio
   tavily:
     args:
       - mcp-tavily
@@ -46,3 +78,49 @@ extensions:
     envs: {}
     name: tavily
     type: stdio
+  time:
+    args:
+      - mcp-server-time
+    cmd: uvx
+    enabled: true
+    envs: {}
+    name: time
+    type: stdio
+# # NOTE: proposed changes
+# providers:
+#   - name: "anthropic" # Name has to be unique. I initially thought that it might
+#     type: "anthropic" # We can have other types such as openai ; the type would enable us to create multiple providers, e.g have backup providers from openrouter or we can add other openai compliant LLM inference api providers such as perplexity
+#     api: "https://api.anthropic.com/v1" # allow customization of base url which can help in cases such as using openai compliant endpoints
+#     temperature: 0.3 # enable experimentation and fine-tuning
+#     top_p: 0.9 # enable experimentation and fine-tuning
+#     cache: false # control prompt caching
+#     max_tokens: 8192 # allow overriding max tokens
+#     additional_headers: # enables addition of headers to help with bleeding edge features that are not integrated in code;
+#       anthropic-version: 2023-06-01
+#     ratelimit: # setup rate-limiting
+#       type: simple
+#       config:
+#         requests:
+#           limit: 80 # Maximum API calls per period
+#           period_seconds: 60 # Time window in seconds (i.e. 1 minute)
+#         tokens:
+#           limit: 80000 # Maximum input tokens per period
+#           period_seconds: 60
+#         retry:
+#           delay_seconds: 60 # Wait time upon a rate-limit error
+#           max_retries: 3
+#   - name: "claude-openrouter"
+#     type: "openai"
+#     api: "https://openrouter.ai/api/v1/chat/completions"
+#     model: "anthropic/claude-3.5-sonnet:beta"
+#     cache: false
+#     max_tokens: 8192
+#     ratelimit:
+#       type: token_bucket
+#       config:
+#         capacity: 80 # Maximum burst capacity (i.e. tokens available)
+#         refill_rate: 80 # Number of tokens added per period (e.g. per minute)
+#         period_seconds: 60 # The time window for refilling tokens
+#         retry:
+#           delay_seconds: 60
+#           max_retries: 3
