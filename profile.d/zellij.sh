@@ -1,21 +1,34 @@
 #!/usr/bin/env bash
 # vim: ft=sh syntax=sh softtabstop=2 tabstop=2 shiftwidth=2 fenc=utf-8 expandtab
 
-if [ -x "$(command -v zellij)" ]; then
-    terminal="$(ps -o comm= -p $(ps -o ppid= -p $$))"
-    # if printenv | grep -Pq 'WINDOW|TERMINAL'; then
+# Only proceed if zellij is on PATH and executable
+if command -v zellij >/dev/null 2>&1; then
+
+  # 1) Skip if any environment variable is prefixed with WARP_
+  if env | grep -q '^WARP_'; then
+    # We are in Warp; do nothing (skip)
+    :
+  # 2) Skip if this shell is not interactive
+  elif [[ $- != *i* ]]; then
+    :
+  # 3) Optionally skip if already in zellij (avoid nested zellij)
+  elif [ -n "$ZELLIJ" ]; then
+    :
+  else
+    # 4) Check if the parent process matches conditions to skip
+    terminal="$(ps -o comm= -p "$(ps -o ppid= -p "$$")")"
     case "${terminal}" in
-       "warp" | "zellij" | "tilda" | "poetry" | "node" | "zed-editor")
-        # No action needed, terminal matches one of the conditions
-      ;;
+      warp | zellij | tilda | poetry | node | zed-editor)
+        # Parent process is one of these; do nothing
+        ;;
       *)
-        # [ -d "${HOME}/sync" ] && pushd "${HOME}/sync" > /dev/null 2>&1 ;
-        # if ! { printenv | grep -qP 'KITTY_'; };then
-        #   export ZELLIJ_AUTO_EXIT="true" ;
-        # fi
+        # Extra skip for certain TERM_PROGRAM values
         if [ "${TERM_PROGRAM}" != "vscode" ] && [ "${TERM_PROGRAM}" != "zed" ]; then
+          # Start Zellij automatically
           eval "$(zellij setup --generate-auto-start bash)"
-    fi
-      ;;
-  esac
+      fi
+        ;;
+    esac
+  fi
+
 fi
