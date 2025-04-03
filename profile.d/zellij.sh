@@ -16,7 +16,8 @@ if command -v zellij >/dev/null 2>&1; then
     :
   else
     # 4) Check if the parent process matches conditions to skip
-    terminal="$(ps -o comm= -p "$(ps -o ppid= -p "$$")")"
+    ppid=$(ps -o ppid= -p $$)
+    terminal=$(ps -o comm= -p $ppid)
     case "${terminal}" in
       warp | zellij | tilda | poetry | node | zed-editor)
         # Parent process is one of these; do nothing

@@ -1,4 +1,4 @@
-version = "0.21.9"
+version = "1.0.0"
 local xplr = xplr -- The globally exposed configuration to be overridden.
 
 local home = os.getenv("HOME")
