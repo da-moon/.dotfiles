@@ -1,15 +1,13 @@
-theme                     = "nord_light"
+theme               = "nord_light"
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor]
 line-number               = "relative"
 bufferline                = "always"
 default-line-ending       = "lf"
 continue-comments         = false
-auto-pairs                = true
-auto-save                 = true
 completion-replace        = true
 true-color                = true
-text-width                = 63
+text-width	              = 63
 shell                     = [ "nu","--no-config-file", "--no-history", "--no-newline", "--commands" ]
 # shell                     = ["powershell", "-NoProfile", "-Command"]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -42,6 +40,7 @@ right                     = [
 render                    = "all"
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.auto-save]
+enable                    = true
 focus-lost                = true
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.indent-guides]
@@ -235,6 +234,7 @@ A-C                 = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", "
                         ":toggle-option auto-pairs"                                                ,
                         ":get-option auto-pairs"                                                   ,
                       ]
+"t"                 = "@:indent-style "
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.select                                                                                       ]
 "u"                 = [ "switch_to_lowercase"                                                      ]
@@ -299,6 +299,7 @@ A-C                 = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", "
                         ":write"                                                                   ,
                         "normal_mode"                                                              ,
                       ]
+"tab"               = [ "insert_tab"                                                               ]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.normal."+"                                                                                   ]
 "+"                 = [ ":reload"                                                                  ]
