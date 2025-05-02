@@ -1,4 +1,4 @@
-theme               = "nord_light"
+theme                     = "nord_light"
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor]
 line-number               = "relative"
@@ -30,7 +30,6 @@ center                    = [
                             ]
 right                     = [
                               "diagnostics"                ,
-                              "selections"                 ,
                               "file-encoding"              ,
                               "file-line-ending"           ,
                               "file-type"                  ,
@@ -91,6 +90,10 @@ A-C                 = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", "
 "C-f"               = [ "file_picker_in_current_directory"                                         ]
 "R"                 = [ "replace_with_yanked"                                                      ]
 "y"                 = [ "yank"                                                                     ]
+"Y"                 = [                                                                             
+                        "extend_line_below"                                                        ,
+                        "yank"                                                                     ,
+                      ]
 "p"                 = [ "paste_after"                                                              ]
 "P"                 = [ "paste_before"                                                             ]
 "d"                 = [ "delete_selection"                                                         ]
@@ -128,11 +131,11 @@ A-C                 = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", "
                       ]
 "S-right"           = [                                                                             
                         "move_next_word_end"                                                       ,
-                        "select_mode"                                                       ,
+                        "select_mode"                                                              ,
                       ]
 "S-left"            = [                                                                             
                         "move_prev_word_start"                                                     ,
-                        "select_mode"                                                       ,
+                        "select_mode"                                                              ,
                       ]
 "C-a"               = [                                                                             
                         "select_all"                                                               ,
@@ -264,7 +267,7 @@ A-C                 = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", "
                         "yank_main_selection_to_clipboard"                                         ,
                       ]
 "V"                 = [
-                        "replace_selections_with_clipboard"                                                      ,
+                        "replace_selections_with_clipboard"                                        ,
                         "collapse_selection"                                                       ,
                         "normal_mode"                                                              ,
                       ]
@@ -305,14 +308,14 @@ A-C                 = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", "
 "+"                 = [ ":reload"                                                                  ]
 "c"                 = [ ":config-reload"                                                           ]
 "C"                 = [ ":config-open"                                                             ]
-"p"                 = '@"%p yd'
+"p"                 = '@"%P yd'
 
 [keys.normal."+".g                                                                                 ]
 
 "o"                 = [ ":open .git/COMMIT_EDITMSG"                                                ]
 "C"                 = [ ":run-shell-command git commit --signoff --gpg-sign -F.git/COMMIT_EDITMSG" ]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
-[keys.normal."="                                                                                   ]
+[keys.normal."=".m                                                                                 ]
 "ret"               = [ ":run-shell-command make"                                                  ]
 "+"                 = [ ":run-shell-command task"                                                  ]
 ")"                 = [ ":run-shell-command just"                                                  ]
@@ -322,6 +325,6 @@ A-C                 = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", "
 "a"                 = [ ":run-shell-command terraform apply -auto-approve"                         ]
 "d"                 = [ ":run-shell-command terraform destroy -auto-approve"                       ] 
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
-[keys.normal."=".r                                                                                 ]
+[keys.normal."=".c                                                                                 ]
 "t"                 = [ ":run-shell-command cargo test -- --nocapture"                             ]
 "T"                 = [ ":run-shell-command cargo watch -c -x 'test -- --nocapture'"               ]
