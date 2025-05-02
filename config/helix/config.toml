@@ -1,4 +1,4 @@
-theme               = "nord_light"
+theme                     = "nord_light"
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor]
 line-number               = "relative"
@@ -9,7 +9,7 @@ auto-pairs                = true
 auto-save                 = true
 completion-replace        = true
 true-color                = true
-text-width	              = 63
+text-width                = 63
 shell                     = [ "nu","--no-config-file", "--no-history", "--no-newline", "--commands" ]
 # shell                     = ["powershell", "-NoProfile", "-Command"]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
