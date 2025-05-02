@@ -1,66 +1,83 @@
-theme               = "catppuccin_frappe"
+theme               = "nord_light"
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor]
-line-number         = "relative"
-bufferline          = "always"
-auto-pairs          = false
-auto-save           = true
-completion-replace  = true
-true-color          = true
-text-width	        = 63
+line-number               = "relative"
+bufferline                = "always"
+default-line-ending       = "lf"
+continue-comments         = false
+auto-pairs                = true
+auto-save                 = true
+completion-replace        = true
+true-color                = true
+text-width	              = 63
+shell                     = [ "nu","--no-config-file", "--no-history", "--no-newline", "--commands" ]
+# shell                     = ["powershell", "-NoProfile", "-Command"]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.statusline]
-separator           = "│"
-mode.normal         = "NORMAL"
-mode.insert         = "INSERT"
-mode.select         = "SELECT"
-left                = [
-                        "file-modification-indicator",
-                        "mode"                       ,
-                        "spinner"                    ,
-                      ]
-center              = [
-                        "position"                   ,
-                        "position-percentage"        ,
-                        "total-line-numbers"         ,
-                        "file-name"                  ,
-                        "version-control"            ,
-                      ]
-right               = [
-                        "diagnostics"                ,
-                        "selections"                 ,
-                        "file-encoding"              ,
-                        "file-line-ending"           ,
-                        "file-type"                  ,
-                      ]
+separator                 = "│"
+mode.normal               = "NORMAL"
+mode.insert               = "INSERT"
+mode.select               = "SELECT"
+left                      = [
+                              "file-modification-indicator",
+                              "mode"                       ,
+                              "spinner"                    ,
+                            ]
+center                    = [
+                              "position"                   ,
+                              "position-percentage"        ,
+                              "total-line-numbers"         ,
+                              "file-name"                  ,
+                              "version-control"            ,
+                            ]
+right                     = [
+                              "diagnostics"                ,
+                              "selections"                 ,
+                              "file-encoding"              ,
+                              "file-line-ending"           ,
+                              "file-type"                  ,
+                            ]
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.whitespace]
-render              = "all"
+render                    = "all"
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[editor.auto-save]
+focus-lost                = true
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.indent-guides]
-render              = false
+render                    = false
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.file-picker]
-hidden              = false
-git-ignore          = true
+hidden                    = false
+follow-symlinks           = true
+git-ignore                = true
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.soft-wrap]
-enable              = true
+enable                    = true
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.lsp]
-display-inlay-hints	= true
-snippets            = true
-display-messages    = true
+display-inlay-hints	      = true
+snippets                  = true
+display-messages          = true
+display-progress-messages = true
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.cursor-shape]
-normal              = "block"
-select              = "underline"
-insert              = "bar"
+normal                    = "block"
+select                    = "underline"
+insert                    = "bar"
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[editor.auto-pairs]
+'('                       = ')'
+'{'                       = '}'
+'['                       = ']'
+'"'                       = '"'
+'`'                       = '`'
+'<'                       = '>'
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [keys.normal                                                                                       ]
 # https://github.com/TheR1D/shell_gpt
-A-c = [":pipe sgpt --code --temperature 0.3 --no-cache 'Replace this code with a better version and complete it.'"]
-A-C = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", ":append-output cat /tmp/helix-gpt | sgpt --code --temperature 0.3 --no-cache 'Finish this code. Start typing from where I left.'", ":sh echo done!"]
+A-c                 = [":pipe sgpt --code --temperature 0.3 --no-cache 'Replace this code with a better version and complete it.'"]
+A-C                 = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", ":append-output cat /tmp/helix-gpt | sgpt --code --temperature 0.3 --no-cache 'Finish this code. Start typing from where I left.'", ":sh echo done!"]
 "tab"               = [ "insert_tab"                                                               ]
 "\\"                = [ "toggle_comments"                                                          ]
 "^"                 = [ "goto_line_start"                                                          ]
@@ -287,6 +304,8 @@ A-C = [":sh echo working...", ":pipe-to cat > /tmp/helix-gpt", ":append-output c
 "+"                 = [ ":reload"                                                                  ]
 "c"                 = [ ":config-reload"                                                           ]
 "C"                 = [ ":config-open"                                                             ]
+"p"                 = '@"%p yd'
+
 [keys.normal."+".g                                                                                 ]
 
 "o"                 = [ ":open .git/COMMIT_EDITMSG"                                                ]
