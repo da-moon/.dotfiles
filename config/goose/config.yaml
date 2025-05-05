@@ -72,20 +72,23 @@ extensions:
     type: stdio
   tavily:
     args:
-      - mcp-tavily
-    cmd: uvx
+      - -y
+      - "tavily-mcp@0.1.2"
+    cmd: npx
     enabled: true
     envs: {}
     name: tavily
     type: stdio
-  time:
-    args:
-      - mcp-server-time
-    cmd: uvx
-    enabled: true
-    envs: {}
-    name: time
-    type: stdio
+
+  # time:
+  #   args:
+  #     - mcp-server-time
+  #   cmd: uvx
+  #   enabled: true
+  #   envs: {}
+  #   name: time
+  #   type: stdio
+  #
 # # NOTE: proposed changes
 # providers:
 #   - name: "anthropic" # Name has to be unique. I initially thought that it might

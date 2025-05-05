@@ -151,7 +151,9 @@ language-servers = ["cmake-language-server", "gpt"]
 
 [[language]]
 name = "rust"
-language-servers = ["rust-analyzer", "gpt"]
+language-servers = ["rust-analyzer"]
+
+
 
 [[language]]
 name = "toml"

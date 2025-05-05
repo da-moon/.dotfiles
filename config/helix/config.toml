@@ -1,9 +1,11 @@
 theme                     = "nord_light"
+
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor]
 line-number               = "relative"
 bufferline                = "always"
 default-line-ending       = "lf"
+end-of-line-diagnostics   = "disable"
 continue-comments         = false
 completion-replace        = true
 true-color                = true
@@ -54,10 +56,17 @@ git-ignore                = true
 enable                    = true
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.lsp]
-display-inlay-hints	      = true
-snippets                  = true
-display-messages          = true
-display-progress-messages = true
+enable = true
+display-inlay-hints	      = false
+# auto-signature-help	      = true
+# snippets                  = true
+display-messages          = false
+display-progress-messages = false
+#  ────────────────────────────────────────────────────────────────────────────────────────────────
+[editor.inline-diagnostics]
+cursor-line               = "disable"
+other-lines               = "disable"
+
 #  ────────────────────────────────────────────────────────────────────────────────────────────────
 [editor.cursor-shape]
 normal                    = "block"

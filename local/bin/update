@@ -35,7 +35,7 @@ fi
 [ -x "$(command -v reflector)" ] && sudo reflector --verbose --protocol https --threads 16 --country US --sort delay --latest 4 --save "/etc/pacman.d/mirrorlist"
 [ -x "$(command -v pacman)" ] && { [ "$(sudo pacman -Qdtq)" != "" ] && sudo pacman -Rs $(sudo pacman -Qdtq) --noconfirm; }
 if [ -x "$(command -v topgrade)" ]; then
-  topgrade -y --no-retry --skip-notify
+  topgrade -y --no-retry --skip-notify --disable vscode --disable containers
   if command -- paru -h >/dev/null 2>&1; then
     [ -d "${HOME}/.cache/paru/clone/" ] \
       && sudo /bin/rm -rf "${HOME}/.cache/paru/clone" \

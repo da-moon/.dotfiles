@@ -58,6 +58,7 @@
 [mergetool "code"]
 	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [alias]
+	a = add --renormalize
 	view-contributors = shortlog -e -s -n
 	upstream = remote get-url origin
 	root = rev-parse --show-toplevel
