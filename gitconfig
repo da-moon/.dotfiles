@@ -58,6 +58,7 @@
 [mergetool "code"]
 	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [alias]
+	diffp = difftool --tool=plain-diff
 	a = add --renormalize
 	view-contributors = shortlog -e -s -n
 	upstream = remote get-url origin
@@ -111,3 +112,6 @@
 [http]
 	lowSpeedLimit = 1000
 	lowSpeedTime = 10
+
+[difftool "plain-diff"]
+    cmd = diff -u --unified=3 $LOCAL $REMOTE
