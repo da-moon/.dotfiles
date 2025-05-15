@@ -19,7 +19,7 @@ if command -v zellij >/dev/null 2>&1; then
     ppid=$(ps -o ppid= -p $$)
     terminal=$(ps -o comm= -p $ppid)
     case "${terminal}" in
-      warp | zellij | tilda | poetry | node | zed-editor)
+      warp | zellij | tilda | poetry | node | zed-editor | sshd-session)
         # Parent process is one of these; do nothing
         ;;
       *)
