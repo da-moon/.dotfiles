@@ -44,6 +44,11 @@ if [ -x "$(command -v topgrade)" ]; then
     [ -d "${HOME}/.cache/paru/clone/" ] \
       && sudo /bin/rm -rf "${HOME}/.cache/paru/clone" \
       && mkdir -p "${HOME}/.cache/paru/clone/"
+    # paru -Scc --noconfirm
+    # sudo paru -Scc --noconfirm
+    # paru -Sccd --noconfirm
+    # sudo paru -Sccd --noconfirm
+
   fi
 else
   if command -- pmm -h >/dev/null 2>&1; then
@@ -63,6 +68,8 @@ else
         if command -- aura -h >/dev/null 2>&1; then
           # sudo aura -Ayyuxac --noconfirm --skipinteg --skippgpcheck --noanalysis
           sudo aura -Ayuxac --noconfirm --skipinteg --skippgpcheck
+          # sudo aura --noconfirm --cache --clean 0
+          # sudo aura --noconfirm --backup --clean
         fi
       fi
     fi
