@@ -1,6 +1,15 @@
+[linux]
+arch_package_manager = "aura"
+aura_aur_arguments = "-yxac --skipinteg --skippgpcheck  --ignore mesa-git --ignore llvm-lib"
+
+[windows]
+# "${env:APPDATA}\topgrade.toml"
+wsl_update_pre_release = true
+self_rename = false
+
 [misc]
 assume_yes = true
 run_in_tmux = false
 skip_notify = true
-disable = ["vscode","vim","ruby_gems", "vagrant"]
+disable = ["vscode","vim","ruby_gems", "vagrant","containers","helm","system","gcloud","wsl_update", "microsoft_store"]
 sudo_command = "sudo"

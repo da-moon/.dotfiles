@@ -47,12 +47,13 @@
   "vim_mode": false,
   "end_of_line": "lf",
   "agent": {
+    "default_profile": "write",
     "always_allow_tool_actions": true,
     "version": "2",
     "default_open_ai_model": null,
     "default_model": {
       "provider": "google",
-      "model": "gemini-2.5-pro-preview-03-25"
+      "model": "gemini-2.5-pro-preview-latest"
     }
   },
   "terminal": {
@@ -71,7 +72,7 @@
   "buffer_font_size": 16,
   "theme": {
     "mode": "system",
-    "light": "One Light",
+    "light": "Ayu Mirage",
     "dark": "One Dark"
   }
 }
