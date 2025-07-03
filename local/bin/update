@@ -68,6 +68,7 @@ else
         if command -- aura -h >/dev/null 2>&1; then
           # sudo aura -Ayyuxac --noconfirm --skipinteg --skippgpcheck --noanalysis
           sudo aura -Ayuxac --noconfirm --skipinteg --skippgpcheck
+          # sudo aura -Ayuxac --noconfirm --skipinteg --skippgpcheck  --ignore mesa-git --ignore llvm-lib7s
           # sudo aura --noconfirm --cache --clean 0
           # sudo aura --noconfirm --backup --clean
         fi
