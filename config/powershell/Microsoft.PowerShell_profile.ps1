@@ -15,6 +15,7 @@ if ((Get-PSRepository -Name "PSGallery").InstallationPolicy -ne "Trusted") {
   # "VMware.VimAutomation.Core",
   # 'VMware.VimAutomation.Hcx',
   # 'VMware.VimAutomation.Nsxt',
+  "PSReadLine" ,
   "PSScriptTools",
   "PSScriptAnalyzer",
   "Microsoft.PowerShell.SecretStore"
@@ -53,3 +54,86 @@ if (Get-Module -Name "VMware.VimAutomation.Core" -ErrorAction SilentlyContinue) 
     Set-PowerCLIConfiguration -Scope User -InvalidCertificateAction Ignore -Confirm:$false
   }
 }
+function Format-PSScript {
+    [CmdletBinding()]
+    param (
+        [string]$Path = $MyInvocation.MyCommand.ScriptBlock.File
+    )
+    process {
+        $settings = @{
+            IncludeRules = @("PSPlaceOpenBrace", "PSUseConsistentIndentation", "PSUseConsistentWhitespace", "PSAlignAssignmentStatement")
+            Rules        = @{
+                PSPlaceOpenBrace           = @{
+                    Enable     = $true
+                    OnSameLine = $true
+                }
+                PSUseConsistentIndentation = @{
+                    Enable          = $true
+                    IndentationSize = 4
+                    Kind            = 'space'
+                }
+                PSUseConsistentWhitespace  = @{
+                    Enable         = $true
+                    CheckOpenBrace = $true
+                    CheckOpenParen = $true
+                    CheckOperator  = $true
+                    CheckSeparator = $true
+                }
+                PSAlignAssignmentStatement = @{
+                    Enable         = $true
+                    CheckHashtable = $true
+                }
+            }
+        }
+        $content = Get-Content -Path $Path -Raw
+        $content = Invoke-Formatter -Settings $settings -ScriptDefinition $content
+        $content | Set-Content -NoNewline -Encoding ascii -Path $Path
+    }
+}
+
+
+#####
+if ($host.Name -eq "ConsoleHost") {
+    Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
+    Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
+}
+
+Set-PSReadLineOption -EditMode Emacs
+
+# Word movement with Ctrl+Arrow (bash-style)
+Set-PSReadLineKeyHandler -Chord 'Ctrl+LeftArrow' -Function BackwardWord
+Set-PSReadLineKeyHandler -Chord 'Ctrl+RightArrow' -Function ForwardWord
+
+# Essential bash keybindings only
+Set-PSReadlineKeyHandler -Key Tab -Function Complete
+Set-PSReadLineKeyHandler -Chord 'Ctrl+a' -Function BeginningOfLine
+Set-PSReadLineKeyHandler -Chord 'Ctrl+e' -Function EndOfLine
+Set-PSReadLineKeyHandler -Chord 'Ctrl+u' -Function BackwardDeleteLine
+Set-PSReadLineKeyHandler -Chord 'Ctrl+k' -Function ForwardDeleteLine
+Set-PSReadLineKeyHandler -Chord 'Ctrl+w' -Function BackwardKillWord
+Set-PSReadLineKeyHandler -Chord 'Ctrl+l' -Function ClearScreen
+Set-PSReadlineKeyHandler -Key 'Alt+Backspace' -Function BackwardKillWord
+
+# Ctrl+D to exit on empty line (like bash)
+Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -ScriptBlock {
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+    if ($line.Length -eq 0) {
+        [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+        [Microsoft.PowerShell.PSConsoleReadLine]::Insert('exit')
+        [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+    } else {
+        [Microsoft.PowerShell.PSConsoleReadLine]::Delete()
+    }
+}
+
+# History search
+Set-PSReadLineKeyHandler -Chord 'Ctrl+r' -Function ReverseSearchHistory
+
+# Basic history settings
+Set-PSReadLineOption -HistoryNoDuplicates:$True
+Set-PSReadLineOption -MaximumHistoryCount 1000
+
+# Disable pager
+$env:PAGER = 'cat'
