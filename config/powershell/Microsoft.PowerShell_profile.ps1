@@ -54,45 +54,81 @@ if (Get-Module -Name "VMware.VimAutomation.Core" -ErrorAction SilentlyContinue) 
     Set-PowerCLIConfiguration -Scope User -InvalidCertificateAction Ignore -Confirm:$false
   }
 }
+$AnalyzerSettings = @{
+    IncludeRules = @(
+        # style rules you already had
+        'PSPlaceOpenBrace', 'PSUseConsistentIndentation',
+        'PSUseConsistentWhitespace', 'PSAlignAssignmentStatement',
+        # compatibility rule family
+        'PSUseCompatibleSyntax',     # language features
+        'PSUseCompatibleCommands',   # cmdlets / functions
+        'PSUseCompatibleTypes'       # .NET types
+    )
+    Rules        = @{
+        PSPlaceOpenBrace           = @{
+            Enable     = $true
+            OnSameLine = $true
+        }
+        PSUseConsistentIndentation = @{
+            Enable          = $true
+            IndentationSize = 4
+            Kind            = 'space'
+        }
+        PSUseConsistentWhitespace  = @{
+            Enable         = $true
+            CheckOpenBrace = $true
+            CheckOpenParen = $true
+            CheckOperator  = $true
+            CheckSeparator = $true
+        }
+        PSAlignAssignmentStatement = @{
+            Enable         = $true
+            CheckHashtable = $true
+        }
+        PSUseCompatibleSyntax = @{
+            Enable         = $true
+            TargetVersions = @('5.1')
+        }
+
+        PSUseCompatibleCommands = @{
+            Enable         = $true
+            TargetProfiles = @(
+                # Windows PowerShell 5.1 (built-in profile)
+                'win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework',
+                # Optional: add macOS/Linux PowerShell 7.x to ensure true cross-platform
+                'ubuntu_x64_22.04_7.4.0_x64_8.0.0_core'
+            )
+        }
+
+        PSUseCompatibleTypes = @{
+            Enable         = $true
+            TargetProfiles = @(
+                'win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework'
+            )
+        }
+    }
+}
 function Format-PSScript {
     [CmdletBinding()]
     param (
         [string]$Path = $MyInvocation.MyCommand.ScriptBlock.File
     )
     process {
-        $settings = @{
-            IncludeRules = @("PSPlaceOpenBrace", "PSUseConsistentIndentation", "PSUseConsistentWhitespace", "PSAlignAssignmentStatement")
-            Rules        = @{
-                PSPlaceOpenBrace           = @{
-                    Enable     = $true
-                    OnSameLine = $true
-                }
-                PSUseConsistentIndentation = @{
-                    Enable          = $true
-                    IndentationSize = 4
-                    Kind            = 'space'
-                }
-                PSUseConsistentWhitespace  = @{
-                    Enable         = $true
-                    CheckOpenBrace = $true
-                    CheckOpenParen = $true
-                    CheckOperator  = $true
-                    CheckSeparator = $true
-                }
-                PSAlignAssignmentStatement = @{
-                    Enable         = $true
-                    CheckHashtable = $true
-                }
-            }
-        }
         $content = Get-Content -Path $Path -Raw
-        $content = Invoke-Formatter -Settings $settings -ScriptDefinition $content
+        $content = Invoke-Formatter -Settings $AnalyzerSettings -ScriptDefinition $content
         $content | Set-Content -NoNewline -Encoding ascii -Path $Path
     }
 }
+function Lint-PSScript {
+    [CmdletBinding()]
+    param (
+        [string]$Path = $MyInvocation.MyCommand.ScriptBlock.File
+    )
+    process {
+        Invoke-ScriptAnalyzer -Settings $AnalyzerSettings -Path $Path
+    }
+}
 
-
-#####
 if ($host.Name -eq "ConsoleHost") {
     Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
