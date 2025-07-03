@@ -90,22 +90,22 @@ $AnalyzerSettings = @{
             TargetVersions = @('5.1')
         }
 
-        PSUseCompatibleCommands = @{
-            Enable         = $true
-            TargetProfiles = @(
-                # Windows PowerShell 5.1 (built-in profile)
-                'win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework',
-                # Optional: add macOS/Linux PowerShell 7.x to ensure true cross-platform
-                'ubuntu_x64_22.04_7.4.0_x64_8.0.0_core'
-            )
-        }
+        # PSUseCompatibleCommands = @{
+        #     Enable         = $true
+        #     TargetProfiles = @(
+        #         # Windows PowerShell 5.1 (built-in profile)
+        #         'win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework',
+        #         # Optional: add macOS/Linux PowerShell 7.x to ensure true cross-platform
+        #         'ubuntu_x64_22.04_7.4.0_x64_8.0.0_core'
+        #     )
+        # }
 
-        PSUseCompatibleTypes = @{
-            Enable         = $true
-            TargetProfiles = @(
-                'win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework'
-            )
-        }
+        # PSUseCompatibleTypes = @{
+        #     Enable         = $true
+        #     TargetProfiles = @(
+        #         'win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework'
+        #     )
+        # }
     }
 }
 function Format-PSScript {
