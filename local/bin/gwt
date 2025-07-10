@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+# gwt_v8 — “git worktree in zellij”  (2025‑07‑10)
+# ▸ gwt BRANCH   → create/reuse worktrees/BRANCH and open Zellij session BRANCH
+# ▸ gwt          → interactive picker (fzf) then attach
+# ▸ gwt prune    → clean dangling work‑trees *and* their Zellij sessions
+set -euo pipefail
+
+###############################################################################
+# 0 · repo root & worktrees dir
+###############################################################################
+root=$(git -C . rev-parse --show-toplevel 2>/dev/null) || {
+  echo "gwt: not inside a Git repository" >&2
+  exit 1
+}
+cd "$root"
+worktrees_dir=${GWT_DIR:-"$root/worktrees"}
+mkdir -p "$worktrees_dir"
+
+exclude_file="$(git rev-parse --git-dir)/info/exclude"
+mkdir -p "$(dirname "$exclude_file")"
+touch "$exclude_file"
+grep -qxF 'worktrees/' "$exclude_file" || echo 'worktrees/' >>"$exclude_file"
+
+###############################################################################
+# 0b · repository‑wide lock (avoid races)
+###############################################################################
+exec 9>"$root/.git/gwt.lock"
+flock -n 9 || {
+  echo "gwt: repository busy" >&2
+  exit 1
+}
+
+###############################################################################
+# prune
+###############################################################################
+if [[ ${1:-} == prune ]]; then
+  echo "👉 Pruning stale work‑trees & sessions…"
+  git worktree prune --expire now
+  find "$worktrees_dir" -mindepth 1 -maxdepth 1 -type d ! -exec test -e '{}/.git' ';' -print0 |
+    xargs -0r rm -rf
+  zellij list-sessions 2>/dev/null | while read -r sess; do
+    [[ -d "$worktrees_dir/$sess" ]] || zellij kill-session -s "$sess" || true
+  done
+  exit 0
+fi
+
+###############################################################################
+# 1 · pick or derive work‑tree
+###############################################################################
+if [[ $# -eq 0 ]]; then # interactive picker
+  command -v fzf >/dev/null || {
+    echo "gwt: fzf not found" >&2
+    exit 1
+  }
+  wtdir=$(git worktree list --porcelain | awk '/^worktree /{print $2}' |
+    fzf --prompt='Worktree ❯ ' --exit-0) || exit 0
+  name=$(basename "$wtdir")
+else # branch supplied
+  name=$1
+  existing=$(git worktree list --porcelain | awk -v b="refs/heads/$name" '
+      /^worktree /{p=$2} /^branch /{if($2==b){print p; exit}}')
+  wtdir=${existing:-"$worktrees_dir/$name"}
+fi
+
+###############################################################################
+# 2 · default branch
+###############################################################################
+main_branch=$(
+  git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null | sed 's|^origin/||' ||
+    git config --get init.defaultBranch ||
+    git for-each-ref --format='%(refname:short)' refs/heads/{main,master} | head -n1 ||
+    echo main
+)
+
+###############################################################################
+# 3 · create/reuse work‑tree
+###############################################################################
+if [[ ! -d "$wtdir/.git" ]]; then
+  [[ -d "$wtdir" && -n "$(ls -A "$wtdir")" ]] && {
+    echo "gwt: $wtdir exists and is not empty" >&2
+    exit 1
+  }
+  if git show-ref --verify --quiet "refs/heads/$name"; then
+    git worktree add "$wtdir" "$name"
+  else
+    git worktree add -b "$name" "$wtdir" "$main_branch"
+  fi
+fi
+
+###############################################################################
+# 4 · already inside Zellij?
+###############################################################################
+if [[ -n ${ZELLIJ:-} ]]; then
+  cd "$wtdir"
+  exec "${SHELL:-bash}" --login
+fi
+
+###############################################################################
+# 5 · generate fresh minimal layout (always)
+###############################################################################
+layout_dir=$(mktemp -d "${TMPDIR:-/tmp}/gwt_layout.XXXXXX")
+layout_file="$layout_dir/minimal.kdl"
+cat >"$layout_file" <<KDL
+layout {
+  pane command="bash" {
+    cwd "$wtdir"
+    args "--login"
+    close_on_exit true
+  }
+}
+plugins {
+  status-bar location="zellij:status-bar"
+  tab-bar   location="zellij:tab-bar"
+}
+show_startup_tips false
+show_release_notes false
+KDL
+PS4='.\011$(date "+%s.%N")\011'
+exec 3>&2 2>/tmp/gwt.$$.log
+set -x
+
+###############################################################################
+# 6 · attach (create if missing)
+###############################################################################
+if zellij list-sessions 2>/dev/null | grep -Fxq "$name"; then
+  zellij attach "$name"
+else
+  zellij --layout "$layout_file" attach --create "$name"
+fi
+
+set +x
+exec 2>&3 3>&-

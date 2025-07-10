@@ -9,35 +9,31 @@
 {
   "context_servers": {
     "sequential-thinking": {
-      "command": {
-        "path": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
-        "env": {}
-      },
+      "source": "custom",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "env": {},
       "settings": {}
     },
     "tavily-mcp": {
-      "command": {
-        "path": "npx",
-        "args": ["-y", "tavily-mcp@0.1.3"],
-        "env": {}
-      },
+      "source": "custom",
+      "command": "npx",
+      "args": ["-y", "tavily-mcp@0.1.3"],
+      "env": {},
       "settings": {}
     },
     "taskmaster-ai": {
-      "command": {
-        "path": "npx",
-        "args": ["-y", "--package=task-master-ai", "task-master-ai"],
-        "env": {}
-      },
+      "source": "custom",
+      "command": "npx",
+      "args": ["-y", "--package=task-master-ai", "task-master-ai"],
+      "env": {},
       "settings": {}
     },
     "perplexity-ask": {
-      "command": {
-        "path": "npx",
-        "args": ["-y", "server-perplexity-ask"],
-        "env": {}
-      },
+      "source": "custom",
+      "command": "npx",
+      "args": ["-y", "server-perplexity-ask"],
+      "env": {},
       "settings": {}
     }
   },
@@ -49,11 +45,10 @@
   "agent": {
     "default_profile": "write",
     "always_allow_tool_actions": true,
-    "version": "2",
     "default_open_ai_model": null,
     "default_model": {
-      "provider": "google",
-      "model": "gemini-2.5-pro-preview-latest"
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-thinking"
     }
   },
   "terminal": {
