@@ -13,3 +13,8 @@ run_in_tmux = false
 skip_notify = true
 disable = ["vscode","vim","ruby_gems", "vagrant","containers","helm","system","gcloud","wsl_update", "microsoft_store"]
 sudo_command = "sudo"
+
+
+# -----
+
+# fd --type d --exact-depth 1 . "$env:APPDATA\helix\runtime\grammars\sources"  -x powershell -NoProfile -Command "git -C {} reset --hard; git -C {} clean -fdx"`
