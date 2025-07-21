@@ -1,5 +1,0 @@
-layout {
-  pane command="bash" {
-    args "--login"
-  }
-}
