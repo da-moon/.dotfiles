@@ -8,7 +8,6 @@ set -efuo pipefail
 if [[ "$ID" == "arch" ]] || [[ "$ID_LIKE" == *"arch"* ]]; then
     echo "This is an Arch-based system"
     # Insert Arch specific commands here
-  sudo pacman -S --noconfirm --needed \
     sudo pacman -S --noconfirm --needed marksman
     sudo pacman -S --noconfirm --needed vscode-json-languageserver
     sudo pacman -S --noconfirm --needed vscode-html-languageserver
