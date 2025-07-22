@@ -12,7 +12,7 @@ formatter = { command = 'prettier', args = [
     "markdown",
 ] }
 auto-format = true
-language-servers = ["marksman", "gpt"]
+language-servers = ["marksman"]
 
 [[language]]
 name = "json"
@@ -23,7 +23,7 @@ formatter = { command = 'prettier', args = [
     "json",
 ] }
 auto-format = true
-language-servers = ["vscode-json-language-server", "gpt"]
+language-servers = ["vscode-json-language-server"]
 
 [[language]]
 name = "yaml"
@@ -33,7 +33,7 @@ formatter = { command = 'prettier', args = [
     "--parser=yaml",
 ] }
 auto-format = true
-language-servers = ["yaml-language-server", "ansible-language-server", "gpt"]
+language-servers = ["yaml-language-server", "ansible-language-server"]
 [[language]]
 name = "xml"
 # formatter = { command = 'xidel', args = ["--output-node-format=xml", "--output-node-indent", "--silent","--extract=."] }
@@ -58,7 +58,7 @@ formatter = { command = 'prettier', args = [
     "--parser=graphql",
 ] }
 auto-format = true
-language-servers = ["graphql-language-service", "gpt"]
+language-servers = ["graphql-language-service"]
 
 [[language]]
 name = "bash"
@@ -69,13 +69,13 @@ formatter = { command = 'shfmt', args = [
     "--indent=2",
 ] }
 auto-format = true
-language-servers = ["bash-language-server", "gpt"]
+language-servers = ["bash-language-server"]
 
 [[language]]
 name = "python"
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
-language-servers = ["pylsp", "gpt"]
+language-servers = ["pylsp"]
 
 [[language]]
 name = "html"
@@ -86,7 +86,7 @@ formatter = { command = 'prettier', args = [
     "html",
 ] }
 auto-format = true
-language-servers = ["vscode-html-language-server", "gpt"]
+language-servers = ["vscode-html-language-server"]
 
 [[language]]
 name = "css"
@@ -97,7 +97,7 @@ formatter = { command = 'prettier', args = [
     "css",
 ] }
 auto-format = true
-language-servers = ["vscode-css-language-server", "gpt"]
+language-servers = ["vscode-css-language-server"]
 
 [[language]]
 name = "javascript"
@@ -108,7 +108,7 @@ formatter = { command = 'prettier', args = [
     "typescript",
 ] }
 auto-format = true
-language-servers = ["typescript-language-server", "gpt"]
+language-servers = ["typescript-language-server"]
 
 [[language]]
 name = "typescript"
@@ -119,7 +119,7 @@ formatter = { command = 'prettier', args = [
     "typescript",
 ] }
 auto-format = true
-language-servers = ["typescript-language-server", "gpt"]
+language-servers = ["typescript-language-server"]
 
 [[language]]
 name = "jsx"
@@ -131,23 +131,23 @@ formatter = { command = 'deno', args = [
     "-",
 ] }
 auto-format = true
-language-servers = ["typescript-language-server", "gpt"]
+language-servers = ["typescript-language-server"]
 
 [[language]]
 name = "awk"
-language-servers = ["awk-language-server", "gpt"]
+language-servers = ["awk-language-server"]
 
 [[language]]
 name = "hcl"
-language-servers = ["terraform-ls", "gpt"]
+language-servers = ["terraform-ls"]
 
 [[language]]
 name = "tfvars"
-language-servers = ["terraform-ls", "gpt"]
+language-servers = ["terraform-ls"]
 
 [[language]]
 name = "cmake"
-language-servers = ["cmake-language-server", "gpt"]
+language-servers = ["cmake-language-server"]
 
 [[language]]
 name = "rust"
@@ -157,19 +157,19 @@ language-servers = ["rust-analyzer"]
 
 [[language]]
 name = "toml"
-language-servers = ["taplo", "gpt"]
+language-servers = ["taplo"]
 
 [[language]]
 name = "protobuf"
-language-servers = ["bufls", "pbkit", "gpt"]
+language-servers = ["bufls", "pbkit"]
 
 [[language]]
 name = "go"
-language-servers = ["gopls", "golangci-lint-lsp", "gpt"]
+language-servers = ["gopls", "golangci-lint-lsp"]
 
 [[language]]
 name = "gotmpl"
-language-servers = ["gopls", "gpt"]
+language-servers = ["gopls"]
 
 [[language]]
 name = "sql"
