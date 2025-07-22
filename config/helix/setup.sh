@@ -24,7 +24,6 @@ if [[ "$ID" == "arch" ]] || [[ "$ID_LIKE" == *"arch"* ]]; then
     sudo pacman -S --noconfirm --needed prettier
     sudo pacman -S --noconfirm --needed shfmt
   if command -v paru >/dev/null 2>&1; then
-      paru -S --removemake --cleanafter --needed --noconfirm aur/yaml-language-server-git
       paru -S --removemake --cleanafter --needed --noconfirm aur/awk-language-server
       paru -S --removemake --cleanafter --needed --noconfirm aur/cmake-language-server
       paru -S --removemake --cleanafter --needed --noconfirm aur/protobuf-language-server
