@@ -1,6 +1,7 @@
 [core]
 	autocrlf = false
 	filemode = false
+    symlinks = true
 	# pager = ''
 [push]
 	recursesubmodules = on-demand
