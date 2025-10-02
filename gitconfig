@@ -2,7 +2,13 @@
 	autocrlf = false
 	filemode = false
     symlinks = true
+	pager    = cat
 	# pager = ''
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [push]
 	recursesubmodules = on-demand
 [pull]
@@ -102,6 +108,54 @@
 	next-major-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.0.0\", $1+1}END {if (NR==0){print \"0.0.1\"}}'"
 	next-patch-release = "!git describe --tags $(git rev-list --tags --max-count=1 2>/dev/null) 2>/dev/null| frawk -F. '{gsub(\"v\",\"\",$1);printf \"%s.%s.%s\", $1,$2,$3+1}END {if (NR==0){print \"0.0.1\"}}'"
 	commitgpt = "!git --no-pager diff --staged --ignore-all-space --diff-algorithm=minimal --unified=3 . | sc -c \"write conventional commit message  no longer that 100 characters for the following changes. scope of the commit is the most frequently seen directory path of changed files. every sentence in commit body should start in a new line and be a bullet point. commit body should be in markdown format\" > .git/COMMIT_EDITMSG; $EDITOR .git/COMMIT_EDITMSG"
+    # Detailed file status with changes count
+    file-stat = diff --stat
+    
+    # Files changed today
+    today = log --name-only --since=midnight --pretty=format:
+    
+    # Files changed this week  
+    week = log --name-only --since=1.week --pretty=format:
+    
+    # Show only filenames from status (cleaner output)
+    status-names = status --porcelain --untracked-files=all
+    
+    # Count of changes per file
+    change-count = diff --stat --name-only
+    
+    # Show what changed in last commit with file names
+    last = show --name-only --oneline
+    
+    # List files in a commit (cleaner than show-files)
+    commit-files = show --pretty=format: --name-only
+    
+	# All changed files (shows each category with headers)
+    all-changed = "!git diff --name-only HEAD; git ls-files --others --exclude-standard"
+    
+    # Files changed in a specific commit (usage: git show-files <commit-hash>)
+    show-files = diff-tree --no-commit-id --name-only -r
+    
+    # Files in last commit
+    last-files = diff --name-only HEAD~1 HEAD
+    
+    # Short status with branch info
+    st = status -sb
+    
+    # Show files with their status markers
+    files = status --short
+    
+    # Modified files only (using diff-filter)
+    modified = diff --name-only --diff-filter=M HEAD
+    
+    # Added files only
+    added = diff --name-only --diff-filter=A HEAD
+    
+    # Deleted files only  
+    deleted = diff --name-only --diff-filter=D HEAD
+    
+    # Files by type/extension (usage: git files-ext .js)
+    files-ext = !git ls-files
+
 [user]
 	signingkey = 4F0BDB86C4684DDD
 	name = da-moon
