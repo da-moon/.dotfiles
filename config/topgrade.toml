@@ -1,5 +1,6 @@
 [linux]
-arch_package_manager = "aura"
+arch_package_manager = "paru"
+yay_arguments = "--ignore mesa-git --ignore llvm-libs"
 aura_aur_arguments = "-yxac --skipinteg --skippgpcheck  --ignore mesa-git --ignore llvm-lib"
 
 [windows]
@@ -11,7 +12,7 @@ self_rename = false
 assume_yes = true
 run_in_tmux = false
 skip_notify = true
-disable = ["vscode","vim","ruby_gems", "vagrant","containers","helm","system","gcloud","wsl_update", "microsoft_store"]
+disable = ["vscode","vim","ruby_gems", "vagrant","containers","helm","system","gcloud","wsl_update", "microsoft_store", "powershell"]
 sudo_command = "sudo"
 
 
